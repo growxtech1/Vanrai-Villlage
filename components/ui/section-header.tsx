@@ -15,12 +15,12 @@ export function SectionHeader({ title, subtitle, className, align = "center" }: 
   }[align];
 
   return (
-    <div className={`space-y-4 mb-12 ${alignClass} ${className}`}>
-      <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl md:text-5xl">
+    <div className={`space-y-2 sm:space-y-3 md:space-y-4 mb-6 sm:mb-8 md:mb-10 lg:mb-12 ${alignClass} ${className}`}>
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
         {title}
       </h2>
       {subtitle && (
-        <p className="max-w-2xl text-lg text-gray-600 dark:text-gray-300">
+        <p className="max-w-2xl text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300">
           {subtitle}
         </p>
       )}

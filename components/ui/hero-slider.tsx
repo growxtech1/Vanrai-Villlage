@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { AnimatedCTAButton } from "./animated-cta-button";
+import { AnimatedCTAButton2 } from "./animated-cta-button2";
 
 const heroImages = [
     "/img/hero-1.png",
@@ -45,43 +47,52 @@ export function HeroSlider() {
             </div>
 
             {/* Overlapping Text Content */}
-            <div className="relative z-10 flex h-full items-center justify-center px-4">
+            <div className="relative z-10 flex h-full items-center justify-center px-4 sm:px-6 md:px-8">
                 <div className="max-w-6xl text-center text-white">
                     {/* Main Heading */}
-                    <h1 className="mb-6 text-5xl font-bold leading-tight tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-                        Escape to Nature.
+                    <h1 className="mb-4 sm:mb-5 md:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-semibold leading-tight tracking-tight">
+                        Escape to <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-green-600 bg-clip-text text-transparent">Nature</span>
                         <br />
                         <span className="font-light">Stay in Comfort.</span>
                     </h1>
 
                     {/* Subheading */}
-                    <p className="mx-auto mb-12 max-w-3xl text-lg font-light leading-relaxed sm:text-xl md:text-2xl lg:text-3xl">
+                    <p className="mx-auto mb-8 sm:mb-10 md:mb-12 max-w-3xl text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-light leading-relaxed">
                         A peaceful village-style resort near Ahmednagar, surrounded by
                         greenery and open lawns.
-                    </p>
+                    </p> 
 
                     {/* CTA Buttons */}
-                    <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                        <button className="group relative overflow-hidden rounded-full bg-white px-8 py-4 text-lg font-semibold text-gray-900 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                            <span className="relative z-10">Book Your Stay</span>
-                            <div className="absolute inset-0 -z-0 bg-gradient-to-r from-blue-500 to-indigo-500 opacity-0 transition-opacity duration-300 group-hover:opacity-20" />
-                        </button>
-                        <button className="rounded-full border-2 border-white px-8 py-4 text-lg font-medium text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/10">
-                            Explore More
-                        </button>
+                    <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 sm:flex-row">
+                        <AnimatedCTAButton
+                            text="Book Your Stay"
+                            onClick={() => {
+                                // Add booking logic here
+                                console.log("Book Your Stay clicked");
+                            }}
+                            className="w-full sm:w-auto"
+                        />
+                        <AnimatedCTAButton2
+                            text="Explore More"
+                            onClick={() => {
+                                // Add explore logic here
+                                console.log("Explore More clicked");
+                            }}
+                            className="w-full sm:w-auto"
+                        />
                     </div>
                 </div>
             </div>
-
+                                            
             {/* Slide Indicators */}
-            <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-3">
+            <div className="absolute bottom-6 sm:bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-2 sm:gap-3">
                 {heroImages.map((_, index) => (
                     <button
                         key={index}
                         onClick={() => setCurrentSlide(index)}
-                        className={`h-2 rounded-full transition-all duration-300 ${index === currentSlide
-                                ? "w-12 bg-white"
-                                : "w-2 bg-white/50 hover:bg-white/75"
+                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${index === currentSlide
+                            ? "w-8 sm:w-12 bg-white"
+                            : "w-1.5 sm:w-2 bg-white/50 hover:bg-white/75"
                             }`}
                         aria-label={`Go to slide ${index + 1}`}
                     />
@@ -89,11 +100,11 @@ export function HeroSlider() {
             </div>
 
             {/* Scroll Indicator */}
-            <div className="absolute bottom-8 right-8 z-20 hidden animate-bounce md:block">
-                <div className="flex flex-col items-center gap-2 text-white">
-                    <span className="text-sm font-light tracking-wider">SCROLL</span>
+            <div className="absolute bottom-6 sm:bottom-8 right-4 sm:right-6 md:right-8 z-20 hidden animate-bounce md:block">
+                <div className="flex flex-col items-center gap-1.5 sm:gap-2 text-white">
+                    <span className="text-xs sm:text-sm font-light tracking-wider">SCROLL</span>
                     <svg
-                        className="h-6 w-6"
+                        className="h-5 w-5 sm:h-6 sm:w-6"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
