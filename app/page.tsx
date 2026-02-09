@@ -21,6 +21,8 @@ import { StaysSection } from "@/components/ui/stays-section";
 import { ExperiencesSection } from "@/components/ui/experiences-section";
 import { AboutVanraiSection } from "@/components/ui/about-vanrai-section";
 import { TestimonialsSection } from "@/components/ui/testimonials-section";
+import { PrivilegeClubSection } from "@/components/ui/privilege-club-section";
+import { GallerySection } from "@/components/ui/gallery-section";
 
 export default function Home() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -107,65 +109,16 @@ export default function Home() {
       <AboutVanraiSection />
 
       {/* Testimonials Section */}
+      {/* Privilege Club Section */}
+      <PrivilegeClubSection />
+
+      {/* Testimonials Section */}
       <TestimonialsSection />
 
+      {/* Gallery Section */}
+      <GallerySection />
+
       <main className="mx-auto flex max-w-5xl flex-col gap-12 sm:gap-16 md:gap-20 lg:gap-24 px-4 sm:px-6 md:px-8 pb-12 sm:pb-16 md:pb-20 lg:pb-24">
-
-        {/* Gallery Section */}
-        <section id="gallery" className="space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12 py-8 sm:py-10 md:py-12">
-          <SectionHeader title="Life at Vanrai" subtitle="A glimpse into our daily life and surroundings." />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-3 gap-3 sm:gap-4 md:gap-6 h-auto md:h-[600px] lg:h-[800px]">
-            {/* Large Item */}
-            <div className="sm:col-span-2 md:col-span-2 md:row-span-2 rounded-2xl sm:rounded-3xl overflow-hidden relative group shadow-sm hover:shadow-xl transition-all min-h-[250px] sm:min-h-[300px]">
-              <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-600 group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 bg-black/20 group-hover:bg-black/30 transition-colors">
-                <h3 className="text-white text-lg sm:text-xl md:text-2xl font-bold">Lush Greenery</h3>
-                <p className="text-white/80 text-sm sm:text-base">Every corner is embraced by nature.</p>
-              </div>
-            </div>
-
-            {/* Tall Item */}
-            <div className="md:col-span-1 md:row-span-2 rounded-2xl sm:rounded-3xl overflow-hidden relative group shadow-sm hover:shadow-xl transition-all min-h-[200px] sm:min-h-[250px]">
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-5 md:p-6 bg-black/10 group-hover:bg-black/20 transition-colors">
-                <h3 className="text-white text-base sm:text-lg md:text-xl font-bold">Sunsets</h3>
-              </div>
-            </div>
-
-            {/* Small Item */}
-            <div className="md:col-span-1 md:row-span-1 rounded-2xl sm:rounded-3xl overflow-hidden relative group shadow-sm hover:shadow-xl transition-all min-h-[150px] sm:min-h-[180px]">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-500 group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-3xl sm:text-4xl">💧</span>
-              </div>
-            </div>
-
-            {/* Wide Item */}
-            <div className="sm:col-span-2 md:col-span-2 md:row-span-1 rounded-2xl sm:rounded-3xl overflow-hidden relative group shadow-sm hover:shadow-xl transition-all min-h-[150px] sm:min-h-[180px]">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 flex flex-col justify-center p-4 sm:p-6 md:p-8 bg-black/10">
-                <h3 className="text-white text-lg sm:text-xl md:text-2xl font-bold">Community Events</h3>
-              </div>
-            </div>
-
-            {/* Small Item */}
-            <div className="md:col-span-1 md:row-span-1 rounded-2xl sm:rounded-3xl overflow-hidden relative group shadow-sm hover:shadow-xl transition-all min-h-[150px] sm:min-h-[180px]">
-              <div className="absolute inset-0 bg-gradient-to-br from-red-400 to-pink-500 group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-3xl sm:text-4xl">🎉</span>
-              </div>
-            </div>
-
-            {/* Small Item */}
-            <div className="md:col-span-1 md:row-span-1 rounded-2xl sm:rounded-3xl overflow-hidden relative group shadow-sm hover:shadow-xl transition-all min-h-[150px] sm:min-h-[180px]">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-400 to-cyan-500 group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-3xl sm:text-4xl">🪴</span>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <section id="about" className="py-10 sm:py-12 md:py-16 lg:py-20 bg-gray-50 dark:bg-gray-900/50 w-full">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">

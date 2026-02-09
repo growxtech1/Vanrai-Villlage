@@ -124,14 +124,18 @@ export function StaysSection() {
                     animate={isInView ? "visible" : "hidden"}
                 >
                     {/* Badge */}
+                    {/* Badge */}
                     <motion.div
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black border border-white/10 mb-6 shadow-xl"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
                     >
-                        <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                        <span className="text-sm font-medium text-white">Most Popular</span>
+                        <div className="relative flex items-center justify-center w-2 h-2">
+                            <span className="absolute w-full h-full bg-green-500 rounded-full animate-ping opacity-75"></span>
+                            <span className="relative w-2 h-2 bg-green-500 rounded-full"></span>
+                        </div>
+                        <span className="text-sm font-bold text-white tracking-widest uppercase">Most Popular</span>
                     </motion.div>
 
                     {/* Title */}
