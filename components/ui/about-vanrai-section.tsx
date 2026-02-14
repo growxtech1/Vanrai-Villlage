@@ -127,7 +127,7 @@ export function AboutVanraiSection() {
                                         animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
                                         transition={{ duration: 2, repeat: Infinity }}
                                     />
-                                    <span className="text-sm font-medium text-white/70 tracking-widest uppercase">Est. 2019</span>
+                                    <span className="text-sm font-medium text-white/70 tracking-widest uppercase">Est. 2017</span>
                                 </div>
                                 <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-xl border border-green-500/20">
                                     <Sparkles className="w-3.5 h-3.5 text-green-400" />

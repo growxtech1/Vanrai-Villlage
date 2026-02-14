@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
 import { ArrowLeft, Camera, Home, Waves, Trees, UtensilsCrossed, PartyPopper } from "lucide-react";
+import { Footer } from "@/components/ui/footer";
 
 // Gallery categories with images
 const categories = [
@@ -284,8 +285,8 @@ export default function GalleryPage() {
                                 key={category.id}
                                 onClick={() => setActiveCategory(category.id)}
                                 className={`flex items-center gap-2 px-4 py-2.5 rounded-full font-medium text-sm transition-all duration-300 ${activeCategory === category.id
-                                        ? "bg-gradient-to-r from-green-500 to-green-700 text-white shadow-lg shadow-green-500/20"
-                                        : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white border border-white/10"
+                                    ? "bg-gradient-to-r from-green-500 to-green-700 text-white shadow-lg shadow-green-500/20"
+                                    : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white border border-white/10"
                                     }`}
                             >
                                 {category.icon}
@@ -370,6 +371,9 @@ export default function GalleryPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Footer Section */}
+            <Footer />
         </div>
     );
 }

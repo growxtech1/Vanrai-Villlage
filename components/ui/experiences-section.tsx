@@ -226,7 +226,7 @@ export function ExperiencesSection() {
 
                     {/* Title with gradient animation */}
                     <motion.h2
-                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-3 tracking-tight"
+                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-3 tracking-tight"
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ delay: 0.3, duration: 0.6 }}
@@ -234,7 +234,7 @@ export function ExperiencesSection() {
                         Moments to Enjoy
                     </motion.h2>
                     <motion.h2
-                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold italic bg-gradient-to-r from-green-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient"
+                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium italic bg-gradient-to-r from-green-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient"
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ delay: 0.4, duration: 0.6 }}
