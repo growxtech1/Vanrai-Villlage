@@ -38,7 +38,7 @@ export function HeroSlider() {
                             fill
                             className="object-cover"
                             priority={index === 0}
-                            quality={100}
+                            sizes="100vw"
                         />
                         {/* Dark overlay for better text readability */}
                         <div className="absolute inset-0 bg-black/40" />
@@ -60,7 +60,7 @@ export function HeroSlider() {
                     <p className="mx-auto mb-8 sm:mb-10 md:mb-12 max-w-3xl text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-light leading-relaxed">
                         A peaceful village-style resort near Ahmednagar, surrounded by
                         greenery and open lawns.
-                    </p> 
+                    </p>
 
                     {/* CTA Buttons */}
                     <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 sm:flex-row">
@@ -83,7 +83,7 @@ export function HeroSlider() {
                     </div>
                 </div>
             </div>
-                                            
+
             {/* Slide Indicators */}
             <div className="absolute bottom-6 sm:bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-2 sm:gap-3">
                 {heroImages.map((_, index) => (

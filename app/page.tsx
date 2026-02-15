@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import {
   Navbar,
   NavBody,
@@ -12,17 +13,18 @@ import {
   NavbarButton,
 } from "@/components/ui/resizable-navbar";
 import { AnimatedCTAButton } from "@/components/ui/animated-cta-button";
-import { GoogleMap } from "@/components/ui/google-map";
 import { SectionHeader } from "@/components/ui/section-header";
 import { HeroSlider } from "@/components/ui/hero-slider";
 import { StaysSection } from "@/components/ui/stays-section";
 import { ExperiencesSection } from "@/components/ui/experiences-section";
-import { AboutVanraiSection } from "@/components/ui/about-vanrai-section";
-import { TestimonialsSection } from "@/components/ui/testimonials-section";
-import { PrivilegeClubSection } from "@/components/ui/privilege-club-section";
-import { GallerySection } from "@/components/ui/gallery-section";
-import { ContactFormStepper } from "@/components/ui/contact-form-stepper";
 import { Footer } from "@/components/ui/footer";
+
+// Dynamic imports for sections below the fold to improve performance
+const AboutVanraiSection = dynamic(() => import("@/components/ui/about-vanrai-section").then(mod => mod.AboutVanraiSection));
+const PrivilegeClubSection = dynamic(() => import("@/components/ui/privilege-club-section").then(mod => mod.PrivilegeClubSection));
+const GallerySection = dynamic(() => import("@/components/ui/gallery-section").then(mod => mod.GallerySection));
+const TestimonialsSection = dynamic(() => import("@/components/ui/testimonials-section").then(mod => mod.TestimonialsSection));
+const ContactFormStepper = dynamic(() => import("@/components/ui/contact-form-stepper").then(mod => mod.ContactFormStepper));
 
 export default function Home() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);

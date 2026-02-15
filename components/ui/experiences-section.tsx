@@ -340,7 +340,7 @@ export function ExperiencesSection() {
                                 />
 
                                 {/* Card container with glassmorphism */}
-                                <div className="relative h-[420px] bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden">
+                                <div className="relative h-[420px] bg-neutral-900/95 md:bg-white/5 md:backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden">
 
                                     {/* Image Container */}
                                     <div className="relative h-[220px] overflow-hidden">
@@ -349,7 +349,7 @@ export function ExperiencesSection() {
                                             alt={experience.name}
                                             fill
                                             className="object-cover transition-all duration-700"
-                                            quality={100}
+                                            sizes="(max-width: 768px) 300px, 400px"
                                         />
 
                                         {/* Gradient overlay */}
@@ -513,7 +513,7 @@ export function ExperiencesSection() {
                                 }}
                             >
                                 {/* Card container with glassmorphism */}
-                                <div className="relative h-[480px] bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden">
+                                <div className="relative h-[480px] bg-neutral-900/95 md:bg-white/5 md:backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden">
 
                                     {/* Image Container - takes more space */}
                                     <div className="relative h-[280px] overflow-hidden">
@@ -522,7 +522,7 @@ export function ExperiencesSection() {
                                             alt={experience.name}
                                             fill
                                             className="object-cover transition-all duration-700 group-hover:scale-110"
-                                            quality={100}
+                                            sizes="(max-width: 768px) 380px, 450px"
                                         />
 
                                         {/* Gradient overlay */}

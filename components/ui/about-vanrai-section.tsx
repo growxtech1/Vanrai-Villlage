@@ -74,8 +74,7 @@ export function AboutVanraiSection() {
                         alt="Vanrai Village Resort"
                         fill
                         className="object-cover"
-                        quality={100}
-                        priority
+                        sizes="100vw"
                     />
                 </motion.div>
 
@@ -121,7 +120,7 @@ export function AboutVanraiSection() {
                                 className="inline-flex items-center gap-3"
                                 variants={fadeInUp}
                             >
-                                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-xl border border-white/10">
+                                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900/40 md:bg-white/5 md:backdrop-blur-xl border border-white/10">
                                     <motion.div
                                         className="w-2 h-2 rounded-full bg-green-400"
                                         animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
@@ -129,7 +128,7 @@ export function AboutVanraiSection() {
                                     />
                                     <span className="text-sm font-medium text-white/70 tracking-widest uppercase">Est. 2017</span>
                                 </div>
-                                <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-xl border border-green-500/20">
+                                <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20 md:backdrop-blur-xl border border-green-500/20">
                                     <Sparkles className="w-3.5 h-3.5 text-green-400" />
                                     <span className="text-sm font-medium text-green-400 tracking-wide">Premium Resort</span>
                                 </div>
@@ -255,7 +254,7 @@ export function AboutVanraiSection() {
                         >
                             {/* Large Featured Stat */}
                             <motion.div
-                                className="col-span-2 group relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/10 p-8 hover:border-green-500/30 transition-all duration-500"
+                                className="col-span-2 group relative overflow-hidden rounded-3xl bg-neutral-900/40 md:bg-gradient-to-br md:from-white/10 md:to-white/5 md:backdrop-blur-xl border border-white/10 p-8 hover:border-green-500/30 transition-all duration-500"
                                 whileHover={{ y: -5 }}
                             >
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-500/20 to-transparent rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
@@ -276,7 +275,7 @@ export function AboutVanraiSection() {
 
                             {/* Stat Card 1 */}
                             <motion.div
-                                className="group relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 hover:border-blue-500/30 transition-all duration-500"
+                                className="group relative overflow-hidden rounded-2xl bg-neutral-900/40 md:bg-white/5 md:backdrop-blur-xl border border-white/10 p-6 hover:border-blue-500/30 transition-all duration-500"
                                 whileHover={{ y: -5, scale: 1.02 }}
                             >
                                 <div className="absolute -top-4 -right-4 w-16 h-16 bg-blue-500/20 rounded-full blur-xl group-hover:scale-150 transition-transform duration-500" />

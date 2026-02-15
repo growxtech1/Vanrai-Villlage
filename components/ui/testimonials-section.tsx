@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
     ArrowLeft,
@@ -265,18 +266,24 @@ export function TestimonialsSection() {
                             {/* Image container */}
                             <div className="relative h-full rounded-3xl overflow-hidden border border-white/10">
                                 <AnimatePresence initial={false} custom={direction} mode="wait">
-                                    <motion.img
+                                    <motion.div
                                         key={currentIndex}
-                                        src={activeTestimonial.imageSrc}
-                                        alt={activeTestimonial.name}
                                         custom={direction}
                                         variants={imageVariants}
                                         initial="enter"
                                         animate="center"
                                         exit="exit"
                                         transition={smoothTransition}
-                                        className="absolute inset-0 w-full h-full object-cover will-change-transform"
-                                    />
+                                        className="absolute inset-0 w-full h-full will-change-transform"
+                                    >
+                                        <Image
+                                            src={activeTestimonial.imageSrc}
+                                            alt={activeTestimonial.name}
+                                            fill
+                                            className="object-cover"
+                                            sizes="(max-width: 768px) 100vw, 40vw"
+                                        />
+                                    </motion.div>
                                 </AnimatePresence>
 
                                 {/* Overlay gradient */}

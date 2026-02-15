@@ -214,6 +214,7 @@ export function GallerySection() {
                                 alt={image.alt}
                                 fill
                                 className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                             />
 
                             {/* Premium glass overlay on hover */}
