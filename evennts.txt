@@ -1,0 +1,938 @@
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Header } from "@/components/ui/header";
+import { Footer } from "@/components/ui/footer";
+import Image from "next/image";
+import Link from "next/link";
+import { useRef } from "react";
+import {
+    Users,
+    Maximize,
+    Waves,
+    Palette,
+    ArrowRight,
+    Star,
+    Quote
+} from "lucide-react";
+
+const textReveal = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
+};
+
+const imageReveal = (direction: "left" | "right") => ({
+    initial: { opacity: 0, x: direction === "left" ? -50 : 50 },
+    whileInView: { opacity: 1, x: 0 },
+    viewport: { once: true },
+    transition: { duration: 1, ease: [0.22, 1, 0.36, 1] as const },
+});
+
+const eventClusters = [
+    {
+        id: "celebration",
+        category: "Celebration Events",
+        title: "Destination Weddings & Grand Celebrations",
+        description: "Celebrate your special day amidst open green lawns and serene natural surroundings. Vanrai offers elegant arrangements, curated décor, and seamless hospitality to make your wedding truly unforgettable.",
+        image: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop",
+        link: "/events/wedding",
+        highlights: ["Engagement Ceremony", "Anniversary Parties", "Birthday Events", "Traditional Festivals"]
+    },
+    {
+        id: "corporate",
+        category: "Corporate & Social",
+        title: "Corporate Offsites & Professional Retreats",
+        description: "Foster creativity and team bonding in a distraction-free environment. Our versatile spaces are perfect for team building, indoor conferences, and corporate luxury retreats near Ahmednagar.",
+        image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop",
+        link: "/events/corporate",
+        highlights: ["Strategic Meetings", "Team Building Activities", "Indoor Conferences", "Sports Tournaments"]
+    },
+    {
+        id: "experiential",
+        category: "Experiential Events",
+        title: "Soulful Nights & Magical Experiences",
+        description: "From soulful live music under the stars to romantic candle light dinners and cozy bonfire nights, Vanrai creates magical moments that linger long after the night ends.",
+        image: "https://images.unsplash.com/photo-1504173010664-32509aeebb62?q=80&w=1974&auto=format&fit=crop",
+        link: "/events/experiential",
+        highlights: ["Live Music Nights", "Candle Light Dinner", "Bonfire & BBQ", "Curated Nature Picnics"]
+    }
+];
+
+const metrics = [
+    { icon: <Users className="w-8 h-8" />, value: "500+", label: "Guest Capacity" },
+    { icon: <Maximize className="w-8 h-8" />, value: "Open", label: "Spacious Lawns" },
+    { icon: <Waves className="w-8 h-8" />, value: "Poolside", label: "Event Setup" },
+    { icon: <Palette className="w-8 h-8" />, value: "Custom", label: "Decoration Options" },
+];
+
+const eventTestimonials = [
+    {
+        name: "Sunil Deshmukh",
+        event: "Destination Wedding",
+        text: "The team at Vanrai made our wedding dream a reality. The spacious lawns and the lighting at night created a palatial atmosphere. Unmatched service!",
+        stars: 5
+    },
+    {
+        name: "Rohan Mehta",
+        event: "Corporate Retreat",
+        text: "Perfect location for our annual offsite. The indoor conference facilities combined with outdoor team building activities made it a very productive session.",
+        stars: 5
+    }
+];
+
+export default function EventsPage() {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const heroRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: heroRef,
+        offset: ["start start", "end end"],
+    });
+
+    const heroZoom = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+    const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
+
+    return (
+        <div ref={containerRef} className="min-h-screen bg-[#0a0a0a] text-white overflow-x-hidden font-sans">
+            <Header />
+
+            {/* ================= HERO SECTION (HIGH-END) ================= */}
+            <section ref={heroRef} className="relative h-screen flex items-center justify-center text-center overflow-hidden">
+                <motion.div
+                    className="absolute inset-0"
+                    style={{ scale: heroZoom, opacity: heroOpacity }}
+                >
+                    <Image
+                        src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop"
+                        alt="Events at Vanrai"
+                        fill
+                        className="object-cover brightness-[0.4]"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0a]/30 to-[#0a0a0a]" />
+                </motion.div>
+
+                <div className="relative z-10 max-w-5xl px-6">
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <span className="inline-block px-5 py-2 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-xs tracking-[0.3em] uppercase mb-8 text-neutral-300">
+                            Private & Grand Celebrations
+                        </span>
+
+                        <h1 className="text-6xl md:text-9xl font-light leading-tight mb-10 tracking-tight">
+                            Celebrate Life at <br />
+                            <span className="italic font-serif text-neutral-400">Vanrai</span>
+                        </h1>
+
+                        <p className="text-neutral-400 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed font-light">
+                            From destination weddings to corporate retreats and vibrant festivals,
+                            Vanrai Village Resort transforms every event into an unforgettable masterpiece.
+                        </p>
+
+                        <div className="mt-12 flex justify-center gap-6 flex-wrap">
+                            <Link href="/#contact" className="px-12 py-5 bg-green-600 rounded-full font-semibold hover:bg-green-500 transition-all shadow-[0_0_30px_rgba(22,163,74,0.3)]">
+                                Plan Your Event
+                            </Link>
+                            <Link href="#event-categories" className="px-12 py-5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full font-semibold hover:bg-white/10 transition-all">
+                                Explore Events
+                            </Link>
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* Scroll Indicator */}
+                <motion.div
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.5, duration: 1 }}
+                >
+                    <span className="text-[10px] uppercase tracking-[0.4em] text-neutral-500">Scroll</span>
+                    <div className="w-[1px] h-16 bg-gradient-to-b from-green-500 to-transparent" />
+                </motion.div>
+            </section>
+
+            {/* ================= CREDIBILITY SECTION ================= */}
+            <section className="py-24 bg-[#0a0a0a] border-y border-white/5">
+                <div className="max-w-7xl mx-auto px-6">
+                    <motion.h2
+                        {...textReveal}
+                        className="text-3xl md:text-5xl font-light mb-20 text-center"
+                    >
+                        Designed for Events of <span className="italic text-neutral-400">Every Scale</span>
+                    </motion.h2>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                        {metrics.map((metric, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                                viewport={{ once: true }}
+                                className="space-y-4 group"
+                            >
+                                <div className="text-green-500 mb-6 flex justify-center transform transition-transform group-hover:scale-110">
+                                    {metric.icon}
+                                </div>
+                                <p className="text-4xl md:text-5xl font-semibold tracking-tighter">{metric.value}</p>
+                                <span className="text-neutral-500 uppercase tracking-widest text-[11px] block">{metric.label}</span>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ================= EVENT CLUSTERS SECTION ================= */}
+            <section id="event-categories" className="py-20">
+                {eventClusters.map((cluster, index) => {
+                    const isEven = index % 2 === 0;
+                    return (
+                        <div key={cluster.id} className="py-24 overflow-hidden">
+                            <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 items-center gap-16 lg:gap-24">
+
+                                {/* Image Container */}
+                                <motion.div
+                                    className={`relative h-[450px] lg:h-[600px] rounded-[3rem] overflow-hidden group shadow-2xl ${!isEven ? 'md:order-2' : ''}`}
+                                    {...imageReveal(isEven ? "left" : "right")}
+                                >
+                                    <Image
+                                        src={cluster.image}
+                                        fill
+                                        className="object-cover transition-transform duration-[2s] group-hover:scale-110"
+                                        alt={cluster.title}
+                                    />
+                                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+                                </motion.div>
+
+                                {/* Content */}
+                                <motion.div
+                                    className={`space-y-8 ${!isEven ? 'md:order-1' : ''}`}
+                                    {...textReveal}
+                                >
+                                    <div className="space-y-3">
+                                        <span className="text-green-500 tracking-[0.2em] uppercase text-xs font-bold block">
+                                            {cluster.category}
+                                        </span>
+                                        <h2 className="text-4xl md:text-5xl font-light leading-tight">
+                                            {cluster.title}
+                                        </h2>
+                                    </div>
+
+                                    <p className="text-neutral-400 text-lg md:text-xl leading-relaxed font-light">
+                                        {cluster.description}
+                                    </p>
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                        {cluster.highlights.map((item, i) => (
+                                            <div key={i} className="flex items-center gap-3 text-neutral-300 text-sm">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                                                {item}
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="pt-6">
+                                        <Link
+                                            href={cluster.link}
+                                            className="inline-flex items-center gap-4 text-white group relative pb-2"
+                                        >
+                                            <span className="text-lg font-medium tracking-wide">Explore {cluster.category}</span>
+                                            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2 text-green-500" />
+                                            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/10 overflow-hidden">
+                                                <div className="w-full h-full bg-green-500 -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </motion.div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </section>
+
+            {/* ================= TESTIMONIALS SECTION ================= */}
+            <section className="py-40 bg-[#050505]">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-24">
+                        <motion.div {...textReveal}>
+                            <span className="text-green-500 tracking-[0.3em] uppercase text-xs font-bold mb-4 block">Guest Experiences</span>
+                            <h2 className="text-4xl md:text-7xl font-light">What They <span className="italic text-neutral-400">Remember</span></h2>
+                        </motion.div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-10">
+                        {eventTestimonials.map((t, idx) => (
+                            <motion.div
+                                key={idx}
+                                {...textReveal}
+                                transition={{ delay: idx * 0.2 }}
+                                className="p-12 rounded-[3rem] bg-white/5 border border-white/10 relative group hover:border-green-500/30 transition-all duration-500"
+                            >
+                                <Quote className="absolute top-10 right-12 w-20 h-20 text-white/[0.03] transform group-hover:scale-110 transition-transform" />
+                                <div className="flex gap-1 mb-8">
+                                    {[...Array(t.stars)].map((_, i) => (
+                                        <Star key={i} className="w-5 h-5 fill-green-500 text-green-500" />
+                                    ))}
+                                </div>
+                                <p className="text-2xl font-light leading-relaxed mb-10 text-neutral-300 italic">
+                                    "{t.text}"
+                                </p>
+                                <div>
+                                    <p className="text-xl font-medium">{t.name}</p>
+                                    <p className="text-green-500/80 text-sm uppercase tracking-widest">{t.event}</p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ================= FINAL CTA ================= */}
+            <section className="py-48 text-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-green-600/5 blur-[120px] rounded-full -translate-y-1/2" />
+                <div className="max-w-4xl mx-auto px-6 relative z-10 space-y-12">
+                    <motion.div {...textReveal}>
+                        <h2 className="text-4xl md:text-7xl font-light leading-snug">
+                            Ready to Host Your <br />
+                            <span className="text-white italic">Unforgettable Event?</span>
+                        </h2>
+                        <p className="text-neutral-400 text-lg md:text-xl mt-8">
+                            Our team is dedicated to bringing your vision to life with precision and luxury.
+                        </p>
+                    </motion.div>
+
+                    <motion.div
+                        {...textReveal}
+                        transition={{ delay: 0.2 }}
+                        className="flex flex-wrap justify-center gap-6"
+                    >
+                        <Link href="/#contact" className="px-12 py-5 bg-white text-black rounded-full font-bold hover:bg-neutral-200 transition-all uppercase tracking-widest text-sm">
+                            Enquire Now
+                        </Link>
+                        <a href="https://wa.me/919922000000" className="px-12 py-5 border border-white/20 rounded-full hover:bg-white/10 transition-all uppercase tracking-widest text-sm flex items-center gap-3">
+                            Talk on WhatsApp
+                        </a>
+                    </motion.div>
+                </div>
+            </section>
+
+            <Footer />
+        </div>
+    );
+}
+
+version1.1 
+
+SLug 
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Header } from "@/components/ui/header";
+import { Footer } from "@/components/ui/footer";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useRef, useState } from "react";
+import {
+    Calendar,
+    MapPin,
+    Sparkles,
+    CheckCircle2,
+    ArrowLeft,
+    Send,
+    MessageCircle,
+    Clock,
+    ChevronRight,
+    Maximize2
+} from "lucide-react";
+
+const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
+} as const;
+
+// Enhanced Event Data with specific details for each category
+const eventData: Record<string, any> = {
+    "wedding": {
+        title: "Destination Weddings",
+        category: "Celebration Event",
+        season: "Ongoing Reservation",
+        description: "Your love story deserves a backdrop as beautiful as your journey. Vanrai Village Resort offers a seamless blend of luxury and nature, providing a serene environment for your grand celebration. Our expansive lawns and dedicated hospitality team ensure that every moment is as magical as you envisioned.",
+        image: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-15442744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop"
+        ],
+        timeline: [
+            { time: "Day 1 - Afternoon", task: "Guest Arrival & Welcome Refreshments" },
+            { time: "Day 1 - Evening", task: "Engagement Ceremony & Musical Night" },
+            { time: "Day 2 - Morning", task: "Haldi & Traditional Rituals" },
+            { time: "Day 2 - Late Evening", task: "The Main Wedding Ceremony & Grand Feast" }
+        ],
+        packages: [
+            { name: "Serene Aura", price: "₹4.5 Lacs", features: ["2 Full Lawns", "Premium Suite for Couple", "Basic Decor", "Seating for 200"] },
+            { name: "Royal Vista", price: "₹7.2 Lacs", features: ["Full Resort Access", "All 18 Rooms Included", "Themed Decor", "Seating for 500"] },
+            { name: "Grand Luxe", price: "Custom", features: ["Entire Estate Exclusive", "Premium Catering", "Cinematic Coverage", "Bespoke Decor"] }
+        ],
+        highlights: [
+            "Lush Green Mandap Setting",
+            "Professional Wedding Coordination",
+            "Custom Lighting & Floral Decor",
+            "Grand Buffet Catering Options",
+            "Luxury Stay for Key Guests"
+        ],
+        pricing: "Packages start from ₹4.5 Lacs",
+        cta: "Request Brochure"
+    },
+    "festive": {
+        title: "Festive Celebrations",
+        category: "Community Event",
+        season: "Seasonally (Holi, Diwali, Navratri)",
+        description: "Immerse yourself in the vibrant spirit of Indian festivals. We transform Vanrai into a canvas of colors and lights, offering a luxury festive experience that honors tradition while providing ultimate comfort.",
+        image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1545670723-196ed0954986?q=80&w=2073&auto=format&fit=crop"
+        ],
+        timeline: [
+            { time: "11:00 AM", task: "Traditional Welcome & Tika" },
+            { time: "01:00 PM", task: "Special Festive Lunch" },
+            { time: "04:00 PM", task: "Cultural Performances & Games" },
+            { time: "07:00 PM", task: "Grand Celebration & Fire Rituals" }
+        ],
+        packages: [
+            { name: "Day Pass", price: "₹2,500/head", features: ["Buffet Lunch", "Event Access", "Welcome Drinks"] },
+            { name: "Festive Stay", price: "₹8,000/night", features: ["Luxury AC Room", "All Meals", "Event VIP Access"] }
+        ],
+        highlights: [
+            "Authentic Traditional Decor",
+            "Curated Festive Menu",
+            "Live Folk Performances",
+            "Safe & Secure Environment",
+            "Memorable Photo Stages"
+        ],
+        pricing: "Starting from ₹2,500 per guest",
+        cta: "Enquire for Next Festival"
+    },
+    "corporate": {
+        title: "Corporate Retreats",
+        category: "Business Event",
+        season: "Year-Round Booking",
+        description: "Foster creativity and team bonding in a distraction-free environment. Vanrai offers versatile spaces for strategy sessions, leadership retreats, and team-building adventures.",
+        image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
+        ],
+        timeline: [
+            { time: "09:00 AM", task: "Breakfast & Power Session" },
+            { time: "01:00 PM", task: "Networking Lunch" },
+            { time: "03:00 PM", task: "Outdoor Team Building Activities" },
+            { time: "07:00 PM", task: "Gala Dinner & Awards" }
+        ],
+        packages: [
+            { name: "Team Day Out", price: "₹1.5 Lacs", features: ["Up to 30 Guests", "Meeting Hall", "Lunch & High Tea"] },
+            { name: "Full Retreat", price: "₹4.0 Lacs", features: ["Overnight Stay", "All Meals", "Adventure Activities"] }
+        ],
+        highlights: [
+            "AC Conference Halls",
+            "High-Speed Wi-Fi & AV Setup",
+            "Outdoor Team Bonding Games",
+            "Custom Corporate Menus",
+            "Exclusive Estate Privacy"
+        ],
+        pricing: "Custom packages based on group size",
+        cta: "Request Quote"
+    },
+    "experiential": {
+        title: "Experiential Evenings",
+        category: "Lifestyle Event",
+        season: "Weekends & Special Dates",
+        description: "Rediscover the joy of simple luxuries. Our curated experiential nights bring you closer to nature and yourself through music, dining, and soulful ambiance.",
+        image: "https://images.unsplash.com/photo-1504173010664-32509aeebb62?q=80&w=1974&auto=format&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1504173010664-32509aeebb62?q=80&w=1974&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1528605248644-14dd04322a11?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=2070&auto=format&fit=crop"
+        ],
+        timeline: [
+            { time: "06:00 PM", task: "Nature Walk & Sunset Photography" },
+            { time: "08:00 PM", task: "Candle Light Dinner & Wine" },
+            { time: "09:30 PM", task: "Live Acoustic Performance" },
+            { time: "10:30 PM", task: "Bonfire & Stargazing" }
+        ],
+        packages: [
+            { name: "Couple's Night", price: "₹8,500/night", features: ["Private Dinner", "Room Stay", "Artist Performance"] },
+            { name: "Group Bonfire", price: "₹2,500/head", features: ["BBQ Menu", "Music Night", "Unlimited Drinks"] }
+        ],
+        highlights: [
+            "Private Candle Light Setup",
+            "Live Unplugged Music",
+            "Signature BBQ & Bonfire",
+            "Expert Stargazing Guide",
+            "Organic Farm-to-Table Menu"
+        ],
+        pricing: "Varies by experience type",
+        cta: "Book Experience"
+    }
+};
+
+export default function EventDetailPage() {
+    const params = useParams();
+    const slug = (params.slug as string) || "wedding";
+    const data = eventData[slug] || eventData["wedding"];
+
+    const [selectedTab, setSelectedTab] = useState('overview');
+    const heroRef = useRef<HTMLDivElement>(null);
+    const { scrollY } = useScroll();
+
+    const heroY = useTransform(scrollY, [0, 500], [0, 200]);
+    const heroScale = useTransform(scrollY, [0, 500], [1, 1.2]);
+
+    return (
+        <div className="min-h-screen bg-[#0a0a0a] text-white font-sans overflow-x-hidden">
+            <Header />
+
+            {/* ================= HERO SECTION (IMPROVED) ================= */}
+            <section ref={heroRef} className="relative h-[80vh] w-full overflow-hidden">
+                <motion.div
+                    className="absolute inset-0"
+                    style={{ y: heroY, scale: heroScale }}
+                >
+                    <Image
+                        src={data.image}
+                        alt={data.title}
+                        fill
+                        className="object-cover brightness-50"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-transparent" />
+                </motion.div>
+
+                <div className="absolute inset-0 flex items-center justify-center text-center">
+                    <div className="max-w-7xl mx-auto px-6 pt-20 w-full animate-in fade-in slide-in-from-bottom-10 duration-1000">
+                        <Link href="/events" className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors mb-12 group">
+                            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-2" />
+                            <span className="uppercase tracking-[0.2em] text-xs font-bold">Back to All Events</span>
+                        </Link>
+
+                        <motion.div>
+                            <span className="text-green-500 tracking-[0.3em] uppercase text-xs font-bold mb-6 block">
+                                {data.category}
+                            </span>
+                            <h1 className="text-5xl md:text-9xl font-light mb-8 tracking-tighter max-w-5xl mx-auto leading-[0.9]">
+                                {data.title}
+                            </h1>
+                            <div className="flex items-center justify-center gap-6 mt-12">
+                                <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 backdrop-blur-xl border border-white/10">
+                                    <Calendar className="w-4 h-4 text-green-500" />
+                                    <span className="text-sm font-medium tracking-wide text-neutral-300">{data.season}</span>
+                                </div>
+                                <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 backdrop-blur-xl border border-white/10">
+                                    <MapPin className="w-4 h-4 text-green-500" />
+                                    <span className="text-sm font-medium tracking-wide text-neutral-300">Ahmednagar, Maharashtra</span>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+
+                {/* Custom sticky enquiry bottom for mobile/low-res? No, let's do a proper one */}
+            </section>
+
+            {/* ================= TABS NAVIGATION ================= */}
+            <div className="sticky top-[80px] z-40 bg-[#0a0a0a]/80 backdrop-blur-xl border-y border-white/5">
+                <div className="max-w-7xl mx-auto px-6 overflow-x-auto scrollbar-hide">
+                    <div className="flex gap-12 py-6">
+                        {['overview', 'timeline', 'packages', 'enquire'].map((tab) => (
+                            <button
+                                key={tab}
+                                onClick={() => setSelectedTab(tab)}
+                                className={`text-xs uppercase tracking-[0.3em] font-bold transition-all whitespace-nowrap relative ${selectedTab === tab ? 'text-green-500' : 'text-neutral-500 hover:text-neutral-300'}`}
+                            >
+                                {tab}
+                                {selectedTab === tab && (
+                                    <motion.div
+                                        layoutId="activeTab"
+                                        className="absolute -bottom-6 left-0 right-0 h-[2px] bg-green-500"
+                                    />
+                                )}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* ================= CONTENT SECTION ================= */}
+            <section className="py-24 px-6">
+                <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-16 lg:gap-24">
+
+                    {/* Left Column: Extensive Details */}
+                    <div className="md:col-span-8 space-y-24">
+
+                        {/* 1. OVERVIEW & GALLERY */}
+                        <motion.div {...fadeInUp} id="overview">
+                            <h2 className="text-3xl font-light mb-10 italic flex items-center gap-4">
+                                Vision of Luxury <div className="h-[1px] flex-grow bg-white/5" />
+                            </h2>
+                            <p className="text-neutral-400 text-xl leading-relaxed font-light mb-16">
+                                {data.description}
+                            </p>
+
+                            {/* PHOTO GALLERY */}
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                                {data.gallery.map((img: string, i: number) => (
+                                    <div key={i} className={`relative rounded-3xl overflow-hidden group ${i === 0 ? 'col-span-2 row-span-2 h-[500px]' : 'h-[238px]'}`}>
+                                        <Image
+                                            src={img}
+                                            alt="Resort View"
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all" />
+                                        <div className="absolute bottom-6 right-6 p-3 rounded-full bg-white/10 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <Maximize2 className="w-5 h-5" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+
+                        {/* 2. TIMELINE SECTION */}
+                        <motion.div {...fadeInUp} id="timeline">
+                            <h2 className="text-3xl font-light mb-12 italic flex items-center gap-4">
+                                The Event Flow <div className="h-[1px] flex-grow bg-white/5" />
+                            </h2>
+                            <div className="space-y-10">
+                                {data.timeline.map((item: any, i: number) => (
+                                    <div key={i} className="flex gap-8 group">
+                                        <div className="flex flex-col items-center">
+                                            <div className="w-12 h-12 rounded-full border border-green-500/30 flex items-center justify-center bg-green-500/10 group-hover:bg-green-500 group-hover:text-black transition-all duration-500">
+                                                <Clock className="w-5 h-5" />
+                                            </div>
+                                            {i !== data.timeline.length - 1 && <div className="w-[1px] flex-grow bg-white/10 my-4" />}
+                                        </div>
+                                        <div className="pb-10">
+                                            <span className="text-green-500 text-xs font-bold uppercase tracking-widest">{item.time}</span>
+                                            <h3 className="text-2xl font-light mt-2 text-neutral-200 group-hover:text-white transition-colors">{item.task}</h3>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+
+                        {/* 3. HIGHLIGHTS & FEATURES */}
+                        <motion.div {...fadeInUp}>
+                            <h2 className="text-3xl font-light mb-10 italic flex items-center gap-4">
+                                Curated Exclusivity <div className="h-[1px] flex-grow bg-white/5" />
+                            </h2>
+                            <div className="grid sm:grid-cols-2 gap-6">
+                                {data.highlights.map((highlight: string, idx: number) => (
+                                    <div key={idx} className="flex items-start gap-4 p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all duration-500 group">
+                                        <div className="w-10 h-10 rounded-2xl bg-green-500/10 flex items-center justify-center shrink-0 group-hover:bg-green-500 group-hover:scale-110 transition-all">
+                                            <CheckCircle2 className="w-5 h-5 text-green-500 group-hover:text-black" />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <span className="text-white text-lg font-light leading-snug">{highlight}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+
+                        {/* 4. PACKAGES SECTION */}
+                        <motion.div {...fadeInUp} id="packages">
+                            <h2 className="text-3xl font-light mb-12 italic flex items-center gap-4">
+                                Exquisite Offerings <div className="h-[1px] flex-grow bg-white/5" />
+                            </h2>
+                            <div className="grid sm:grid-cols-3 gap-6">
+                                {data.packages.map((pkg: any, i: number) => (
+                                    <div key={i} className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-green-500/40 transition-all group flex flex-col h-full">
+                                        <div className="mb-6">
+                                            <h3 className="text-xl font-bold uppercase tracking-widest mb-2">{pkg.name}</h3>
+                                            <p className="text-3xl font-serif text-green-500">{pkg.price}</p>
+                                        </div>
+                                        <ul className="space-y-4 mb-8 flex-grow">
+                                            {pkg.features.map((f: string, fi: number) => (
+                                                <li key={fi} className="text-sm text-neutral-400 flex items-center gap-3">
+                                                    <ChevronRight className="w-3 h-3 text-green-500" /> {f}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </div>
+
+                    {/* Right Column: Sticky Pricing & Enquiry Card */}
+                    <div className="md:col-span-4 relative">
+                        <motion.div
+                            {...fadeInUp}
+                            transition={{ delay: 0.4 }}
+                            className="sticky top-[180px] p-10 lg:p-12 rounded-[3rem] bg-neutral-900 border border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.5)] overflow-hidden"
+                            id="enquire"
+                        >
+                            {/* Decorative Blobs */}
+                            <div className="absolute -top-24 -right-24 w-48 h-48 bg-green-500/10 blur-[90px] rounded-full animate-pulse" />
+
+                            <div className="relative z-10 space-y-10 text-center">
+                                <div className="space-y-4">
+                                    <Sparkles className="w-10 h-10 text-green-500 mx-auto" />
+                                    <h3 className="text-2xl font-light">Bring Your Vision <br />To Life</h3>
+                                    <div className="h-[2px] w-12 bg-green-500 mx-auto rounded-full" />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <p className="text-neutral-500 text-xs uppercase tracking-[0.2em] font-bold">Investment</p>
+                                    <p className="text-3xl md:text-4xl font-serif text-white tracking-widest">{data.pricing}</p>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <button onClick={() => window.open('https://wa.me/919922000000', '_blank')} className="w-full py-5 bg-green-600 hover:bg-green-500 text-white rounded-2xl font-bold transition-all shadow-xl flex items-center justify-center gap-4 group">
+                                        <MessageCircle className="w-6 h-6 transition-transform group-hover:scale-110" />
+                                        <span className="tracking-widest text-[11px] uppercase">Chat on WhatsApp</span>
+                                    </button>
+
+                                    <button className="w-full py-5 bg-white text-black hover:bg-neutral-200 rounded-2xl font-bold transition-all shadow-lg flex items-center justify-center gap-4 group">
+                                        <Send className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                        <span className="tracking-widest text-[11px] uppercase">{data.cta}</span>
+                                    </button>
+                                </div>
+
+                                <div className="pt-4 space-y-4 border-t border-white/5">
+                                    <div className="flex items-center gap-3 text-neutral-500 justify-center">
+                                        <Clock className="w-4 h-4" />
+                                        <span className="text-[10px] uppercase tracking-widest leading-none">Fastest Response in 2 hours</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ================= FINAL CTA SECTION ================= */}
+            <section className="py-32 bg-[#0a0a0a] border-t border-white/5">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                    <h2 className="text-4xl md:text-7xl font-light mb-10 tracking-tighter">Your Event, Our <span className="italic text-neutral-400">Masterpiece.</span></h2>
+                    <p className="text-neutral-400 text-xl font-light mb-16 leading-relaxed">
+                        Don't settle for ordinary. Experience the unmatched hospitality and grandeur of Vanrai Village Resort.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-8">
+                        <Link href="/#contact" className="px-12 py-5 bg-green-600 rounded-full font-bold hover:bg-green-500 transition-all text-sm uppercase tracking-[0.2em] shadow-2xl">
+                            Reserve the Venue
+                        </Link>
+                        <Link href="/events" className="px-12 py-5 border border-white/20 rounded-full hover:bg-white/10 transition-all text-sm uppercase tracking-[0.2em] font-medium">
+                            Explore Other Events
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            <Footer />
+
+            {/* Sticky Mobile CTA */}
+            <div className="md:hidden fixed bottom-6 left-6 right-6 z-50 animate-in fade-in slide-in-from-bottom-5 duration-1000 delay-500">
+                <button className="w-full py-5 bg-green-600 text-white rounded-3xl font-bold shadow-2xl flex items-center justify-center gap-4">
+                    <Send className="w-5 h-5" />
+                    <span className="tracking-widest text-xs uppercase">Quick Enquiry</span>
+                </button>
+            </div>
+        </div>
+    );
+}
+
+version1.1
+
+
+"use client";
+
+import { motion } from "framer-motion";
+import { Header } from "@/components/ui/header";
+import { Footer } from "@/components/ui/footer";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { Calendar, MapPin, Sparkles, CheckCircle2, ArrowLeft, Send } from "lucide-react";
+
+const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
+} as const;
+
+const eventData: Record<string, any> = {
+    "festive": {
+        title: "Festive Events",
+        season: "Ongoing Seasonally (Holi, Diwali, Navratri)",
+        description: "Immerse yourself in the vibrant spirit of Indian festivals at Vanrai Village Resort. We transform our serene landscapes into a canvas of colors and lights, offering a luxury festive experience that honors tradition while providing ultimate comfort.",
+        image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop",
+        highlights: [
+            "Traditional Rituals & Puja",
+            "Signature Themed Decor",
+            "Special Festive Buffet Menu",
+            "Folk Music & Live Performances",
+            "Professional Photography Points"
+        ],
+        pricing: "Starting from ₹2,500 per guest",
+        cta: "Enquire for Next Festival"
+    },
+    "live": {
+        title: "Live Events",
+        season: "Weekly (Every Saturday) & Special Dates",
+        description: "Join us for soulful evenings where music and nature harmonize. Our live events feature talented musicians, singers, and artists who create an atmosphere of pure enchantment. Perfect for an elegant night out with friends or a romantic evening.",
+        image: "https://images.unsplash.com/photo-1459749411177-042180ce673c?q=80&w=2070&auto=format&fit=crop",
+        highlights: [
+            "Acoustic Solo & Band Performances",
+            "Outdoor Garden Stage Setup",
+            "Curated Beverage Pairings",
+            "Gourmet Snack Platters",
+            "Artist Meet & Greet Opportunities"
+        ],
+        pricing: "Cover charge: ₹1,000 (Fully redeemable)",
+        cta: "Reserve Your Spot"
+    }
+};
+
+export default function EventDetailPage() {
+    const params = useParams();
+    const slug = params.slug as string;
+    const data = eventData[slug] || eventData["festive"]; // Fallback to festive if slug not found
+
+    return (
+        <div className="min-h-screen bg-[#0a0a0a] text-white font-sans overflow-x-hidden">
+            <Header />
+
+            {/* ================= HERO SECTION ================= */}
+            <section className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
+                <Image
+                    src={data.image}
+                    alt={data.title}
+                    fill
+                    className="object-cover brightness-50"
+                    priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/20 to-transparent" />
+
+                <div className="absolute inset-0 flex items-end">
+                    <div className="max-w-7xl mx-auto px-6 pb-12 w-full">
+                        <Link href="/events" className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors mb-8 group">
+                            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                            <span>Back to Events</span>
+                        </Link>
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <h1 className="text-4xl md:text-7xl font-light mb-4">{data.title}</h1>
+                            <div className="flex items-center gap-4 text-green-400 bg-green-500/10 border border-green-500/20 px-4 py-2 rounded-full w-fit">
+                                <Calendar className="w-4 h-4" />
+                                <span className="text-sm font-medium">{data.season}</span>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ================= CONTENT SECTION ================= */}
+            <section className="py-24 px-6">
+                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 lg:gap-24">
+                    {/* Left Column: Description & Highlights */}
+                    <div className="space-y-12">
+                        <motion.div {...fadeInUp}>
+                            <h2 className="text-3xl font-light mb-6 border-b border-white/10 pb-4">Overview</h2>
+                            <p className="text-neutral-400 text-lg leading-relaxed">
+                                {data.description}
+                            </p>
+                        </motion.div>
+
+                        <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
+                            <h2 className="text-3xl font-light mb-8 border-b border-white/10 pb-4 text-white">Event Highlights</h2>
+                            <ul className="space-y-4">
+                                {data.highlights.map((highlight: string, idx: number) => (
+                                    <li key={idx} className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-green-500/30 transition-all">
+                                        <CheckCircle2 className="w-6 h-6 text-green-500 mt-0.5 shrink-0" />
+                                        <span className="text-neutral-300 text-lg">{highlight}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </motion.div>
+                    </div>
+
+                    {/* Right Column: Pricing & Enquiry */}
+                    <div className="relative">
+                        <motion.div
+                            {...fadeInUp}
+                            transition={{ delay: 0.4 }}
+                            className="sticky top-32 p-10 lg:p-12 rounded-[2.5rem] bg-neutral-900 border border-white/10 shadow-2xl overflow-hidden"
+                        >
+                            {/* Decorative Blobs */}
+                            <div className="absolute -top-20 -right-20 w-40 h-40 bg-green-500/20 blur-[80px] rounded-full" />
+                            <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-blue-500/10 blur-[80px] rounded-full" />
+
+                            <div className="relative z-10 space-y-8 text-center">
+                                <div className="space-y-4">
+                                    <Sparkles className="w-8 h-8 text-green-500 mx-auto" />
+                                    <h3 className="text-2xl font-light">Interested in this event?</h3>
+                                    <p className="text-3xl font-medium text-white">{data.pricing}</p>
+                                </div>
+
+                                <div className="space-y-4 bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <div className="flex items-center gap-3 text-neutral-400 justify-center">
+                                        <MapPin className="w-4 h-4" />
+                                        <span>Vanrai Village Resort Main Lawn</span>
+                                    </div>
+                                </div>
+
+                                <button className="w-full py-5 bg-green-600 hover:bg-green-500 text-white rounded-full font-semibold transition-all shadow-lg flex items-center justify-center gap-3 group">
+                                    <Send className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                    <span>{data.cta}</span>
+                                </button>
+
+                                <p className="text-neutral-500 text-sm italic">
+                                    *Prices may vary based on group size and additional requirements.
+                                </p>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ================= CTA SECTION ================= */}
+            <section className="py-32 bg-[#050505] border-t border-white/5">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                    <h2 className="text-3xl md:text-5xl font-light mb-8 italic">Ready to make memories?</h2>
+                    <p className="text-neutral-400 text-lg mb-12">
+                        Whether it's a festival or a musical night, your experience at Vanrai will be nothing short of extraordinary.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-6">
+                        <Link href="/#contact" className="px-10 py-4 bg-white text-black rounded-full font-bold hover:bg-neutral-200 transition-all uppercase tracking-wider text-sm">
+                            Contact Sales
+                        </Link>
+                        <Link href="/events" className="px-10 py-4 border border-white/20 rounded-full hover:bg-white/10 transition-all uppercase tracking-wider text-sm">
+                            Other events
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            <Footer />
+        </div>
+    );
+}
+
+verison1.0

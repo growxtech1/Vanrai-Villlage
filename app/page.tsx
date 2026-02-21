@@ -31,13 +31,13 @@ export default function Home() {
 
   const navItems = [
     { name: "Home", link: "#home" },
-    { name: "Stays", link: "#stays" },
-    { name: "Experiences", link: "#experiences" },
-    { name: "About", link: "#about-vanrai" },
-    { name: "Services", link: "#services" },
-    { name: "Gallery", link: "#gallery" },
-    { name: "Events", link: "#contact" },
-    { name: "Contact", link: "#contact" },
+    { name: "Stays", link: "/stays" },
+    { name: "Experiences", link: "/experiences" },
+    { name: "About", link: "/about-vanrai" },
+    { name: "Services", link: "/services" },
+    { name: "Gallery", link: "/gallery" },
+    { name: "Events", link: "/events" },
+    { name: "Contact", link: "/contact" },
   ];
 
   return (
