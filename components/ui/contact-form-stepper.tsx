@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     User, Phone, Mail, ArrowRight, ArrowLeft, Check,
@@ -87,7 +87,12 @@ export function ContactFormStepper() {
     });
 
     // Calendar State
-    const [viewDate, setViewDate] = useState(new Date());
+    const [viewDate, setViewDate] = useState(new Date(2024, 0, 1)); // Fixed date for SSR
+
+    useEffect(() => {
+        // Update to current date on mount
+        setViewDate(new Date());
+    }, []);
 
     const handlePrevMonth = () => {
         setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1));
@@ -323,17 +328,18 @@ export function ContactFormStepper() {
                                                                         <label className="text-sm font-medium text-gray-300 group-focus-within:text-green-400 transition-colors">First Name</label>
                                                                         <div className="relative">
                                                                             <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-green-500 transition-colors" />
-                                                                            <input
-                                                                                type="text"
-                                                                                value={formData.firstName}
-                                                                                onChange={(e) => updateFormData("firstName", e.target.value)}
-                                                                                placeholder="John"
-                                                                                className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-white placeholder:text-gray-600 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all font-medium"
-                                                                            />
+                                                                                 <input
+                                                                                    type="text"
+                                                                                    value={formData.firstName}
+                                                                                    onChange={(e) => updateFormData("firstName", e.target.value)}
+                                                                                    placeholder="John"
+                                                                                    suppressHydrationWarning
+                                                                                    className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-white placeholder:text-gray-600 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all font-medium"
+                                                                                />
                                                                         </div>
                                                                     </div>
                                                                     <div className="space-y-2 group">
-                                                                        <label className="text-sm font-medium text-gray-300 group-focus-within:text-green-400 transition-colors">Last Name</label>
+                                                                        <label className    ="text-sm font-medium text-gray-300 group-focus-within:text-green-400 transition-colors">Last Name</label>
                                                                         <div className="relative">
                                                                             <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-green-500 transition-colors" />
                                                                             <input
@@ -341,6 +347,7 @@ export function ContactFormStepper() {
                                                                                 value={formData.lastName}
                                                                                 onChange={(e) => updateFormData("lastName", e.target.value)}
                                                                                 placeholder="Doe"
+                                                                                suppressHydrationWarning
                                                                                 className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-white placeholder:text-gray-600 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all font-medium"
                                                                             />
                                                                         </div>
@@ -354,6 +361,7 @@ export function ContactFormStepper() {
                                                                                 value={formData.phone}
                                                                                 onChange={(e) => updateFormData("phone", e.target.value)}
                                                                                 placeholder="+91 9876 543 210"
+                                                                                suppressHydrationWarning
                                                                                 className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-white placeholder:text-gray-600 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all font-medium"
                                                                             />
                                                                         </div>
@@ -367,6 +375,7 @@ export function ContactFormStepper() {
                                                                                 value={formData.email}
                                                                                 onChange={(e) => updateFormData("email", e.target.value)}
                                                                                 placeholder="john@example.com"
+                                                                                suppressHydrationWarning
                                                                                 className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-white placeholder:text-gray-600 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all font-medium"
                                                                             />
                                                                         </div>

@@ -39,7 +39,7 @@ export function ExclusivePrivileges() {
             icon: <Sparkles className="w-6 h-6" />,
             title: "Member Lounging",
             description: "Priority seating and services in our premium dining areas.",
-            color: "text-emerald-400"
+            color: "text-emerald-400"   
         }
     ];
 
