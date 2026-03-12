@@ -111,6 +111,8 @@ export function ContactFormStepper() {
 
     const isDateDisabled = (day: number) => {
         const date = new Date(viewDate.getFullYear(), viewDate.getMonth(), day);
+        // During SSR and first hydration, we should use a consistent "today"
+        // But since we set viewDate in useEffect, the calendar only shows correctly after mount anyway.
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         return date < today;
@@ -544,6 +546,7 @@ export function ContactFormStepper() {
                                                                                                         <button
                                                                                                             onClick={() => handleDateSelect(day)}
                                                                                                             disabled={isDisabled}
+                                                                                                            suppressHydrationWarning
                                                                                                             className={`
                                                                                         w-full h-full flex items-center justify-center rounded-full text-sm font-medium transition-all relative z-10
                                                                                         ${isDisabled ? 'text-gray-700 cursor-not-allowed' : 'text-gray-300 hover:bg-white/10 hover:text-white cursor-pointer'}
@@ -553,7 +556,6 @@ export function ContactFormStepper() {
                                                                                                         >
                                                                                                             {day}
                                                                                                         </button>
-
                                                                                                         {/* Range Highlight Background */}
                                                                                                         {(isInRange || (formData.numDays > 1 && (isStart || isEnd))) && (
                                                                                                             <div className={`

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { BookingProvider } from "@/lib/booking-context";
 
 export const metadata: Metadata = {
   title: "Vanrai Village",
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased">
-        {children}
+        <BookingProvider>
+          {children}
+        </BookingProvider>
       </body>
     </html>
   );

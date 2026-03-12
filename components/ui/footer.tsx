@@ -231,7 +231,7 @@ export const Footer = () => {
                 {/* Footer Bottom */}
                 <div className="flex flex-col lg:flex-row justify-between items-center gap-8 text-sm font-light">
                     <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 text-neutral-600">
-                        <p>© {currentYear} Vanrai Village Resort. All sanctuary rights reserved.</p>
+                        <p suppressHydrationWarning>© {currentYear} Vanrai Village Resort. All sanctuary rights reserved.</p>
                         <div className="flex gap-6">
                             <a href="#" className="hover:text-neutral-400 transition-colors">Terms of Use</a>
                             <a href="#" className="hover:text-neutral-400 transition-colors">Privacy</a>

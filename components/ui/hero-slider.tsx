@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimatedCTAButton } from "./animated-cta-button";
 import { AnimatedCTAButton2 } from "./animated-cta-button2";
+import { BookingBar } from "./booking-bar";
 
 const heroImages = [
     "/img/hero-1.png",
@@ -23,7 +24,7 @@ export function HeroSlider() {
     }, []);
 
     return (
-        <section className="relative h-screen w-full overflow-hidden">
+        <section className="relative h-[110vh] sm:h-screen w-full overflow-hidden">
             {/* Image Slider Background */}
             <div className="absolute inset-0">
                 {heroImages.map((image, index) => (
@@ -47,45 +48,30 @@ export function HeroSlider() {
             </div>
 
             {/* Overlapping Text Content */}
-            <div className="relative z-10 flex h-full items-center justify-center px-4 sm:px-6 md:px-8">
-                <div className="max-w-6xl text-center text-white">
+            <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 md:px-8">
+                <div className="max-w-6xl text-center text-white mb-20 md:mb-24">
                     {/* Main Heading */}
-                    <h1 className="mb-4 sm:mb-5 md:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-semibold leading-tight tracking-tight">
+                    <h1 className="mb-6 sm:mb-8 md:mb-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-semibold leading-tight tracking-tight">
                         Escape to <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-green-600 bg-clip-text text-transparent">Nature</span>
                         <br />
-                        <span className="font-light">Stay in Comfort.</span>
+                        <span className="font-light italic">Stay in Comfort.</span>
                     </h1>
 
                     {/* Subheading */}
-                    <p className="mx-auto mb-8 sm:mb-10 md:mb-12 max-w-3xl text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-light leading-relaxed">
+                    <p className="mx-auto max-w-4xl text-base sm:text-lg md:text-xl lg:text-2xl 2xl:text-3xl font-light leading-relaxed text-white/80 tracking-wide">
                         A peaceful village-style resort near Ahmednagar, surrounded by
                         greenery and open lawns.
                     </p>
+                </div>
 
-                    {/* CTA Buttons */}
-                    <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 sm:flex-row">
-                        <AnimatedCTAButton
-                            text="Book Your Stay"
-                            onClick={() => {
-                                // Add booking logic here
-                                console.log("Book Your Stay clicked");
-                            }}
-                            className="w-full sm:w-auto"
-                        />
-                        <AnimatedCTAButton2
-                            text="Explore More"
-                            onClick={() => {
-                                // Add explore logic here
-                                console.log("Explore More clicked");
-                            }}
-                            className="w-full sm:w-auto"
-                        />
-                    </div>
+                {/* Booking Bar - Positioned at bottom of content */}
+                <div className="w-full relative z-20">
+                    <BookingBar />
                 </div>
             </div>
 
             {/* Slide Indicators */}
-            <div className="absolute bottom-6 sm:bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-2 sm:gap-3">
+            <div className="absolute bottom-6 sm:bottom-12 left-1/2 z-20 flex -translate-x-1/2 gap-2 sm:gap-3">
                 {heroImages.map((_, index) => (
                     <button
                         key={index}

@@ -28,7 +28,6 @@ const ContactFormStepper = dynamic(() => import("@/components/ui/contact-form-st
 
 export default function Home() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-
   const navItems = [
     { name: "Home", link: "#home" },
     { name: "Stays", link: "/stays" },
