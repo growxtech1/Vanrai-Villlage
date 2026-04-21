@@ -90,7 +90,7 @@ export const Footer = () => {
                                 </div>
                             </a>
                             <p className="text-neutral-500 text-lg leading-relaxed font-light max-w-md">
-                                Where rustic charm meets refined luxury. Experience an eco-conscious sanctuary designed for the modern soul.
+                                Where Rustic Charm Meets Refined Luxury. Experience An Eco-Conscious Sanctuary Designed For The Modern Soul.
                             </p>
                         </div>
 
@@ -119,8 +119,8 @@ export const Footer = () => {
 
                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-semibold text-white tracking-tight">Stay in the Loop</h3>
-                                    <p className="text-neutral-500 font-light">Join our insider list for exclusive offers and seasonal news.</p>
+                                    <h3 className="text-2xl font-semibold text-white tracking-tight">Stay In The Loop</h3>
+                                    <p className="text-neutral-500 font-light">Join Our Insider List For Exclusive Offers And Seasonal News.</p>
                                 </div>
 
                                 <div className="relative min-w-[300px] w-full md:w-auto">
@@ -231,18 +231,18 @@ export const Footer = () => {
                 {/* Footer Bottom */}
                 <div className="flex flex-col lg:flex-row justify-between items-center gap-8 text-sm font-light">
                     <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 text-neutral-600">
-                        <p suppressHydrationWarning>© {currentYear} Vanrai Village Resort. All sanctuary rights reserved.</p>
+                        <p suppressHydrationWarning>© {currentYear} Vanrai Village Resort. All Sanctuary Rights Reserved.</p>
                         <div className="flex gap-6">
-                            <a href="#" className="hover:text-neutral-400 transition-colors">Terms of Use</a>
+                            <a href="#" className="hover:text-neutral-400 transition-colors">Terms Of Use</a>
                             <a href="#" className="hover:text-neutral-400 transition-colors">Privacy</a>
                             <a href="#" className="hover:text-neutral-400 transition-colors">Cookies</a>
                         </div>
                     </div>
 
                     <div className="flex items-center gap-3 text-neutral-500 px-6 py-3 rounded-2xl bg-white/[0.02] border border-white/5 transition-colors hover:border-white/10 group">
-                        <span className="text-[13px]">Crafted with</span>
+                        <span className="text-[13px]">Crafted With</span>
                         <Heart size={14} className="text-rose-500 animate-pulse fill-rose-500 group-hover:scale-125 transition-transform" />
-                        <span className="text-[13px]">by</span>
+                        <span className="text-[13px]">By</span>
                         <a
                             href="https://growxtech.com"
                             target="_blank"

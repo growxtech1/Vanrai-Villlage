@@ -5,7 +5,7 @@ import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { useBooking } from "@/lib/booking-context";
 import { motion } from "framer-motion";
-import { CheckCircle2, Download, Home, ArrowRight, Calendar, Users, MapPin, Receipt, Star } from "lucide-react";
+import { CheckCircle2, Download, Home, ArrowRight, Calendar, Users, MapPin, Receipt, Star, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import confetti from "canvas-confetti";
 
@@ -45,7 +45,21 @@ export default function ConfirmationPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <Header />
+      {/* Premium Back Button Header */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-neutral-950/80 backdrop-blur-xl border-b border-white/5">
+        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 group text-neutral-400 hover:text-emerald-500 transition-colors">
+            <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-emerald-500/50 transition-colors">
+              <ChevronLeft className="w-5 h-5" />
+            </div>
+            <span className="font-bold tracking-widest text-[10px] uppercase">Back To Home</span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-[10px] font-bold tracking-widest text-emerald-500 uppercase">Booking Confirmed</span>
+          </div>
+        </div>
+      </div>
 
       <main className="container mx-auto px-4 pt-32 pb-24">
         <div className="max-w-4xl mx-auto">
@@ -126,7 +140,6 @@ export default function ConfirmationPage() {
                       </div>
                    </div>
                 </div>
-
                 <div className="pt-8 border-t border-white/5 flex items-center justify-between">
                    <div className="flex items-center gap-2 text-xs text-neutral-500">
                       <Receipt className="w-4 h-4" /> Final Amount Paid

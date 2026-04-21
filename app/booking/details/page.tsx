@@ -119,7 +119,7 @@ export default function GuestDetailsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
                   {/* Full Name */}
                   <div className="space-y-2">
-                    <label className="text-xs uppercase font-bold tracking-widest text-neutral-500 flex items-center gap-2">
+                    <label className="text-xs font-bold tracking-widest text-neutral-500 flex items-center gap-2">
                       <User className="w-3 h-3" /> Full Name
                     </label>
                     <input 
@@ -134,7 +134,7 @@ export default function GuestDetailsPage() {
 
                   {/* Email */}
                   <div className="space-y-2">
-                    <label className="text-xs uppercase font-bold tracking-widest text-neutral-500 flex items-center gap-2">
+                    <label className="text-xs font-bold tracking-widest text-neutral-500 flex items-center gap-2">
                       <Mail className="w-3 h-3" /> Email Address
                     </label>
                     <input 
@@ -149,7 +149,7 @@ export default function GuestDetailsPage() {
 
                   {/* Mobile & OTP */}
                   <div className="space-y-2 md:col-span-2">
-                    <label className="text-xs uppercase font-bold tracking-widest text-neutral-500 flex items-center gap-2">
+                    <label className="text-xs font-bold tracking-widest text-neutral-500 flex items-center gap-2">
                       <Phone className="w-3 h-3" /> Mobile Number
                     </label>
                     <div className="flex gap-4">
@@ -190,7 +190,7 @@ export default function GuestDetailsPage() {
                         >
                           <div className="flex items-center justify-between">
                             <p className="text-xs text-neutral-400">Enter The 4-Digit Code Sent To Your Phone (Use 1234)</p>
-                            <button onClick={() => setIsOtpSent(false)} className="text-[10px] uppercase font-bold text-neutral-500 hover:text-white">Change Number</button>
+                            <button onClick={() => setIsOtpSent(false)} className="text-[10px] font-bold text-neutral-500 hover:text-white">Change Number</button>
                           </div>
                           <div className="flex gap-4">
                             <input 
@@ -216,7 +216,7 @@ export default function GuestDetailsPage() {
 
                   {/* ID Proof Type */}
                   <div className="space-y-2">
-                    <label className="text-xs uppercase font-bold tracking-widest text-neutral-500 flex items-center gap-2">
+                    <label className="text-xs font-bold tracking-widest text-neutral-500 flex items-center gap-2">
                       <CreditCard className="w-3 h-3" /> ID Proof Type
                     </label>
                     <select 
@@ -234,7 +234,7 @@ export default function GuestDetailsPage() {
 
                   {/* ID Number */}
                   <div className="space-y-2">
-                    <label className="text-xs uppercase font-bold tracking-widest text-neutral-500 flex items-center gap-2">
+                    <label className="text-xs font-bold tracking-widest text-neutral-500 flex items-center gap-2">
                       <ShieldCheck className="w-3 h-3" /> ID Number
                     </label>
                     <input 
@@ -249,7 +249,7 @@ export default function GuestDetailsPage() {
 
                   {/* Address */}
                   <div className="space-y-2 md:col-span-2">
-                    <label className="text-xs uppercase font-bold tracking-widest text-neutral-500 flex items-center gap-2">
+                    <label className="text-xs font-bold tracking-widest text-neutral-500 flex items-center gap-2">
                       <MapPin className="w-3 h-3" /> Physical Address
                     </label>
                     <textarea 
@@ -264,7 +264,7 @@ export default function GuestDetailsPage() {
 
                   {/* Special Requests */}
                   <div className="space-y-2 md:col-span-2">
-                    <label className="text-xs uppercase font-bold tracking-widest text-neutral-500 flex items-center gap-2">
+                    <label className="text-xs font-bold tracking-widest text-neutral-500 flex items-center gap-2">
                       <MessageSquare className="w-3 h-3" /> Special Requests (Optional)
                     </label>
                     <textarea 

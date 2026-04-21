@@ -24,9 +24,9 @@ export function HeroSlider() {
     }, []);
 
     return (
-        <section className="relative h-[110vh] sm:h-screen w-full overflow-hidden">
+        <section className="relative h-[110vh] sm:h-screen w-full">
             {/* Image Slider Background */}
-            <div className="absolute inset-0">
+            <div className="absolute inset-0 overflow-hidden">
                 {heroImages.map((image, index) => (
                     <div
                         key={index}
@@ -49,24 +49,27 @@ export function HeroSlider() {
 
             {/* Overlapping Text Content */}
             <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 md:px-8">
-                <div className="max-w-6xl text-center text-white mb-20 md:mb-24">
+                <div className="flex w-full max-w-[900px] flex-col items-center text-center text-white">
                     {/* Main Heading */}
-                    <h1 className="mb-6 sm:mb-8 md:mb-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-semibold leading-tight tracking-tight">
+                    <h1 className="text-6xl md:text-7xl lg:text-[86px] font-semibold leading-[1.1] tracking-tight">
                         Escape to <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-green-600 bg-clip-text text-transparent">Nature</span>
-                        <br />
-                        <span className="font-light italic">Stay in Comfort.</span>
                     </h1>
 
                     {/* Subheading */}
-                    <p className="mx-auto max-w-4xl text-base sm:text-lg md:text-xl lg:text-2xl 2xl:text-3xl font-light leading-relaxed text-white/80 tracking-wide">
+                    <h2 className="mt-4 md:mt-5 text-4xl md:text-5xl lg:text-[46px] font-regular tracking-wide text-white/90 italic">
+                        Stay in Comfort.
+                    </h2>
+
+                    {/* Description */}
+                    <p className="mt-4 max-w-[650px] text-xl md:text-2xl font-light leading-[1.6] text-white/80">
                         A peaceful village-style resort near Ahmednagar, surrounded by
                         greenery and open lawns.
                     </p>
-                </div>
 
-                {/* Booking Bar - Positioned at bottom of content */}
-                <div className="w-full relative z-20">
-                    <BookingBar />
+                    {/* Booking Bar */}
+                    <div className="w-full mt-[50px] md:mt-[60px] relative z-20">
+                        <BookingBar />
+                    </div>
                 </div>
             </div>
 

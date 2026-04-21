@@ -119,14 +119,14 @@ export default function PaymentPage() {
                        </div>
                        
                        <div className="space-y-4">
-                          <p className="text-xs uppercase font-bold tracking-widest text-neutral-500">Or Enter VPA / UPI ID</p>
+                          <p className="text-xs font-bold tracking-widest text-neutral-500">Or Enter VPA / UPI ID</p>
                           <div className="flex gap-4">
                              <input 
                                type="text" 
                                placeholder="user@upi"
                                className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors"
                              />
-                             <button className="px-6 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors">Verify</button>
+                             <button className="px-6 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold tracking-widest transition-colors">Verify</button>
                           </div>
                        </div>
                     </div>
@@ -135,11 +135,11 @@ export default function PaymentPage() {
                   {paymentMethod === "card" && (
                     <div className="space-y-6">
                        <div className="space-y-2">
-                          <label className="text-xs uppercase font-bold tracking-widest text-neutral-500">Cardholder Name</label>
+                          <label className="text-xs font-bold tracking-widest text-neutral-500">Cardholder Name</label>
                           <input type="text" placeholder="Full Name on Card" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors" />
                        </div>
                        <div className="space-y-2">
-                          <label className="text-xs uppercase font-bold tracking-widest text-neutral-500">Card Number</label>
+                          <label className="text-xs font-bold tracking-widest text-neutral-500">Card Number</label>
                           <div className="relative">
                              <input type="text" placeholder="0000 0000 0000 0000" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors" />
                              <CreditCard className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
@@ -147,11 +147,11 @@ export default function PaymentPage() {
                        </div>
                        <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-2">
-                             <label className="text-xs uppercase font-bold tracking-widest text-neutral-500">Expiry Date</label>
+                             <label className="text-xs font-bold tracking-widest text-neutral-500">Expiry Date</label>
                              <input type="text" placeholder="MM / YY" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors" />
                           </div>
                           <div className="space-y-2">
-                             <label className="text-xs uppercase font-bold tracking-widest text-neutral-500">CVV</label>
+                             <label className="text-xs font-bold tracking-widest text-neutral-500">CVV</label>
                              <input type="password" placeholder="***" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors" />
                           </div>
                        </div>
@@ -164,7 +164,7 @@ export default function PaymentPage() {
 
                   {paymentMethod === "netbanking" && (
                     <div className="space-y-6">
-                       <p className="text-xs uppercase font-bold tracking-widest text-neutral-500 mb-4">Choose Your Bank</p>
+                       <p className="text-xs font-bold tracking-widest text-neutral-500 mb-4">Choose Your Bank</p>
                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                           {["HDFC Bank", "ICICI Bank", "SBI", "Axis Bank", "Kotak", "Yes Bank"].map(bank => (
                             <button key={bank} className="p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all text-sm font-medium">

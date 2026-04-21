@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "react-day-picker/dist/style.css";
 import { BookingProvider } from "@/lib/booking-context";
 
 export const metadata: Metadata = {

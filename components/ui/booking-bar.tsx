@@ -5,6 +5,77 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Users, Home, Search, ChevronUp, ChevronDown, Info } from "lucide-react";
 import { useBooking, RoomType } from "@/lib/booking-context";
 import { useRouter } from "next/navigation";
+import { DayPicker } from "react-day-picker";
+import { format, isBefore, isAfter, startOfToday } from "date-fns";
+
+const CalendarDropdown = ({ selected, onSelect, disabledBefore }: { selected?: Date, onSelect: (date?: Date) => void, disabledBefore?: Date }) => (
+  <motion.div 
+    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+    animate={{ opacity: 1, y: 0, scale: 1 }}
+    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+    className="absolute top-[calc(100%+8px)] left-0 md:left-auto md:right-auto bg-neutral-900/98 backdrop-blur-3xl border border-white/10 rounded-3xl p-3 shadow-3xl z-50 min-w-[280px] sm:min-w-[320px]"
+    onClick={(e) => e.stopPropagation()}
+  >
+    <style dangerouslySetInnerHTML={{ __html: `
+      .rdp { 
+        --rdp-cell-size: 38px; 
+        --rdp-accent-color: #10b981ff; 
+        --rdp-background-color: rgba(16, 185, 129, 0.1); 
+        margin: 0; 
+        font-family: 'General Sans', sans-serif;
+      }
+      .rdp-day_selected { 
+        background-color: var(--rdp-accent-color) !important; 
+        color: #000 !important; 
+        font-weight: 700; 
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+      }
+      .rdp-day_today {
+        color: #10b981 !important;
+        font-weight: 700;
+      }
+      .rdp-day:hover:not(.rdp-day_selected) { 
+        background-color: var(--rdp-background-color) !important; 
+        color: #10b981 !important; 
+        border-radius: 12px; 
+      }
+      .rdp-button:focus-visible { border-color: var(--rdp-accent-color) !important; }
+      .rdp-head_cell { 
+        font-size: 11px; 
+        text-transform: uppercase; 
+        font-weight: 700; 
+        color: #4b5563; 
+        letter-spacing: 0.1em;
+        padding-bottom: 1rem;
+      }
+      .rdp-nav_button { 
+        color: #10b981 !important; 
+        opacity: 0.8; 
+        transition: all 0.2s;
+      }
+      .rdp-nav_button:hover { 
+        opacity: 1; 
+        background: rgba(16, 185, 129, 0.1) !important;
+        border-radius: 8px;
+      }
+      .rdp-caption_label { 
+        font-weight: 700; 
+        color: white; 
+        font-size: 15px; 
+        text-transform: uppercase; 
+        letter-spacing: 0.05em; 
+      }
+    `}} />
+    <DayPicker
+      mode="single"
+      selected={selected}
+      onSelect={onSelect}
+      disabled={(date) => (disabledBefore ? isBefore(date, disabledBefore) : false)}
+      className="text-white"
+    />
+  </motion.div>
+);
 
 const Counter = ({ value, onIncrement, onDecrement, label, min = 0 }: { value: number, onIncrement: () => void, onDecrement: () => void, label: string, min?: number }) => (
   <div className="flex items-center justify-between gap-4 py-2 px-1">
@@ -30,12 +101,19 @@ const Counter = ({ value, onIncrement, onDecrement, label, min = 0 }: { value: n
 
 export const BookingBar = () => {
   const { state, setCheckIn, setCheckOut, setAdults, setChildren, setRoomType } = useBooking();
-  const [activeDropdown, setActiveDropdown] = React.useState<"guests" | "roomType" | null>(null);
+  const [activeDropdown, setActiveDropdown] = React.useState<"checkIn" | "checkOut" | "guests" | "roomType" | null>(null);
   const router = useRouter();
 
   const handleSearch = () => {
     setActiveDropdown(null);
-    router.push("/availability");
+    const params = new URLSearchParams();
+    if (state.checkIn) params.set("checkIn", state.checkIn);
+    if (state.checkOut) params.set("checkOut", state.checkOut);
+    params.set("adults", state.adults.toString());
+    params.set("children", state.children.toString());
+    params.set("roomType", state.roomType);
+    
+    router.push(`/availability?${params.toString()}`);
   };
 
   // Close dropdowns on click outside
@@ -55,41 +133,65 @@ export const BookingBar = () => {
         <div className="flex flex-col md:flex-row items-stretch md:items-center bg-neutral-900/60 backdrop-blur-2xl rounded-[2rem] border border-white/10 p-2 gap-1 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
           
           {/* Check-in */}
-          <div className="flex-[1.2] flex flex-col px-6 py-3 border-b md:border-b-0 md:border-r border-white/5 hover:bg-white/5 transition-all cursor-pointer group rounded-t-[1.5rem] md:rounded-none md:rounded-l-[1.5rem] relative">
-            <label className="text-[9px] uppercase tracking-[0.2em] text-emerald-500/70 font-black mb-1.5 flex items-center gap-2">
+          <div 
+            onClick={(e) => { e.stopPropagation(); setActiveDropdown(activeDropdown === "checkIn" ? null : "checkIn"); }}
+            className="flex-[1.2] flex flex-col px-6 py-3 border-b md:border-b-0 md:border-r border-white/5 hover:bg-white/5 transition-all cursor-pointer group rounded-t-[1.5rem] md:rounded-none md:rounded-l-[1.5rem] relative"
+          >
+            <label className="text-[9px] tracking-[0.2em] text-emerald-500/70 font-black mb-1.5 flex items-center gap-2">
               <Calendar className="w-3 h-3" />
               Check-In
             </label>
             <div className="relative h-6 flex items-center">
-              <input 
-                type="date" 
-                value={state.checkIn}
-                onChange={(e) => setCheckIn(e.target.value)}
-                className="absolute inset-0 opacity-0 cursor-pointer z-10 w-full [color-scheme:dark]"
-              />
               <span className="text-sm font-bold text-neutral-200 group-hover:text-white transition-colors">
-                {state.checkIn ? new Date(state.checkIn).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : "Select Date"}
+                {state.checkIn ? format(new Date(state.checkIn), 'dd MMM yyyy') : "Select Date"}
               </span>
             </div>
+
+            <AnimatePresence>
+              {activeDropdown === "checkIn" && (
+                <CalendarDropdown 
+                  selected={state.checkIn ? new Date(state.checkIn) : undefined}
+                  onSelect={(date) => {
+                    if (date) {
+                      setCheckIn(format(date, 'yyyy-MM-dd'));
+                      setActiveDropdown("checkOut"); // Auto move to checkout
+                    }
+                  }}
+                  disabledBefore={startOfToday()}
+                />
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Check-out */}
-          <div className="flex-[1.2] flex flex-col px-6 py-3 border-b md:border-b-0 md:border-r border-white/5 hover:bg-white/5 transition-all cursor-pointer group relative">
-            <label className="text-[9px] uppercase tracking-[0.2em] text-emerald-500/70 font-black mb-1.5 flex items-center gap-2">
+          <div 
+            onClick={(e) => { e.stopPropagation(); setActiveDropdown(activeDropdown === "checkOut" ? null : "checkOut"); }}
+            className="flex-[1.2] flex flex-col px-6 py-3 border-b md:border-b-0 md:border-r border-white/5 hover:bg-white/5 transition-all cursor-pointer group relative"
+          >
+            <label className="text-[9px] tracking-[0.2em] text-emerald-500/70 font-black mb-1.5 flex items-center gap-2">
               <Calendar className="w-3 h-3" />
               Check-Out
             </label>
             <div className="relative h-6 flex items-center">
-              <input 
-                type="date" 
-                value={state.checkOut}
-                onChange={(e) => setCheckOut(e.target.value)}
-                className="absolute inset-0 opacity-0 cursor-pointer z-10 w-full [color-scheme:dark]"
-              />
               <span className="text-sm font-bold text-neutral-200 group-hover:text-white transition-colors">
-                {state.checkOut ? new Date(state.checkOut).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : "Select Date"}
+                {state.checkOut ? format(new Date(state.checkOut), 'dd MMM yyyy') : "Select Date"}
               </span>
             </div>
+
+            <AnimatePresence>
+              {activeDropdown === "checkOut" && (
+                <CalendarDropdown 
+                  selected={state.checkOut ? new Date(state.checkOut) : undefined}
+                  onSelect={(date) => {
+                    if (date) {
+                      setCheckOut(format(date, 'yyyy-MM-dd'));
+                      setActiveDropdown(null);
+                    }
+                  }}
+                  disabledBefore={state.checkIn ? new Date(state.checkIn) : startOfToday()}
+                />
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Guests Selection */}
@@ -97,7 +199,7 @@ export const BookingBar = () => {
             onClick={(e) => { e.stopPropagation(); setActiveDropdown(activeDropdown === "guests" ? null : "guests"); }}
             className="flex-[1.5] flex flex-col px-6 py-3 border-b md:border-b-0 md:border-r border-white/5 hover:bg-white/5 transition-all cursor-pointer group relative"
           >
-            <label className="text-[9px] uppercase tracking-[0.2em] text-emerald-500/70 font-black mb-1.5 flex items-center gap-2">
+            <label className="text-[9px] tracking-[0.2em] text-emerald-500/70 font-black mb-1.5 flex items-center gap-2">
               <Users className="w-3 h-3" />
               Guests
             </label>
@@ -112,7 +214,7 @@ export const BookingBar = () => {
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                  className="absolute top-[calc(100%+12px)] left-0 w-72 bg-neutral-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 shadow-2xl z-50 overflow-hidden"
+                  className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-72 bg-neutral-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 shadow-2xl z-50 overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-emerald-500/5 pointer-events-none" />
                   <div className="relative space-y-2">
@@ -144,11 +246,11 @@ export const BookingBar = () => {
           </div>
 
           {/* Room Type */}
-          <div 
+          <div
             onClick={(e) => { e.stopPropagation(); setActiveDropdown(activeDropdown === "roomType" ? null : "roomType"); }}
             className="flex-1 flex flex-col px-6 py-3 hover:bg-white/5 transition-all cursor-pointer group relative"
           >
-            <label className="text-[9px] uppercase tracking-[0.2em] text-emerald-500/70 font-black mb-1.5 flex items-center gap-2">
+            <label className="text-[9px] tracking-[0.2em] text-emerald-500/70 font-black mb-1.5 flex items-center gap-2">
               <Home className="w-3 h-3" />
               Stay Type
             </label>
@@ -156,14 +258,13 @@ export const BookingBar = () => {
               <span className="text-sm font-bold truncate">{state.roomType}</span>
               <ChevronDown className={`w-4 h-4 text-emerald-500/50 transition-transform ${activeDropdown === "roomType" ? "rotate-180" : ""}`} />
             </div>
-
             <AnimatePresence>
               {activeDropdown === "roomType" && (
                 <motion.div 
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                  className="absolute top-[calc(100%+12px)] right-0 md:left-0 w-56 bg-neutral-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl z-50"
+                  className="absolute top-[calc(100%+8px)] right-0 md:left-0 w-56 bg-neutral-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl z-50"
                 >
                   <div className="flex flex-col">
                     {(["All Experiences", "Wooden Cottage", "Deluxe AC Room", "Standard Room"] as const).map((type) => (
@@ -180,7 +281,6 @@ export const BookingBar = () => {
               )}
             </AnimatePresence>
           </div>
-
           {/* Search Button */}
           <div className="p-1">
             <motion.button

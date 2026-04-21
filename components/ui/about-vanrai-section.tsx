@@ -183,12 +183,12 @@ export function AboutVanraiSection() {
                             {/* Description with luxury typography */}
                             <motion.div variants={fadeInUp} className="space-y-6 max-w-xl">
                                 <p className="text-xl sm:text-2xl leading-relaxed text-white/60 font-light">
-                                    A <span className="text-white font-normal">peaceful village-style sanctuary</span> near Ahmednagar,
-                                    where time slows down and nature embraces you.
+                                    A <span className="text-white font-normal">Peaceful Village-Style Sanctuary</span> Near Ahmednagar,
+                                    Where Time Slows Down And Nature Embraces You.
                                 </p>
                                 <p className="text-lg leading-relaxed text-white/40">
-                                    Surrounded by lush greenery and open skies, Vanrai offers an escape
-                                    from the ordinary — a place to reconnect, rejuvenate, and create lasting memories.
+                                    Surrounded By Lush Greenery And Open Skies, Vanrai Offers An Escape
+                                    From The Ordinary — A Place To Reconnect, Rejuvenate, And Create Lasting Memories.
                                 </p>
                             </motion.div>
 

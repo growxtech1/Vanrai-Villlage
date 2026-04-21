@@ -4,11 +4,11 @@ import React from "react";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { useBooking } from "@/lib/booking-context";
+import { BookingBar } from "@/components/ui/booking-bar";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bed, Users, Wind, TreePine, Check, ArrowRight, Star, Info, ChevronRight } from "lucide-react";
 import NextImage from "next/image";
-import { BookingBar } from "@/components/ui/booking-bar";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const ROOM_INVENTORY_DATA = [
   {
@@ -76,11 +76,36 @@ const Counter = ({ value, onIncrement, onDecrement, label, min = 0, max = 10 }: 
 );
 
 export default function AvailabilityPage() {
-  const { state, addRoom, removeRoom, toggleAddOn, setAdults, setChildren, setMembershipId, verifyMembership, applyPromoCode, calculateTotal } = useBooking();
+  return (
+    <React.Suspense fallback={<div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">Loading...</div>}>
+      <AvailabilityContent />
+    </React.Suspense>
+  );
+}
+
+function AvailabilityContent() {
+  const { state, setCheckIn, setCheckOut, setRoomType, addRoom, removeRoom, toggleAddOn, setAdults, setChildren, setMembershipId, verifyMembership, applyPromoCode, calculateTotal } = useBooking();
   const [promoInput, setPromoInput] = React.useState("");
   const router = useRouter();
-
+  const searchParams = useSearchParams();
   const { subtotal, nights, membershipDiscount, promoDiscountAmount, finalTotal, extraGuestTotal, addOnsTotal } = calculateTotal();
+
+  // Parse URL params on mount
+  React.useEffect(() => {
+    const checkIn = searchParams.get("checkIn");
+    const checkOut = searchParams.get("checkOut");
+    const adults = searchParams.get("adults");
+    const children = searchParams.get("children");
+    const roomType = searchParams.get("roomType");
+
+    if (checkIn) setCheckIn(checkIn);
+    if (checkOut) setCheckOut(checkOut);
+    if (adults) setAdults(parseInt(adults));
+    if (children) setChildren(parseInt(children));
+    if (roomType) {
+        setRoomType(roomType === "All" ? "All" : roomType as any);
+    }
+  }, [searchParams]);
 
   const filteredRooms = state.roomType === "All" 
     ? ROOM_INVENTORY_DATA 
@@ -290,7 +315,7 @@ export default function AvailabilityPage() {
                                    />
                                 ))}
                              </div>
-                             <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-500">
+                             <span className="text-[10px] font-bold tracking-widest text-neutral-500">
                                 {availableCount} Rooms Available
                              </span>
                           </div>
@@ -310,9 +335,9 @@ export default function AvailabilityPage() {
                               <button 
                                 onClick={() => addRoom({ id: room.id, name: room.name, price: room.price, count: 1 })}
                                 disabled={isSoldOut}
-                                className="bg-emerald-500 text-black font-black uppercase tracking-widest text-[10px] px-8 py-4 rounded-2xl flex items-center gap-3 transition-all shadow-[0_10px_30px_rgba(16,185,129,0.2)] hover:shadow-[0_15px_40px_rgba(16,185,129,0.4)]"
+                                className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold px-8 py-4 rounded-2xl flex items-center gap-3 transition-all shadow-[0_10px_30px_rgba(16,185,129,0.2)]"
                               >
-                                Select Room <ArrowRight className="w-4 h-4" />
+                                Select Stay <ArrowRight className="w-4 h-4" />
                               </button>
                             )}
                           </div>
@@ -352,7 +377,7 @@ export default function AvailabilityPage() {
                   {/* Selected Rooms List */}
                   {state.selectedRooms.length > 0 && (
                     <div className="mb-4 p-4 bg-white/5 rounded-2xl border border-white/5 space-y-3">
-                      <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-500 mb-2 block">Selected Rooms</span>
+                      <span className="text-[10px] font-bold tracking-widest text-neutral-500 mb-2 block">Selected Rooms</span>
                       {state.selectedRooms.map(room => (
                         <div key={room.id} className="flex justify-between items-center text-sm group">
                           <span className="text-neutral-300">{room.name} (x{room.count})</span>
@@ -370,7 +395,7 @@ export default function AvailabilityPage() {
                   {/* Selected Add-ons List */}
                   {state.addOns.length > 0 && (
                     <div className="mb-4 p-4 bg-emerald-500/5 rounded-2xl border border-emerald-500/10 space-y-3">
-                      <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-500 mb-2 block">Optional Experiences</span>
+                      <span className="text-[10px] font-bold tracking-widest text-emerald-500 mb-2 block">Optional Experiences</span>
                       {state.addOns.map(addon => (
                         <div key={addon.id} className="flex justify-between items-center text-sm group">
                           <span className="text-neutral-300">{addon.name}</span>
@@ -420,7 +445,7 @@ export default function AvailabilityPage() {
 
                   {/* Membership Input */}
                   <div className="mt-8 space-y-3">
-                     <label className="text-[10px] uppercase font-bold tracking-widest text-neutral-500">Membership ID</label>
+                     <label className="text-[10px] font-bold tracking-widest text-neutral-500">Membership ID</label>
                      <div className="flex gap-2">
                         <input 
                           type="text" 
@@ -441,7 +466,7 @@ export default function AvailabilityPage() {
 
                   {/* Promo Code Input */}
                   <div className="mt-6 space-y-3">
-                     <label className="text-[10px] uppercase font-bold tracking-widest text-neutral-500">Promo Code</label>
+                     <label className="text-[10px] font-bold tracking-widest text-neutral-500">Promo Code</label>
                      <div className="flex gap-2">
                         <input 
                           type="text" 
