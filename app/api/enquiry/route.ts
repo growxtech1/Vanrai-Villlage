@@ -1,7 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/utils/supabase/client";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { EventEnquiryRecord } from "@/lib/supabase";
 import { sendEnquiryEmails, EnquiryEmailPayload } from "@/lib/email";
+
+// Create a server-side Supabase client
+// Uses service_role key if available (bypasses RLS), otherwise falls back to anon/publishable key
+function getServerSupabaseClient() {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const key =
+        process.env.SUPABASE_SERVICE_ROLE_KEY ||
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+    return createSupabaseClient(url, key, {
+        auth: { persistSession: false },
+    });
+}
 
 // Helper to format Date objects/strings to a readable string
 function formatDate(d: Date | string | null): string | null {
@@ -75,7 +88,7 @@ export async function POST(req: NextRequest) {
 
         if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
             try {
-                const supabase = createClient();
+                const supabase = getServerSupabaseClient();
                 const record: EventEnquiryRecord = {
                     first_name: firstName.trim(),
                     last_name: lastName.trim(),
