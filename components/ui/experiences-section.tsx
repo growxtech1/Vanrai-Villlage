@@ -2,8 +2,10 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { FallbackImage } from "@/components/ui/fallback-image";
 import { motion, useInView, useScroll, useTransform, useMotionValue, useSpring, type Variants } from "framer-motion";
-import { Sparkles, Droplets, Flame, Heart, UtensilsCrossed, PartyPopper, Church, ArrowRight, Trophy, Gavel, Play, ChevronLeft, ChevronRight } from "lucide-react";
+import { Sparkles, Droplets, Flame, Heart, UtensilsCrossed, PartyPopper, Church, ArrowRight, Trophy, Gavel, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Experience {
     id: number;
@@ -18,7 +20,7 @@ const experiences: Experience[] = [
     {
         id: 1,
         name: "Water Park",
-        image: "https://images.unsplash.com/photo-1561150169-371f366b828a?w=800&h=600&fit=crop",
+        image: "/img/waterpark-slides.jpg",
         icon: <Droplets className="w-5 h-5" />,
         description: "Splash into fun with exciting water slides and pools",
         accent: "from-blue-500 to-cyan-400",
@@ -26,7 +28,7 @@ const experiences: Experience[] = [
     {
         id: 2,
         name: "Rain Dance",
-        image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=600&fit=crop",
+        image: "/img/rain-dance.jpg",
         icon: <Sparkles className="w-5 h-5" />,
         description: "Dance under the artificial rain with music and lights",
         accent: "from-purple-500 to-pink-400",
@@ -34,7 +36,7 @@ const experiences: Experience[] = [
     {
         id: 3,
         name: "Evening Bonfire",
-        image: "https://images.unsplash.com/photo-1536207447787-8e6f9e3e9854?w=800&h=600&fit=crop",
+        image: "/img/evening-bonfire.jpg",
         icon: <Flame className="w-5 h-5" />,
         description: "Cozy evenings around crackling bonfire under the stars",
         accent: "from-orange-500 to-red-400",
@@ -42,7 +44,7 @@ const experiences: Experience[] = [
     {
         id: 4,
         name: "Candle Light Dinner",
-        image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800&h=600&fit=crop",
+        image: "/img/candle-light-dinner.jpg",
         icon: <Heart className="w-5 h-5" />,
         description: "Romantic dining experience under warm candlelight",
         accent: "from-rose-500 to-pink-400",
@@ -50,7 +52,7 @@ const experiences: Experience[] = [
     {
         id: 5,
         name: "Dining",
-        image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=600&fit=crop",
+        image: "/img/dining-hall-wide.webp",
         icon: <UtensilsCrossed className="w-5 h-5" />,
         description: "Savor delicious authentic cuisine in our restaurants",
         accent: "from-amber-500 to-yellow-400",
@@ -58,7 +60,7 @@ const experiences: Experience[] = [
     {
         id: 6,
         name: "Festive Events",
-        image: "https://images.unsplash.com/photo-1545128485-c400e7702796?w=800&h=600&fit=crop",
+        image: "/img/event-banquet-stage-lights.webp",
         icon: <PartyPopper className="w-5 h-5" />,
         description: "Celebrate Holi, Diwali, and special occasions with us",
         accent: "from-fuchsia-500 to-purple-400",
@@ -66,7 +68,7 @@ const experiences: Experience[] = [
     {
         id: 7,
         name: "Destination Wedding",
-        image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=600&fit=crop",
+        image: "/img/event-wedding-hall-stage.webp",
         icon: <Church className="w-5 h-5" />,
         description: "Create unforgettable memories at our scenic venue",
         accent: "from-pink-500 to-rose-400",
@@ -74,15 +76,15 @@ const experiences: Experience[] = [
     {
         id: 8,
         name: "Cricket Tournament",
-        image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&h=600&fit=crop",
+        image: "/img/vanrai-open-lawn-sports.webp",
         icon: <Trophy className="w-5 h-5" />,
-        description: "Compete in exciting cricket matches on our open grounds",
+        description: "Compete in exciting cricket matches on our floodlit open grounds",
         accent: "from-green-500 to-emerald-400",
     },
     {
         id: 9,
         name: "Sports Auction",
-        image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&h=600&fit=crop",
+        image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=600&fit=crop&q=80",
         icon: <Gavel className="w-5 h-5" />,
         description: "Experience the thrill of IPL-style player auctions",
         accent: "from-indigo-500 to-blue-400",
@@ -183,7 +185,7 @@ export function ExperiencesSection() {
         <motion.section
             ref={sectionRef}
             id="experiences"
-            className="relative w-full py-16 sm:py-20 md:py-28 overflow-hidden"
+            className="relative w-full py-24 sm:py-32 overflow-hidden"
         >
             {/* Premium dark gradient background */}
             <div className="absolute inset-0 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950" />
@@ -202,17 +204,17 @@ export function ExperiencesSection() {
                 }}
             />
 
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mb-12 sm:mb-14 md:mb-16">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mb-8 sm:mb-10 md:mb-12">
                 {/* Header */}
                 <motion.div
-                    className="text-center mb-10 sm:mb-12 md:mb-16"
+                    className="text-center mb-6 sm:mb-8 md:mb-10"
                     variants={headerVariants}
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
                 >
                     {/* Animated Badge */}
                     <motion.div
-                        className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6"
+                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-4"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
@@ -221,12 +223,12 @@ export function ExperiencesSection() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                         </span>
-                        <span className="text-sm font-medium text-white/80 tracking-wide uppercase">Unforgettable Experiences</span>
+                        <span className="text-xs font-medium text-white/80 tracking-wide uppercase">Unforgettable Experiences</span>
                     </motion.div>
 
                     {/* Title with gradient animation */}
                     <motion.h2
-                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-3 tracking-tight"
+                        className="text-3xl sm:text-4xl md:text-5xl font-medium text-white mb-2 tracking-tight"
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ delay: 0.3, duration: 0.6 }}
@@ -234,7 +236,7 @@ export function ExperiencesSection() {
                         Moments to Enjoy
                     </motion.h2>
                     <motion.h2
-                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium italic bg-gradient-to-r from-green-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient"
+                        className="text-3xl sm:text-4xl md:text-5xl font-medium italic text-emerald-400"
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ delay: 0.4, duration: 0.6 }}
@@ -244,7 +246,7 @@ export function ExperiencesSection() {
 
                     {/* Subtitle */}
                     <motion.p
-                        className="mt-6 text-lg text-white/50 max-w-2xl mx-auto"
+                        className="mt-3 text-sm sm:text-base text-white/50 max-w-2xl mx-auto font-light leading-relaxed"
                         initial={{ opacity: 0 }}
                         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                         transition={{ delay: 0.5, duration: 0.6 }}
@@ -331,20 +333,12 @@ export function ExperiencesSection() {
                                 viewport={{ once: true, amount: 0.5 }}
                                 variants={cardVariants}
                             >
-                                {/* Futuristic border glow effect */}
-                                <motion.div
-                                    className={`absolute -inset-0.5 rounded-3xl bg-gradient-to-r ${experience.accent} opacity-0 blur-sm transition-opacity duration-500`}
-                                    animate={{
-                                        opacity: activeIndex === index ? 0.6 : 0,
-                                    }}
-                                />
-
-                                {/* Card container with glassmorphism */}
-                                <div className="relative h-[420px] bg-neutral-900/95 md:bg-white/5 md:backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden">
+                                {/* Card container with quiet luxury dark glass */}
+                                <div className={`relative h-[420px] bg-neutral-900/90 backdrop-blur-xl border ${activeIndex === index ? 'border-emerald-500/40 shadow-lg shadow-black/40' : 'border-white/10'} rounded-3xl overflow-hidden transition-all duration-300`}>
 
                                     {/* Image Container */}
                                     <div className="relative h-[220px] overflow-hidden">
-                                        <Image
+                                        <FallbackImage
                                             src={experience.image}
                                             alt={experience.name}
                                             fill
@@ -355,9 +349,9 @@ export function ExperiencesSection() {
                                         {/* Gradient overlay */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/20 to-transparent" />
 
-                                        {/* Animated accent line at top */}
+                                        {/* Subtle top indicator line */}
                                         <motion.div
-                                            className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${experience.accent}`}
+                                            className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent"
                                             initial={{ scaleX: 0 }}
                                             animate={{ scaleX: activeIndex === index ? 1 : 0 }}
                                             transition={{ duration: 0.5 }}
@@ -368,12 +362,11 @@ export function ExperiencesSection() {
                                         <motion.div
                                             className="absolute bottom-4 right-4"
                                             animate={{
-                                                scale: activeIndex === index ? 1.1 : 1,
-                                                rotate: activeIndex === index ? 6 : 0,
+                                                scale: activeIndex === index ? 1.05 : 1,
                                             }}
                                             transition={{ type: "spring", stiffness: 300 }}
                                         >
-                                            <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${experience.accent} flex items-center justify-center text-white shadow-lg`}>
+                                            <div className="w-11 h-11 rounded-2xl bg-black/70 backdrop-blur-md border border-white/15 flex items-center justify-center text-emerald-400 shadow-xl">
                                                 {experience.icon}
                                             </div>
                                         </motion.div>
@@ -381,13 +374,8 @@ export function ExperiencesSection() {
 
                                     {/* Content */}
                                     <div className="p-5 space-y-3">
-                                        {/* Name with gradient */}
-                                        <h3
-                                            className={`text-xl font-bold transition-all duration-300 ${activeIndex === index
-                                                ? 'bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent'
-                                                : 'text-white'
-                                                }`}
-                                        >
+                                        {/* Clean white title */}
+                                        <h3 className="text-xl font-bold text-white transition-colors duration-300">
                                             {experience.name}
                                         </h3>
 
@@ -400,7 +388,7 @@ export function ExperiencesSection() {
 
                                         {/* Explore link */}
                                         <div className="flex items-center justify-between pt-1">
-                                            <button className="flex items-center gap-2 text-sm font-semibold text-white/80">
+                                            <Link href="/experiences" className="flex items-center gap-2 text-sm font-semibold text-white/80 hover:text-green-400 transition-colors">
                                                 <span>Explore</span>
                                                 <motion.div
                                                     animate={{ x: activeIndex === index ? [0, 4, 0] : 0 }}
@@ -408,7 +396,7 @@ export function ExperiencesSection() {
                                                 >
                                                     <ArrowRight className="w-4 h-4" />
                                                 </motion.div>
-                                            </button>
+                                            </Link>
 
                                             {/* Rating indicator */}
                                             <div className="flex items-center gap-1">
@@ -484,11 +472,11 @@ export function ExperiencesSection() {
                 </div>
             ) : (
                 /* Desktop: Auto-scrolling infinite carousel */
-                <div className="relative overflow-hidden py-6">
+                <div className="relative overflow-hidden py-4">
                     <motion.div
                         className="flex gap-6"
                         animate={{
-                            x: isPaused ? 0 : [0, -1 * (380 * experiences.length + 24 * experiences.length)],
+                            x: isPaused ? 0 : [0, -1 * (320 * experiences.length + 24 * experiences.length)],
                         }}
                         transition={{
                             x: {
@@ -506,58 +494,48 @@ export function ExperiencesSection() {
                             <motion.div
                                 key={`${experience.id}-${index}`}
                                 className="group relative rounded-3xl overflow-hidden flex-shrink-0 cursor-pointer"
-                                style={{ width: "380px" }}
+                                style={{ width: "320px" }}
                                 whileHover={{
-                                    y: -12,
-                                    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+                                    y: -8,
+                                    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
                                 }}
                             >
-                                {/* Card container with glassmorphism */}
-                                <div className="relative h-[480px] bg-neutral-900/95 md:bg-white/5 md:backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden">
+                                {/* Card container with quiet luxury dark glass */}
+                                <div className="relative h-[410px] bg-neutral-900/90 backdrop-blur-xl border border-white/10 group-hover:border-emerald-500/30 rounded-3xl overflow-hidden transition-all duration-300 shadow-xl">
 
-                                    {/* Image Container - takes more space */}
-                                    <div className="relative h-[280px] overflow-hidden">
-                                        <Image
+                                    {/* Image Container */}
+                                    <div className="relative h-[230px] overflow-hidden">
+                                        <FallbackImage
                                             src={experience.image}
                                             alt={experience.name}
                                             fill
                                             className="object-cover transition-all duration-700 group-hover:scale-110"
-                                            sizes="(max-width: 768px) 380px, 450px"
+                                            sizes="(max-width: 768px) 320px, 400px"
                                         />
 
                                         {/* Gradient overlay */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/20 to-transparent" />
 
-                                        {/* Animated accent line at top */}
-                                        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${experience.accent} transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500`} />
-
-                                        {/* Play button overlay */}
-                                        <motion.div
-                                            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                            whileHover={{ scale: 1.1 }}
-                                        >
-                                            <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${experience.accent} flex items-center justify-center shadow-2xl`}>
-                                                <Play className="w-6 h-6 text-white ml-1" fill="white" />
-                                            </div>
-                                        </motion.div>
+                                        {/* Subtle accent line at top */}
+                                        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
 
                                         {/* Floating icon badge */}
-                                        <div className="absolute bottom-4 right-4">
-                                            <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${experience.accent} flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
+                                        <div className="absolute bottom-3 right-3">
+                                            <div className="w-10 h-10 rounded-xl bg-black/70 backdrop-blur-md border border-white/15 flex items-center justify-center text-emerald-400 shadow-xl group-hover:border-emerald-500/40 group-hover:scale-105 transition-all duration-300">
                                                 {experience.icon}
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Content */}
-                                    <div className="p-6 space-y-4">
-                                        {/* Name with gradient hover */}
-                                        <h3 className="text-2xl font-bold text-white group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-emerald-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                                    <div className="p-5 space-y-3">
+                                        {/* Clean white title */}
+                                        <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-emerald-400 transition-colors duration-300">
                                             {experience.name}
                                         </h3>
 
                                         {/* Description */}
-                                        <p className="text-white/60 leading-relaxed text-base">
+                                        <p className="text-white/60 leading-relaxed text-xs sm:text-sm line-clamp-2">
                                             {experience.description}
                                         </p>
 
@@ -566,10 +544,10 @@ export function ExperiencesSection() {
 
                                         {/* Explore link */}
                                         <div className="flex items-center justify-between pt-2">
-                                            <button className="group/btn flex items-center gap-2 text-sm font-semibold text-white/80 hover:text-green-400 transition-colors">
+                                            <Link href="/experiences" className="group/btn flex items-center gap-2 text-sm font-semibold text-white/80 hover:text-green-400 transition-colors">
                                                 <span>Explore Experience</span>
                                                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform duration-300" />
-                                            </button>
+                                            </Link>
 
                                             {/* Rating/Status indicator */}
                                             <div className="flex items-center gap-1">
@@ -582,9 +560,6 @@ export function ExperiencesSection() {
                                             </div>
                                         </div>
                                     </div>
-
-                                    {/* Hover glow effect */}
-                                    <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-t ${experience.accent} blur-xl -z-10`} style={{ transform: 'scale(0.8)' }} />
                                 </div>
                             </motion.div>
                         ))}

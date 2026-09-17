@@ -28,6 +28,7 @@ export function MembershipHero() {
                     className="object-cover brightness-[0.3]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/50 via-transparent to-[#0a0a0a]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-black/40 to-black/20" />
             </motion.div>
 
             {/* Floating Elements */}
@@ -46,46 +47,46 @@ export function MembershipHero() {
 
             <div className="container mx-auto px-4 relative z-20 text-center">
                 <motion.div
-                    style={{ opacity }}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     className="max-w-5xl mx-auto"
                 >
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.2, duration: 0.8 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-8"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6"
                     >
                         <Crown className="w-4 h-4 text-amber-500" />
-                        <span className="text-white/80 text-xs font-semibold tracking-[0.2em] uppercase">
+                        <span className="text-white/90 text-xs sm:text-sm font-medium tracking-[0.25em] uppercase">
                             The Vanrai Privilege Account
                         </span>
                     </motion.div>
 
-                    <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tighter leading-[0.9] mb-8">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal text-white tracking-tight leading-[1.08] mb-6 sm:mb-8">
                         Vanrai Exclusive <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-400 to-green-600 italic font-light">
+                        <span className="text-green-400 italic font-normal">
                             Membership
                         </span>
                     </h1>
 
-                    <p className="text-lg md:text-2xl text-white/60 max-w-3xl mx-auto leading-relaxed mb-12 font-light">
+                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-neutral-300 max-w-3xl mx-auto leading-relaxed mb-8 sm:mb-10 font-light">
                         Experience Vanrai beyond a single stay. A private annual club offering complimentary stays, unlimited waterpark access, and exclusive privileges.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="px-10 py-5 bg-green-500 text-black font-bold rounded-full shadow-[0_0_30px_rgba(34,197,94,0.3)] hover:bg-green-400 transition-all duration-300 flex items-center gap-2"
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-5">
+                        <motion.a
+                            href="#plans"
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
+                            className="h-11 px-6 bg-green-500 text-black font-medium text-sm rounded-[14px] shadow-lg shadow-green-500/25 hover:bg-green-400 transition-all duration-300 flex items-center justify-center gap-2"
                         >
-                            Join the Club <Star className="w-5 h-5 fill-current" />
-                        </motion.button>
+                            Join the Club <Star className="w-4 h-4 fill-current" />
+                        </motion.a>
                         <a
                             href="#plans"
-                            className="inline-flex items-center justify-center px-10 py-5 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white font-medium hover:bg-white/10 transition-all duration-300"
+                            className="inline-flex items-center justify-center h-11 px-6 rounded-[14px] border border-white/20 bg-white/5 backdrop-blur-md text-white text-sm font-medium hover:bg-white/10 transition-all duration-300"
                         >
                             Compare Plans
                         </a>
@@ -95,12 +96,12 @@ export function MembershipHero() {
 
             {/* Scroll Indicator */}
             <motion.div
-                animate={{ y: [0, 10, 0] }}
+                animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20"
+                className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20"
             >
-                <div className="w-6 h-10 rounded-full border border-white/20 flex justify-center pt-2">
-                    <motion.div className="w-1 h-2 bg-green-500 rounded-full" />
+                <div className="w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5">
+                    <motion.div className="w-1 h-1.5 bg-green-500 rounded-full" />
                 </div>
             </motion.div>
         </section>

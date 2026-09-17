@@ -5,8 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
     User, Phone, Mail, ArrowRight, ArrowLeft, Check,
     Calendar, Briefcase, Gift, PartyPopper, Trophy,
-    Table, Bed, Users, Utensils, Loader2, Clock, ChevronLeft, ChevronRight, MapPin
+    Table, Bed, Users, Utensils, Loader2, Clock, ChevronLeft, ChevronRight, MapPin,
+    CheckCircle2, Sparkles
 } from "lucide-react";
+import { RESORT_CONTACT, getWhatsAppUrl, WHATSAPP_MESSAGES } from "@/lib/contact-config";
 
 // Types
 type EventType = "wedding" | "corporate" | "birthday" | "festive" | "sports" | "picnic";
@@ -52,10 +54,10 @@ const formatDate = (date: Date) => {
 };
 
 const steps = [
-    { id: 1, title: "Personal Details" },
-    { id: 2, title: "Event Details" },
-    { id: 3, title: "Requirements" },
-    { id: 4, title: "Review & Submit" },
+    { id: 1, title: "Personal Details", subtitle: "Name & Contact", icon: User },
+    { id: 2, title: "Event Details", subtitle: "Occasion & Dates", icon: Calendar },
+    { id: 3, title: "Requirements", subtitle: "Guests & Rooms", icon: Bed },
+    { id: 4, title: "Review & Submit", subtitle: "Verify & Send", icon: CheckCircle2 },
 ];
 
 const eventTypes = [
@@ -71,6 +73,7 @@ export function ContactFormStepper() {
     const [currentStep, setCurrentStep] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [issubmitted, setIssubmitted] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
 
     const [formData, setFormData] = useState<FormData>({
         firstName: "",
@@ -151,14 +154,53 @@ export function ContactFormStepper() {
 
     const handleSubmit = async () => {
         setIsSubmitting(true);
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        setIsSubmitting(false);
-        setIssubmitted(true);
+        setSubmitError(null);
+        try {
+            const payload = {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                phone: formData.phone,
+                email: formData.email,
+                eventType: formData.eventType,
+                date: formData.date ? formData.date.toISOString() : null,
+                numDays: formData.numDays,
+                rooms: formData.rooms,
+                pax: formData.pax,
+                catering: formData.catering,
+                cateringType: formData.cateringType,
+            };
+
+            const res = await fetch("/api/enquiry", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok || !data.success) {
+                const msg =
+                    data?.errors?.[0] ||
+                    data?.message ||
+                    "Something went wrong. Please try again or contact us directly.";
+                setSubmitError(msg);
+                setIsSubmitting(false);
+                return;
+            }
+
+            setIssubmitted(true);
+        } catch (err) {
+            console.error("[Submit Error]", err);
+            setSubmitError(
+                "A network error occurred. Please check your connection and try again, or reach us on WhatsApp."
+            );
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
-        <section id="contact" className="py-20 sm:py-32 bg-[#0a0a0a] relative overflow-hidden">
+        <section id="contact" className="py-24 sm:py-32 bg-[#0a0a0a] relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-green-900/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-emerald-900/10 rounded-full blur-[150px] pointer-events-none" />
@@ -172,37 +214,47 @@ export function ContactFormStepper() {
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0, y: -20 }}
                             transition={{ type: "spring", duration: 0.8 }}
-                            className="w-full max-w-4xl mx-auto p-4 sm:p-12 text-center bg-[#131d33]/50 backdrop-blur-xl rounded-[2.5rem] border border-white/10 shadow-2xl relative overflow-hidden my-10"
+                            className="w-full max-w-4xl mx-auto p-4 sm:p-10 text-center bg-neutral-900/80 backdrop-blur-2xl rounded-[2rem] border border-white/10 shadow-2xl relative overflow-hidden my-6 sm:my-8"
                         >
                             <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-green-500/10 rounded-full blur-[100px] pointer-events-none" />
-                            <div className="flex flex-col items-center gap-6 py-8 relative z-10">
-                                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center text-green-500 mb-4 shadow-xl shadow-green-500/10 ring-1 ring-green-500/30">
-                                    <Check className="w-12 h-12" />
+                            <div className="flex flex-col items-center gap-6 py-6 relative z-10">
+                                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center text-green-500 mb-2 shadow-xl shadow-green-500/10 ring-1 ring-green-500/30">
+                                    <Check className="w-10 h-10" />
                                 </div>
                                 <div>
-                                    <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3 tracking-tight">Inquiry Sent Successfully!</h2>
-                                    <p className="text-gray-400 max-w-lg mx-auto text-lg leading-relaxed">
+                                    <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">Inquiry Sent Successfully!</h2>
+                                    <p className="text-neutral-400 max-w-lg mx-auto text-sm sm:text-base leading-relaxed">
                                         Thank you for choosing Vanrai Village. We have received your details and our event specialists will get back to you shortly.
                                     </p>
                                 </div>
 
-                                <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                                <div className="flex flex-col sm:flex-row gap-3.5 mt-6">
                                     <button
                                         onClick={() => {
                                             setIssubmitted(false);
                                             setCurrentStep(1);
+                                            setSubmitError(null);
                                             setFormData({
                                                 firstName: "", lastName: "", phone: "", email: "",
                                                 eventType: "", rooms: 0, pax: 50, catering: false, cateringType: null,
                                                 numDays: 1, date: null
                                             });
                                         }}
-                                        className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-full transition-all hover:scale-105 font-semibold"
+                                        className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-full transition-all hover:scale-105 font-medium text-sm"
                                     >
                                         Start New Inquiry
                                     </button>
 
-                                    <a href="/" className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-full transition-all hover:scale-105 shadow-lg shadow-green-500/25 font-bold flex items-center justify-center gap-2">
+                                    <a
+                                        href={getWhatsAppUrl(WHATSAPP_MESSAGES.events)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-6 py-3 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full transition-all hover:scale-105 shadow-lg shadow-emerald-950/30 font-semibold text-sm flex items-center justify-center gap-2"
+                                    >
+                                        Chat with Sales on WhatsApp
+                                    </a>
+
+                                    <a href="/" className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-full transition-all hover:scale-105 shadow-lg shadow-green-500/25 font-semibold text-sm flex items-center justify-center gap-2">
                                         Back to Home <ArrowRight className="w-4 h-4" />
                                     </a>
                                 </div>
@@ -218,14 +270,14 @@ export function ContactFormStepper() {
                             {/* Combined Form and Map Layout */}
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                                 {/* Left Side: Form Elements (Form header + Stepper) */}
-                                <div className="lg:col-span-12 xl:col-span-12 mb-12">
+                                <div className="lg:col-span-12 xl:col-span-12 mb-8">
                                     {/* Header */}
-                                    <div className="text-center mb-16">
+                                    <div className="text-center mb-10 sm:mb-12">
                                         <motion.div
                                             initial={{ opacity: 0, y: 20 }}
                                             whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true }}
-                                            className="inline-block px-4 py-1.5 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 text-sm font-semibold tracking-wider uppercase mb-6"
+                                            className="inline-block px-3.5 py-1.5 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 text-xs font-semibold tracking-wider uppercase mb-4"
                                         >
                                             Contact Us
                                         </motion.div>
@@ -234,7 +286,7 @@ export function ContactFormStepper() {
                                             whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true }}
                                             transition={{ delay: 0.1 }}
-                                            className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight"
+                                            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 tracking-tight"
                                         >
                                             Plan Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">Event</span>
                                         </motion.h2>
@@ -243,7 +295,7 @@ export function ContactFormStepper() {
                                             whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true }}
                                             transition={{ delay: 0.2 }}
-                                            className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed"
+                                            className="text-neutral-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed"
                                         >
                                             From intimate gatherings to grand celebrations, tell us your vision and we'll bring it to life at Vanrai Village.
                                         </motion.p>
@@ -253,63 +305,143 @@ export function ContactFormStepper() {
                                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
                                         {/* Stepper Card */}
                                         <div className="lg:col-span-7 xl:col-span-8 flex flex-col">
-                                            {/* Stepper Progress */}
-                                            <div className="relative mb-20 px-4">
-                                                {/* Background track */}
-                                                <div className="absolute top-[28px] sm:top-[32px] left-[48px] sm:left-[64px] right-[48px] sm:right-[64px] h-[3px] bg-white/[0.03] backdrop-blur-sm -z-10 rounded-full border border-white/5" />
+                                            {/* Elevated Luxury Stepper Capsule */}
+                                            <div className="bg-neutral-900/90 backdrop-blur-2xl rounded-2xl sm:rounded-[24px] border border-white/10 p-4 sm:p-5 shadow-2xl relative overflow-hidden mb-6 sm:mb-8">
+                                                {/* Ambient Glow Orb tracking current step */}
+                                                <div
+                                                    className="absolute -top-12 h-32 w-32 bg-[#00c97b]/20 rounded-full blur-3xl pointer-events-none transition-all duration-700 ease-out -z-0"
+                                                    style={{ left: `calc(${12.5 + ((currentStep - 1) / (steps.length - 1)) * 75}% - 4rem)` }}
+                                                />
 
-                                                {/* Active Progress Bar */}
-                                                <div className="absolute top-[28px] sm:top-[32px] left-[48px] sm:left-[64px] right-[48px] sm:right-[64px] h-[3px] -z-10">
-                                                    <motion.div
-                                                        className="h-full bg-gradient-to-r from-green-500 via-emerald-400 to-green-500 rounded-full shadow-[0_0_20px_rgba(16,185,129,0.6)]"
-                                                        initial={{ width: "0%" }}
-                                                        animate={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
-                                                        transition={{ duration: 0.8, ease: [0.65, 0, 0.35, 1] }}
-                                                    />
+                                                {/* Top Meta Status Bar */}
+                                                <div className="flex items-center justify-between pb-3 sm:pb-3.5 mb-3 sm:mb-4 border-b border-white/[0.08] relative z-10">
+                                                    <div className="flex items-center gap-2 sm:gap-3">
+                                                        <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
+                                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                                            <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-[#00c97b]"></span>
+                                                        </span>
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wider uppercase text-[#00c97b]">
+                                                                Step 0{currentStep} / 04
+                                                            </span>
+                                                            <span className="text-neutral-600 text-xs hidden sm:inline">•</span>
+                                                            <span className="text-xs sm:text-sm font-semibold text-neutral-200 hidden sm:inline">
+                                                                {steps[currentStep - 1]?.title}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[#00c97b] text-[11px] sm:text-xs font-semibold">
+                                                        <Sparkles className="w-3 h-3 text-emerald-400" />
+                                                        <span>{Math.round((currentStep / steps.length) * 100)}% Complete</span>
+                                                    </div>
                                                 </div>
 
-                                                <div className="flex justify-between items-start">
-                                                    {steps.map((step) => (
-                                                        <div key={step.id} className="flex flex-col items-center group w-20 sm:w-28 relative z-10 text-center">
-                                                            <div className="relative mb-6">
-                                                                <motion.div
-                                                                    initial={false}
-                                                                    animate={{
-                                                                        scale: currentStep === step.id ? 1.05 : 1,
-                                                                        backgroundColor: currentStep > step.id ? "#10B981" : "#0F172A",
-                                                                        borderColor: currentStep >= step.id ? "#10B981" : "rgba(255,255,255,0.08)",
-                                                                    }}
-                                                                    className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-lg sm:text-2xl font-black border-2 relative transition-all duration-500
-                                                                        ${currentStep === step.id ? "shadow-[0_0_40px_rgba(16,185,129,0.3)] ring-1 ring-green-500/50" : ""}
-                                                                    `}
-                                                                >
-                                                                    {currentStep === step.id && (
-                                                                        <motion.div layoutId="stepGlow" className="absolute -inset-1 rounded-full bg-green-500/10 blur-xl -z-10" />
-                                                                    )}
-                                                                    {currentStep > step.id ? (
-                                                                        <Check className="w-6 h-6 sm:w-9 sm:h-9 stroke-[3px] text-white" />
-                                                                    ) : (
-                                                                        <span className={`${currentStep === step.id ? "text-white" : "text-gray-600"} relative z-10`}>
-                                                                            {step.id}
+                                                {/* Interactive Progress Rail & Nodes */}
+                                                <div className="relative pt-1 sm:pt-2 pb-1">
+                                                    {/* Background Connecting Rail */}
+                                                    <div className="absolute top-[20px] sm:top-[24px] left-[12.5%] right-[12.5%] h-[3px] -translate-y-1/2 bg-white/[0.08] rounded-full overflow-hidden z-0">
+                                                        {/* Active Progress Track with smooth gradient & glow */}
+                                                        <motion.div
+                                                            className="h-full bg-gradient-to-r from-emerald-500 via-[#00c97b] to-teal-400 rounded-full shadow-[0_0_14px_rgba(0,201,123,0.8)]"
+                                                            initial={false}
+                                                            animate={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+                                                            transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+                                                        />
+                                                    </div>
+
+                                                    {/* 4-Step Nodes Grid */}
+                                                    <div className="grid grid-cols-4 relative z-10">
+                                                        {steps.map((step) => {
+                                                            const isCompleted = currentStep > step.id;
+                                                            const isActive = currentStep === step.id;
+                                                            const isUpcoming = currentStep < step.id;
+                                                            const StepIcon = step.icon;
+
+                                                            return (
+                                                                <div key={step.id} className="flex flex-col items-center group">
+                                                                    {/* Step Button Node */}
+                                                                    <button
+                                                                        type="button"
+                                                                        disabled={isUpcoming}
+                                                                        onClick={() => {
+                                                                            if (step.id < currentStep) setCurrentStep(step.id);
+                                                                        }}
+                                                                        title={
+                                                                            isCompleted
+                                                                                ? `Click to edit Step ${step.id}: ${step.title}`
+                                                                                : isActive
+                                                                                ? `Current: Step ${step.id} - ${step.title}`
+                                                                                : `Step ${step.id}: ${step.title}`
+                                                                        }
+                                                                        className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                                                                            isActive
+                                                                                ? "bg-gradient-to-br from-[#00c97b] via-emerald-400 to-green-500 text-neutral-950 font-black shadow-[0_0_24px_rgba(0,201,123,0.65)] ring-4 ring-[#00c97b]/25 scale-105 sm:scale-110 cursor-default"
+                                                                                : isCompleted
+                                                                                ? "bg-[#082216] text-emerald-400 border border-emerald-500/50 hover:border-emerald-400 hover:bg-[#0c3120] shadow-[0_0_15px_rgba(0,201,123,0.25)] cursor-pointer hover:scale-105 active:scale-95"
+                                                                                : "bg-[#141414] text-neutral-500 border border-white/10 cursor-not-allowed"
+                                                                        }`}
+                                                                    >
+                                                                        {/* Step Number Mini-Badge */}
+                                                                        <span
+                                                                            className={`absolute -top-1.5 -right-1.5 px-1.5 py-0.5 text-[8px] sm:text-[9px] font-mono font-bold rounded-full border leading-none transition-all ${
+                                                                                isActive
+                                                                                    ? "bg-neutral-950 text-[#00c97b] border-[#00c97b]/80 shadow-md"
+                                                                                    : isCompleted
+                                                                                    ? "bg-emerald-900 text-emerald-300 border-emerald-500/40"
+                                                                                    : "bg-neutral-800 text-neutral-400 border-white/10"
+                                                                            }`}
+                                                                        >
+                                                                            0{step.id}
                                                                         </span>
-                                                                    )}
-                                                                </motion.div>
-                                                            </div>
-                                                            <div className="flex flex-col items-center gap-1">
-                                                                <span className={`text-[8px] sm:text-[10px] font-black tracking-widest uppercase ${currentStep === step.id ? "text-green-500" : "text-gray-600"}`}>
-                                                                    Step 0{step.id}
-                                                                </span>
-                                                                <span className={`text-[10px] sm:text-[13px] font-extrabold tracking-tight uppercase leading-tight ${currentStep === step.id ? "text-white" : "text-gray-500"} hidden sm:block`}>
-                                                                    {step.title}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    ))}
+
+                                                                        {/* Node Icon */}
+                                                                        {isCompleted ? (
+                                                                            <Check className="w-5 h-5 stroke-[3] text-[#00c97b] group-hover:scale-110 transition-transform" />
+                                                                        ) : (
+                                                                            <StepIcon
+                                                                                className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform ${
+                                                                                    isActive
+                                                                                        ? "text-neutral-950 stroke-[2.5]"
+                                                                                        : "text-neutral-400 group-hover:text-neutral-300 stroke-[1.8]"
+                                                                                }`}
+                                                                            />
+                                                                        )}
+                                                                    </button>
+
+                                                                    {/* Labels */}
+                                                                    <div className="flex flex-col items-center mt-2 sm:mt-2.5 text-center px-0.5 sm:px-1 max-w-full">
+                                                                        <span
+                                                                            className={`text-[11px] sm:text-xs font-semibold tracking-tight transition-colors leading-tight ${
+                                                                                isActive
+                                                                                    ? "text-white font-bold drop-shadow-[0_2px_8px_rgba(0,201,123,0.35)]"
+                                                                                    : isCompleted
+                                                                                    ? "text-neutral-300 group-hover:text-white"
+                                                                                    : "text-neutral-500"
+                                                                            }`}
+                                                                        >
+                                                                            {step.title}
+                                                                        </span>
+                                                                        <span
+                                                                            className={`text-[10px] hidden sm:block font-medium mt-0.5 transition-colors leading-tight ${
+                                                                                isActive
+                                                                                    ? "text-[#00c97b]"
+                                                                                    : isCompleted
+                                                                                    ? "text-neutral-400"
+                                                                                    : "text-neutral-600"
+                                                                            }`}
+                                                                        >
+                                                                            {step.subtitle}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             {/* Form Container */}
-                                            <div className="bg-[#131d33]/50 backdrop-blur-xl rounded-[2.5rem] border border-white/10 p-6 sm:p-10 shadow-2xl relative overflow-hidden flex-1 flex flex-col">
+                                            <div className="bg-neutral-900/80 backdrop-blur-2xl rounded-[24px] border border-white/10 p-5 sm:p-6 md:p-7 shadow-2xl relative overflow-hidden flex-1 flex flex-col">
                                                 <AnimatePresence mode="wait">
                                                     <motion.div
                                                         key={currentStep}
@@ -325,60 +457,60 @@ export function ContactFormStepper() {
                                                                     <h3 className="text-2xl font-bold text-white">Contact Information</h3>
                                                                     <p className="text-gray-400 mt-1">Let us know who to reach out to.</p>
                                                                 </div>
-                                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                                                    <div className="space-y-2 group">
-                                                                        <label className="text-sm font-medium text-gray-300 group-focus-within:text-green-400 transition-colors">First Name</label>
+                                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+                                                                    <div className="space-y-1.5 group">
+                                                                        <label className="text-xs font-medium text-neutral-400 group-focus-within:text-[#00c97b] transition-colors">First Name</label>
                                                                         <div className="relative">
-                                                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-green-500 transition-colors" />
-                                                                                 <input
-                                                                                    type="text"
-                                                                                    value={formData.firstName}
-                                                                                    onChange={(e) => updateFormData("firstName", e.target.value)}
-                                                                                    placeholder="John"
-                                                                                    suppressHydrationWarning
-                                                                                    className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-white placeholder:text-gray-600 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all font-medium"
-                                                                                />
+                                                                            <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 group-focus-within:text-[#00c97b] transition-colors" />
+                                                                            <input
+                                                                                type="text"
+                                                                                value={formData.firstName}
+                                                                                onChange={(e) => updateFormData("firstName", e.target.value)}
+                                                                                placeholder="John"
+                                                                                suppressHydrationWarning
+                                                                                className="w-full h-12 bg-black/30 border border-white/10 rounded-[14px] px-4 pl-11 text-white text-sm sm:text-base placeholder:text-neutral-600 focus:outline-none focus:border-[#00c97b] focus:ring-1 focus:ring-[#00c97b] transition-all font-medium"
+                                                                            />
                                                                         </div>
                                                                     </div>
-                                                                    <div className="space-y-2 group">
-                                                                        <label className    ="text-sm font-medium text-gray-300 group-focus-within:text-green-400 transition-colors">Last Name</label>
+                                                                    <div className="space-y-1.5 group">
+                                                                        <label className="text-xs font-medium text-neutral-400 group-focus-within:text-[#00c97b] transition-colors">Last Name</label>
                                                                         <div className="relative">
-                                                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-green-500 transition-colors" />
+                                                                            <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 group-focus-within:text-[#00c97b] transition-colors" />
                                                                             <input
                                                                                 type="text"
                                                                                 value={formData.lastName}
                                                                                 onChange={(e) => updateFormData("lastName", e.target.value)}
                                                                                 placeholder="Doe"
                                                                                 suppressHydrationWarning
-                                                                                className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-white placeholder:text-gray-600 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all font-medium"
+                                                                                className="w-full h-12 bg-black/30 border border-white/10 rounded-[14px] px-4 pl-11 text-white text-sm sm:text-base placeholder:text-neutral-600 focus:outline-none focus:border-[#00c97b] focus:ring-1 focus:ring-[#00c97b] transition-all font-medium"
                                                                             />
                                                                         </div>
                                                                     </div>
-                                                                    <div className="space-y-2 group">
-                                                                        <label className="text-sm font-medium text-gray-300 group-focus-within:text-green-400 transition-colors">Phone Number</label>
+                                                                    <div className="space-y-1.5 group">
+                                                                        <label className="text-xs font-medium text-neutral-400 group-focus-within:text-[#00c97b] transition-colors">Phone Number</label>
                                                                         <div className="relative">
-                                                                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-green-500 transition-colors" />
+                                                                            <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 group-focus-within:text-[#00c97b] transition-colors" />
                                                                             <input
                                                                                 type="tel"
                                                                                 value={formData.phone}
                                                                                 onChange={(e) => updateFormData("phone", e.target.value)}
                                                                                 placeholder="+91 9876 543 210"
                                                                                 suppressHydrationWarning
-                                                                                className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-white placeholder:text-gray-600 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all font-medium"
+                                                                                className="w-full h-12 bg-black/30 border border-white/10 rounded-[14px] px-4 pl-11 text-white text-sm sm:text-base placeholder:text-neutral-600 focus:outline-none focus:border-[#00c97b] focus:ring-1 focus:ring-[#00c97b] transition-all font-medium"
                                                                             />
                                                                         </div>
                                                                     </div>
-                                                                    <div className="space-y-2 group">
-                                                                        <label className="text-sm font-medium text-gray-300 group-focus-within:text-green-400 transition-colors">Email Address</label>
+                                                                    <div className="space-y-1.5 group">
+                                                                        <label className="text-xs font-medium text-neutral-400 group-focus-within:text-[#00c97b] transition-colors">Email Address</label>
                                                                         <div className="relative">
-                                                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-green-500 transition-colors" />
+                                                                            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 group-focus-within:text-[#00c97b] transition-colors" />
                                                                             <input
                                                                                 type="email"
                                                                                 value={formData.email}
                                                                                 onChange={(e) => updateFormData("email", e.target.value)}
                                                                                 placeholder="john@example.com"
                                                                                 suppressHydrationWarning
-                                                                                className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-white placeholder:text-gray-600 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all font-medium"
+                                                                                className="w-full h-12 bg-black/30 border border-white/10 rounded-[14px] px-4 pl-11 text-white text-sm sm:text-base placeholder:text-neutral-600 focus:outline-none focus:border-[#00c97b] focus:ring-1 focus:ring-[#00c97b] transition-all font-medium"
                                                                             />
                                                                         </div>
                                                                     </div>
@@ -762,29 +894,55 @@ export function ContactFormStepper() {
                                                     </motion.div>
                                                 </AnimatePresence>
 
+                                                {/* Error Alert */}
+                                                {submitError && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, y: -8 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        className="mt-5 flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-red-950/50 border border-red-500/30 rounded-2xl px-4 py-3.5 text-sm"
+                                                    >
+                                                        <div className="flex-1 text-red-300 leading-snug">{submitError}</div>
+                                                        <a
+                                                            href={getWhatsAppUrl(WHATSAPP_MESSAGES.events)}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="shrink-0 text-[#25D366] hover:text-green-300 font-semibold underline underline-offset-2 transition-colors"
+                                                        >
+                                                            WhatsApp Us →
+                                                        </a>
+                                                    </motion.div>
+                                                )}
+
                                                 {/* Navigation Buttons */}
-                                                <div className="flex justify-between pt-8 mb-4 mt-auto border-t border-white/10">
+                                                <div className="flex justify-between items-center pt-6 mt-6 border-t border-white/10">
                                                     <button
                                                         onClick={handleBack}
                                                         disabled={currentStep === 1}
-                                                        className={`flex items-center gap-2 px-6 py-3.5 rounded-full font-semibold transition-all group ${currentStep === 1 ? "opacity-0 pointer-events-none" : "text-gray-400 hover:text-white hover:bg-white/5"}`}
+                                                        className={`flex items-center gap-2 h-11 px-5 rounded-[16px] text-sm font-semibold transition-all group ${currentStep === 1 ? "opacity-0 pointer-events-none" : "text-neutral-400 hover:text-white hover:bg-white/5"}`}
                                                     >
-                                                        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" /> Back
+                                                        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back
                                                     </button>
                                                     {currentStep < 4 ? (
                                                         <button
                                                             onClick={handleNext}
-                                                            className="flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-full font-bold shadow-lg shadow-green-500/25 transition-all hover:scale-[1.02]"
+                                                            className="flex items-center gap-2.5 h-12 px-7 bg-[#00c97b] hover:bg-[#00b06c] text-neutral-950 font-bold text-sm rounded-[16px] shadow-lg shadow-emerald-950/40 transition-transform active:scale-[0.98]"
                                                         >
-                                                            Next <ArrowRight className="w-5 h-5" />
+                                                            Next <ArrowRight className="w-4 h-4" />
                                                         </button>
                                                     ) : (
                                                         <button
                                                             onClick={handleSubmit}
                                                             disabled={isSubmitting}
-                                                            className="flex items-center gap-3 px-10 py-3.5 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white rounded-full font-bold shadow-xl shadow-green-500/30 transition-all hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
+                                                            className="flex items-center gap-2.5 h-12 px-8 bg-[#00c97b] hover:bg-[#00b06c] text-neutral-950 font-bold text-sm rounded-[16px] shadow-lg shadow-emerald-950/40 transition-transform active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
                                                         >
-                                                            {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Submit <Check className="w-5 h-5" /></>}
+                                                            {isSubmitting ? (
+                                                                <>
+                                                                    <Loader2 className="w-5 h-5 animate-spin text-neutral-950" />
+                                                                    <span>Submitting…</span>
+                                                                </>
+                                                            ) : (
+                                                                <>Submit Inquiry <Check className="w-4 h-4 stroke-[3]" /></>
+                                                            )}
                                                         </button>
                                                     )}
                                                 </div>
@@ -792,49 +950,60 @@ export function ContactFormStepper() {
                                         </div>
 
                                         {/* Right Side: Information & Map Side-by-Side */}
-                                        <div className="lg:col-span-5 xl:col-span-4 space-y-8 flex flex-col">
+                                        <div className="lg:col-span-5 xl:col-span-4 space-y-6 flex flex-col">
                                             {/* Info Card */}
-                                            <div className="bg-[#131d33]/50 backdrop-blur-xl rounded-[2.5rem] border border-white/10 p-8 shadow-2xl relative overflow-hidden group">
+                                            <div className="bg-neutral-900/80 backdrop-blur-2xl rounded-[24px] border border-white/10 p-6 shadow-2xl relative overflow-hidden group">
                                                 <div className="absolute -top-12 -right-12 w-32 h-32 bg-green-500/10 rounded-full blur-[60px]" />
-                                                <div className="relative z-10 space-y-6">
-                                                    <div className="border-l-4 border-green-500 pl-4">
-                                                        <h4 className="text-xl font-bold text-white uppercase tracking-tight">Quick Connect</h4>
+                                                <div className="relative z-10 space-y-5">
+                                                    <div className="border-l-4 border-[#00c97b] pl-3.5">
+                                                        <h4 className="text-lg font-bold text-white uppercase tracking-tight">Quick Connect</h4>
                                                     </div>
-                                                    <div className="space-y-4">
-                                                        <div className="flex gap-4">
-                                                            <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 shrink-0 border border-green-500/20">
-                                                                <MapPin className="w-5 h-5" />
+                                                    <div className="space-y-3.5">
+                                                        <div className="flex gap-3.5 items-start">
+                                                            <div className="w-9 h-9 rounded-xl bg-green-500/10 flex items-center justify-center text-[#00c97b] shrink-0 border border-green-500/20">
+                                                                <MapPin className="w-4 h-4" />
                                                             </div>
-                                                            <p className="text-gray-400 text-sm leading-relaxed">G.No 648, Wadgaon Gupta, Ahmednagar City Bypass, Maharashtra 414111</p>
+                                                            <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">G.No 648, Wadgaon Gupta, Ahmednagar City Bypass, Maharashtra 414111</p>
                                                         </div>
-                                                        <div className="flex gap-4">
-                                                            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0 border border-emerald-500/20">
-                                                                <Phone className="w-5 h-5" />
+                                                        <div className="flex gap-3.5 items-start">
+                                                            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0 border border-emerald-500/20">
+                                                                <Phone className="w-4 h-4" />
                                                             </div>
-                                                            <div className="text-gray-400 text-sm">
-                                                                <p>+91 91585 01010</p>
-                                                                <p>+91 98817 31010</p>
+                                                            <div className="text-neutral-400 text-xs sm:text-sm">
+                                                                <a href={RESORT_CONTACT.phoneTel} className="text-neutral-200 hover:text-[#00c97b] transition-colors block font-medium">
+                                                                    {RESORT_CONTACT.phoneDisplay}
+                                                                </a>
+                                                                <a
+                                                                    href={getWhatsAppUrl(WHATSAPP_MESSAGES.general)}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="text-xs text-emerald-400 hover:underline inline-flex items-center gap-1 mt-0.5"
+                                                                >
+                                                                    Chat on WhatsApp
+                                                                </a>
                                                             </div>
                                                         </div>
-                                                        <div className="flex gap-4">
-                                                            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0 border border-cyan-500/20">
-                                                                <Mail className="w-5 h-5" />
+                                                        <div className="flex gap-3.5 items-start">
+                                                            <div className="w-9 h-9 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0 border border-cyan-500/20">
+                                                                <Mail className="w-4 h-4" />
                                                             </div>
-                                                            <p className="text-gray-400 text-sm">vanrai_resort@yahoo.co.in</p>
+                                                            <a href={RESORT_CONTACT.emailMailto} className="text-neutral-400 hover:text-[#00c97b] transition-colors text-xs sm:text-sm break-all">
+                                                                {RESORT_CONTACT.emailAddress}
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             {/* Map Card */}
-                                            <div className="bg-[#131d33]/50 backdrop-blur-xl rounded-[2.5rem] border border-white/10 p-2 shadow-2xl relative overflow-hidden group flex-1 min-h-[400px]">
+                                            <div className="bg-neutral-900/80 backdrop-blur-2xl rounded-[24px] border border-white/10 p-2 shadow-2xl relative overflow-hidden group flex-1 min-h-[340px]">
                                                 <iframe
                                                     src="https://www.google.com/maps?q=Vanrai+Village+Resort+Ahmednagar&output=embed"
                                                     width="100%"
                                                     height="100%"
                                                     style={{
                                                         border: 0,
-                                                        borderRadius: '2rem',
+                                                        borderRadius: '1.25rem',
                                                         filter: 'invert(90%) hue-rotate(180deg) brightness(95%) contrast(90%)',
                                                         opacity: 0.8
                                                     }}

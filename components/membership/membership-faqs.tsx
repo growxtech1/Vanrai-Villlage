@@ -31,24 +31,24 @@ export function MembershipFAQs() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     return (
-        <section className="py-32 bg-[#0a0a0a] relative overflow-hidden">
+        <section className="py-24 sm:py-32 bg-[#0a0a0a] relative overflow-hidden">
             <div className="container mx-auto px-4 max-w-4xl relative z-10">
-                <div className="text-center mb-20">
+                <div className="text-center mb-10 sm:mb-12">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="flex justify-center mb-6"
+                        className="flex justify-center mb-3 sm:mb-4"
                         viewport={{ once: true }}
                     >
-                        <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-                            <HelpCircle className="w-6 h-6 text-green-500" />
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+                            <HelpCircle className="w-5 h-5 text-green-400" />
                         </div>
                     </motion.div>
-                    <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">Got <span className="text-white/40 italic font-light">Questions?</span></h2>
-                    <p className="text-white/40 text-lg font-light leading-relaxed">Everything you need to know about the Vanrai Privilege program.</p>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 tracking-tight">Got <span className="text-white/40 italic font-light">Questions?</span></h2>
+                    <p className="text-white/50 text-sm sm:text-base font-light leading-relaxed">Everything you need to know about the Vanrai Privilege program.</p>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3.5 sm:space-y-4">
                     {faqs.map((faq, index) => (
                         <motion.div
                             key={index}
@@ -56,20 +56,21 @@ export function MembershipFAQs() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.05 }}
                             viewport={{ once: true }}
-                            className={`rounded-[2rem] border transition-all duration-500 ${openIndex === index
-                                    ? "bg-white/[0.04] border-white/20 shadow-2xl"
+                            className={`rounded-[20px] sm:rounded-[22px] border transition-all duration-300 ${openIndex === index
+                                    ? "bg-white/[0.04] border-white/20 shadow-xl"
                                     : "bg-white/[0.02] border-white/5 hover:border-white/10"
                                 }`}
                         >
                             <button
                                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                                className="w-full px-8 py-7 flex items-center justify-between text-left"
+                                className="w-full px-6 py-5 sm:px-8 sm:py-6 min-h-[56px] flex items-center justify-between text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50 rounded-[20px] sm:rounded-[22px]"
+                                aria-expanded={openIndex === index}
                             >
-                                <span className={`text-lg font-bold transition-colors duration-300 ${openIndex === index ? "text-green-400" : "text-white"}`}>
+                                <span className={`text-base sm:text-lg font-semibold transition-colors duration-300 pr-4 ${openIndex === index ? "text-green-400" : "text-white"}`}>
                                     {faq.question}
                                 </span>
-                                <div className={`p-2 rounded-full bg-white/5 transition-transform duration-500 ${openIndex === index ? "rotate-180 bg-green-500/10 text-green-500" : "text-white/40"}`}>
-                                    <ChevronDown className="w-5 h-5" />
+                                <div className={`p-2 rounded-full bg-white/5 transition-transform duration-300 shrink-0 ${openIndex === index ? "rotate-180 bg-green-500/10 text-green-400" : "text-white/40"}`}>
+                                    <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />
                                 </div>
                             </button>
                             <AnimatePresence>
@@ -78,10 +79,10 @@ export function MembershipFAQs() {
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: "auto", opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}
-                                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                                         className="overflow-hidden"
                                     >
-                                        <div className="px-8 pb-8 text-white/40 text-sm leading-relaxed font-light">
+                                        <div className="px-6 pb-6 sm:px-8 sm:pb-7 text-white/50 text-xs sm:text-sm leading-relaxed font-light">
                                             {faq.answer}
                                         </div>
                                     </motion.div>

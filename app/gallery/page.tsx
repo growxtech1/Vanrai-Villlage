@@ -3,8 +3,10 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Header } from "@/components/ui/header";
+import { FallbackImage } from "@/components/ui/fallback-image";
 import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
-import { ArrowLeft, Camera, Home, Waves, Trees, UtensilsCrossed, PartyPopper } from "lucide-react";
+import { ArrowLeft, Camera, Home, Waves, Trees, UtensilsCrossed, PartyPopper, X } from "lucide-react";
 import { Footer } from "@/components/ui/footer";
 
 // Gallery categories with images
@@ -36,7 +38,7 @@ const categories = [
     },
     {
         id: "events",
-        name: "Events",
+        name: "Events & Wedding Halls",
         icon: <PartyPopper className="w-4 h-4" />,
     },
 ];
@@ -45,140 +47,210 @@ const galleryImages = [
     // Stays
     {
         id: 1,
-        src: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=600&fit=crop",
+        src: "/img/Rooms/StandardRoom.jpeg",
         alt: "Standard Room Interior",
         category: "stays",
         caption: "Comfortable standard rooms with modern amenities",
     },
     {
         id: 2,
-        src: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop",
+        src: "/img/Rooms/DeluxeAc.jpeg",
         alt: "Deluxe AC Room",
         category: "stays",
         caption: "Spacious deluxe rooms with premium furnishings",
     },
     {
         id: 3,
-        src: "https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=800&h=600&fit=crop",
-        alt: "Wooden Cottages",
+        src: "/img/Rooms/StaysCoversHero.webp",
+        alt: "Wooden Cottages Exterior at Sunset",
         category: "stays",
-        caption: "Rustic wooden cottages amidst nature",
+        caption: "Charming wooden cottages amidst nature with peaceful open front verandas",
     },
     {
         id: 4,
-        src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
-        alt: "Luxury Suite",
+        src: "/img/Rooms/CottageHouse.jpeg",
+        alt: "Wooden Cottage Interior",
         category: "stays",
-        caption: "Premium luxury suites for an elevated experience",
+        caption: "Warm pine-wood cottage interior with king bed and private amenities",
+    },
+    {
+        id: 25,
+        src: "/img/vanrai-reception-night.webp",
+        alt: "Vanrai Reception & Welcome Lounge",
+        category: "stays",
+        caption: "Welcoming reception lobby with handcrafted botanical relief wall",
     },
     // Pool
     {
         id: 5,
-        src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",
-        alt: "Resort Pool",
+        src: "/img/pool-sunset-luxury.jpg",
+        alt: "Luxury Swimming Pool at Sunset",
         category: "pool",
-        caption: "Crystal clear swimming pool overlooking the gardens",
+        caption: "Sunset poolside escape with sun loungers, waterfall wall, and warm ambient lanterns",
     },
     {
         id: 6,
-        src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=800&h=600&fit=crop",
-        alt: "Pool Area",
+        src: "/img/pool-aerial-sunset.jpg",
+        alt: "Waterpark & Swimming Pool Aerial View",
         category: "pool",
-        caption: "Relaxing poolside lounge area",
+        caption: "Expansive sunset view of our multi-slide waterpark and resort swimming pool",
     },
     {
         id: 7,
-        src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&h=600&fit=crop",
-        alt: "Evening Pool",
+        src: "/img/pool-kids-mushroom.jpg",
+        alt: "Kids Splash Pool with Mushroom Fountain",
         category: "pool",
-        caption: "Beautifully lit pool area at sunset",
+        caption: "Safe and delightful mushroom rain fountain in our dedicated kids wading pool",
     },
-    // Lawns
+    {
+        id: 20,
+        src: "/img/pool-slides-dusk.jpg",
+        alt: "Water Slides & Pool Deck",
+        category: "pool",
+        caption: "Illuminated water slides tower and crystal-clear swimming pool at dusk",
+    },
+    {
+        id: 21,
+        src: "/img/waterpark.jpg",
+        alt: "Poolside Deck & Loungers",
+        category: "pool",
+        caption: "Relaxing teakwood sun loungers and serene pool waters with evening illumination",
+    },
+    {
+        id: 22,
+        src: "/img/waterpark-slides.jpg",
+        alt: "Adrenaline Water Slides",
+        category: "pool",
+        caption: "Multi-lane thrill slides for endless family fun and excitement",
+    },
+    {
+        id: 27,
+        src: "/img/rain-dance.jpg",
+        alt: "Rain Dance & Poolside Fun",
+        category: "pool",
+        caption: "High-energy rain dance arena with overhead sprinkler showers beside the swimming pool and slides",
+    },
+    // Lawns & Grounds
     {
         id: 8,
-        src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
-        alt: "Green Lawns",
+        src: "/img/vanrai-lawn-sunset.webp",
+        alt: "Vanrai Central Lawn at Sunset",
         category: "lawns",
-        caption: "Expansive green lawns perfect for gatherings",
+        caption: "Breathtaking sunset casting golden light across the lush central lawn, promenade, and cottages",
     },
     {
         id: 9,
-        src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
-        alt: "Garden Area",
+        src: "/img/vanrai-open-lawn-sports.webp",
+        alt: "Open Sports & Activity Lawn",
         category: "lawns",
-        caption: "Beautifully landscaped gardens",
+        caption: "Expansive green lawn with stadium floodlights, perfect for sports, gatherings, and evening events",
     },
     {
         id: 10,
-        src: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&h=600&fit=crop",
-        alt: "Open Spaces",
+        src: "/img/vanrai-resort-aerial-lawn.webp",
+        alt: "Aerial Lawn & Courtyard View",
         category: "lawns",
-        caption: "Wide open spaces surrounded by nature",
+        caption: "Panoramic aerial view of the manicured lawn, paved walkways, resort accommodations, and wooden cottages",
     },
     {
         id: 11,
-        src: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=800&h=600&fit=crop",
-        alt: "Tree Shade",
+        src: "/img/vanrai-walkway-night.webp",
+        alt: "Night Lantern Walkway",
         category: "lawns",
-        caption: "Peaceful seating under the shade of trees",
+        caption: "Enchanting illuminated night walkway adorned with glowing globe lanterns and bougainvillea flowers",
+    },
+    {
+        id: 26,
+        src: "/img/vanrai-entrance-gate.webp",
+        alt: "Grand Entrance Gate",
+        category: "lawns",
+        caption: "Warmly lit resort entryway framed by handcrafted stone masonry and timber arches",
     },
     // Dining
     {
         id: 12,
-        src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop",
-        alt: "Fine Dining",
+        src: "/img/dining-hall-wide.webp",
+        alt: "Vanrai Dining Hall & Restaurant",
         category: "dining",
-        caption: "Exquisite culinary experiences",
+        caption: "Spacious family dining hall with air-conditioning, natural light, and authentic hospitality",
+    },
+    {
+        id: 28,
+        src: "/img/candle-light-dinner.jpg",
+        alt: "Romantic Lawn Candle Light Dinner",
+        category: "dining",
+        caption: "Romantic candlelight dinner setup on the manicured lawn with lanterns, candles, and waterfall backdrop",
     },
     {
         id: 13,
-        src: "https://images.unsplash.com/photo-1571896349842-33c89424de62?w=800&h=600&fit=crop",
-        alt: "Restaurant Interior",
+        src: "/img/dining-banquet-table.webp",
+        alt: "Banquet Dining Setup",
         category: "dining",
-        caption: "Elegant restaurant with warm ambiance",
+        caption: "Long banquet dining setup arranged for family feasts, group meals, and celebratory dining",
     },
     {
         id: 14,
-        src: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&h=600&fit=crop",
-        alt: "Outdoor Dining",
+        src: "/img/dining-hall-interior.webp",
+        alt: "Restaurant Interior & Seating",
         category: "dining",
-        caption: "Al fresco dining under the stars",
+        caption: "Comfortable indoor restaurant seating with rustic wall textures and scenic window views",
     },
     {
         id: 15,
-        src: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=600&fit=crop",
-        alt: "Breakfast Spread",
+        src: "/img/hero-2.png",
+        alt: "Vanrai Signature Timber Restaurant",
         category: "dining",
-        caption: "Delicious breakfast to start your day",
+        caption: "Warm timber-ceiling dining space with ambient lighting and authentic local delicacies",
     },
-    // Events
+    // Events & Wedding Halls
     {
         id: 16,
-        src: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&h=600&fit=crop",
-        alt: "Wedding Venue",
+        src: "/img/event-wedding-hall-stage.webp",
+        alt: "Royal Wedding Hall & Stage (Floral Decor)",
         category: "events",
-        caption: "Dream destination for weddings",
+        caption: "Magnificent wedding stage with royal throne couch, floral arches, and chandelier elegance",
     },
     {
         id: 17,
-        src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop",
-        alt: "Corporate Event",
+        src: "/img/event-banquet-stage-lights.webp",
+        alt: "Grand Banquet Hall Stage (Ambient Lights)",
         category: "events",
-        caption: "Professional spaces for corporate gatherings",
+        caption: "Grand event stage with warm festive lighting, ideal for receptions, sangeet, and ceremonies",
+    },
+    {
+        id: 29,
+        src: "/img/evening-bonfire.jpg",
+        alt: "Evening Bonfire & Campfire at Central Lawn",
+        category: "events",
+        caption: "Cozy campfire in stone fire pit with rustic wooden chairs and illuminated cottages under the night sky",
+    },
+    {
+        id: 30,
+        src: "/img/corporate-retreat.jpg",
+        alt: "Corporate Offsite & Executive Retreat",
+        category: "events",
+        caption: "Glass-walled modern executive conference room surrounded by peaceful tropical nature and manicured gardens",
+    },
+    {
+        id: 31,
+        src: "/img/experiential-moments.jpg",
+        alt: "Starlit Experiential Night & Live Music",
+        category: "events",
+        caption: "Acoustic music performance under starry night skies with ambient fairy lights, fire pit, and cozy lawn lounge",
     },
     {
         id: 18,
-        src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop",
-        alt: "Celebration",
+        src: "/img/vanrai-lawn-sunset.webp",
+        alt: "Open Lawn Wedding & Reception Venue",
         category: "events",
-        caption: "Celebrate life's special moments",
+        caption: "Expansive sunset lawn setting for open-air destination weddings, cocktail evenings, and parties",
     },
     {
         id: 19,
-        src: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=800&h=600&fit=crop",
-        alt: "Festival",
+        src: "/img/vanrai-open-lawn-sports.webp",
+        alt: "Floodlit Evening Event Grounds",
         category: "events",
-        caption: "Festive celebrations at Vanrai",
+        caption: "Large-scale event grounds with stadium lighting for grand celebrations, gatherings, and tournaments",
     },
 ];
 
@@ -214,6 +286,7 @@ const imageVariants: Variants = {
 
 export default function GalleryPage() {
     const [activeCategory, setActiveCategory] = useState("all");
+    const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
     const heroRef = useRef<HTMLDivElement>(null);
     const isHeroInView = useInView(heroRef, { once: true });
 
@@ -222,11 +295,13 @@ export default function GalleryPage() {
         : galleryImages.filter(img => img.category === activeCategory);
 
     return (
-        <div className="min-h-screen bg-[#0a0b0a] text-white">
+        <div className="min-h-screen bg-[#0a0b0a] text-white selection:bg-green-500/30">
+            <Header />
+
             {/* Hero Section */}
             <div
                 ref={heroRef}
-                className="relative pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden"
+                className="relative pt-24 pb-8 sm:pt-28 sm:pb-10 overflow-hidden"
             >
                 {/* Background Effects */}
                 <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-green-900/20 rounded-full blur-[150px] pointer-events-none" />
@@ -240,11 +315,11 @@ export default function GalleryPage() {
                         transition={{ duration: 0.5 }}
                     >
                         <Link
-                            href="/#gallery"
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white/80 hover:text-white hover:border-white/40 transition-all mb-8"
+                            href="/"
+                            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-white/80 hover:text-white hover:border-white/30 transition-all mb-6 text-xs font-medium"
                         >
-                            <ArrowLeft className="w-4 h-4" />
-                            <span className="text-sm font-medium">Back to Home</span>
+                            <ArrowLeft className="w-3.5 h-3.5" />
+                            <span>Back to Home</span>
                         </Link>
                     </motion.div>
 
@@ -255,20 +330,18 @@ export default function GalleryPage() {
                         animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                         transition={{ duration: 0.7, delay: 0.2 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm mb-6">
-                            <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span>
-                            <span className="text-white/90 text-[11px] sm:text-xs font-medium tracking-[0.15em] uppercase flex items-center gap-2">
-                                <Camera className="w-4 h-4 text-green-500" />
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-4 sm:mb-5">
+                            <span className="w-2 h-2 rounded-full bg-[#00c97b] shadow-[0_0_8px_rgba(0,201,123,0.5)]"></span>
+                            <span className="text-white/90 text-xs sm:text-sm font-medium tracking-[0.25em] uppercase flex items-center gap-2">
+                                <Camera className="w-4 h-4 text-[#00c97b]" />
                                 Photo Gallery
                             </span>
                         </div>
 
-                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-4">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/70">
-                                Our Gallery
-                            </span>
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal tracking-tight leading-[1.08] mb-5 sm:mb-6 text-white">
+                            Our Gallery
                         </h1>
-                        <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-neutral-300 max-w-3xl mx-auto leading-relaxed font-light">
                             Explore moments captured across our resort—from peaceful stays and open green spaces
                             to celebrations, dining, and memorable experiences.
                         </p>
@@ -276,17 +349,17 @@ export default function GalleryPage() {
                 </div>
             </div>
 
-            {/* Category Tabs */}
-            <div className="sticky top-0 z-40 bg-[#0a0b0a]/90 backdrop-blur-xl border-b border-white/10 py-4">
+            {/* Category Tabs (Cleared below floating navbar) */}
+            <div className="sticky top-20 sm:top-24 z-30 bg-[#0a0b0a]/90 backdrop-blur-xl border-y border-white/10 py-3">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+                    <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2.5">
                         {categories.map((category) => (
                             <button
                                 key={category.id}
                                 onClick={() => setActiveCategory(category.id)}
-                                className={`flex items-center gap-2 px-4 py-2.5 rounded-full font-medium text-sm transition-all duration-300 ${activeCategory === category.id
-                                    ? "bg-gradient-to-r from-green-500 to-green-700 text-white shadow-lg shadow-green-500/20"
-                                    : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white border border-white/10"
+                                className={`flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full font-medium text-xs sm:text-sm transition-all duration-300 ${activeCategory === category.id
+                                    ? "bg-[#00c97b] text-neutral-950 shadow-md shadow-emerald-950/40 font-bold"
+                                    : "bg-white/5 text-neutral-400 hover:bg-white/10 hover:text-white border border-white/10"
                                     }`}
                             >
                                 {category.icon}
@@ -297,12 +370,12 @@ export default function GalleryPage() {
                 </div>
             </div>
 
-            {/* Gallery Grid */}
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+            {/* Gallery Grid (2-column on mobile with 10-14px gap, 16-18px radius) */}
+            <div className="container mx-auto px-3 sm:px-6 lg:px-8 py-8 md:py-14">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={activeCategory}
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
+                        className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-5"
                         variants={containerVariants}
                         initial="hidden"
                         animate="visible"
@@ -311,27 +384,29 @@ export default function GalleryPage() {
                         {filteredImages.map((image, index) => (
                             <motion.div
                                 key={image.id}
-                                className={`relative group overflow-hidden rounded-2xl cursor-pointer ${index % 5 === 0 ? 'sm:col-span-2 sm:row-span-2' : ''
-                                    }`}
+                                onClick={() => setSelectedImage(image)}
+                                className={`relative group overflow-hidden rounded-[16px] sm:rounded-[18px] cursor-pointer bg-neutral-900 border border-white/10 shadow-lg ${
+                                    index % 5 === 0 ? 'col-span-2 sm:col-span-2 row-span-2' : 'col-span-1'
+                                }`}
                                 variants={imageVariants}
                                 layout
                             >
-                                <div className={`relative ${index % 5 === 0 ? 'aspect-square' : 'aspect-[4/3]'}`}>
-                                    <Image
+                                <div className={`relative ${index % 5 === 0 ? 'aspect-square sm:aspect-[16/10]' : 'aspect-[4/3]'}`}>
+                                    <FallbackImage
                                         src={image.src}
                                         alt={image.alt}
                                         fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
                                     {/* Overlay with caption on hover */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-                                            <h3 className="text-white font-semibold text-lg mb-1">{image.alt}</h3>
-                                            <p className="text-white/70 text-sm">{image.caption}</p>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-5">
+                                            <h3 className="text-white font-semibold text-sm sm:text-base mb-1">{image.alt}</h3>
+                                            <p className="text-white/70 text-xs line-clamp-2">{image.caption}</p>
                                         </div>
                                     </div>
                                     {/* Category badge */}
-                                    <div className="absolute top-3 left-3 px-3 py-1.5 bg-black/50 backdrop-blur-sm rounded-full text-xs font-medium text-white/90 capitalize">
+                                    <div className="absolute top-2.5 left-2.5 px-2.5 py-1 bg-black/60 backdrop-blur-sm rounded-full text-[10px] sm:text-xs font-medium text-white/90 capitalize border border-white/10">
                                         {image.category}
                                     </div>
                                 </div>
@@ -343,31 +418,73 @@ export default function GalleryPage() {
                 {/* Empty State */}
                 {filteredImages.length === 0 && (
                     <div className="text-center py-20">
-                        <Camera className="w-16 h-16 text-white/20 mx-auto mb-4" />
-                        <p className="text-white/50 text-lg">No images found in this category</p>
+                        <Camera className="w-12 h-12 text-white/20 mx-auto mb-3" />
+                        <p className="text-white/50 text-sm">No images found in this category</p>
                     </div>
                 )}
             </div>
 
+            {/* Lightbox Modal */}
+            <AnimatePresence>
+                {selectedImage && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setSelectedImage(null)}
+                        className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6"
+                    >
+                        <div
+                            onClick={(e) => e.stopPropagation()}
+                            className="relative max-w-4xl w-full bg-neutral-900 border border-white/10 rounded-[24px] overflow-hidden shadow-2xl"
+                        >
+                            <button
+                                onClick={() => setSelectedImage(null)}
+                                className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/60 text-white hover:bg-white/20 flex items-center justify-center transition-colors"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                            <div className="relative aspect-[16/10] w-full bg-black">
+                                <FallbackImage
+                                    src={selectedImage.src}
+                                    alt={selectedImage.alt}
+                                    fill
+                                    className="object-contain"
+                                />
+                            </div>
+                            <div className="p-5 sm:p-6">
+                                <div className="flex items-center justify-between gap-4">
+                                    <div>
+                                        <h3 className="text-lg sm:text-xl font-bold text-white mb-1">{selectedImage.alt}</h3>
+                                        <p className="text-neutral-400 text-xs sm:text-sm">{selectedImage.caption}</p>
+                                    </div>
+                                    <span className="px-3 py-1 bg-white/10 rounded-full text-xs font-medium text-emerald-400 capitalize shrink-0">
+                                        {selectedImage.category}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             {/* Footer CTA */}
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-green-900/30 to-emerald-900/20 border border-white/10 p-8 md:p-12 text-center">
-                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1920&h=600&fit=crop')] opacity-10 bg-cover bg-center" />
-                    <div className="relative z-10">
-                        <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                <div className="relative rounded-[24px] sm:rounded-[28px] overflow-hidden bg-gradient-to-r from-emerald-950/40 to-neutral-900 border border-white/10 p-8 md:p-12 text-center">
+                    <div className="relative z-10 max-w-2xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-bold mb-3 text-white">
                             Experience the Beauty of Vanrai
                         </h2>
-                        <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+                        <p className="text-neutral-400 text-sm mb-6 font-light">
                             Book your stay and create your own unforgettable memories at Vanrai Village Resort.
                         </p>
-                        <Link
-                            href="/#stays"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-500 to-green-700 text-white font-medium rounded-full shadow-lg shadow-green-500/20 hover:shadow-green-500/40 hover:scale-[1.02] transition-all duration-300"
+                        <a
+                            href="/book"
+                            className="inline-flex items-center justify-center gap-2 h-11 px-6 bg-[#00c97b] hover:bg-[#00b06c] text-neutral-950 font-bold text-sm rounded-[14px] shadow-lg shadow-emerald-950/40 transition-transform active:scale-[0.98]"
                         >
-                            <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
                             Book Your Stay Now
-                            <ArrowLeft className="w-5 h-5 rotate-180" />
-                        </Link>
+                            <ArrowLeft className="w-4 h-4 rotate-180" />
+                        </a>
                     </div>
                 </div>
             </div>

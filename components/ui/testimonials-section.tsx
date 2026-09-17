@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
-import Image from "next/image";
+import { FallbackImage } from "@/components/ui/fallback-image";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
     ArrowLeft,
@@ -202,7 +202,7 @@ export function TestimonialsSection() {
         <motion.section
             ref={sectionRef}
             id="testimonials"
-            className="relative w-full py-20 sm:py-28 md:py-32 overflow-hidden bg-neutral-950"
+            className="relative w-full py-24 sm:py-32 overflow-hidden bg-neutral-950"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             onTouchStart={() => setIsPaused(true)}
@@ -227,24 +227,24 @@ export function TestimonialsSection() {
             <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8">
                 {/* Section Header */}
                 <motion.div
-                    className="text-center mb-16"
+                    className="text-center mb-10 sm:mb-12 md:mb-14"
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                     transition={{ duration: 0.6 }}
                 >
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 mb-6">
-                        <Sparkles className="w-4 h-4 text-green-400" />
-                        <span className="text-sm font-medium text-white/70 tracking-wide">Guest Reviews</span>
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 mb-4">
+                        <Sparkles className="w-3.5 h-3.5 text-green-400" />
+                        <span className="text-xs font-semibold text-white/70 tracking-wide">Guest Reviews</span>
                     </div>
 
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3">
                         What Our Guests
-                        <span className="block mt-2 bg-gradient-to-r from-green-400 via-emerald-300 to-cyan-400 bg-clip-text text-transparent">
+                        <span className="block mt-1 sm:mt-2 bg-gradient-to-r from-green-400 via-emerald-300 to-cyan-400 bg-clip-text text-transparent">
                             Say About Us
                         </span>
                     </h2>
-                    <p className="text-white/50 text-lg max-w-2xl mx-auto">
+                    <p className="text-white/50 text-sm sm:text-base max-w-2xl mx-auto">
                         Real experiences from families, couples, and groups who made unforgettable memories at Vanrai
                     </p>
                 </motion.div>
@@ -259,12 +259,12 @@ export function TestimonialsSection() {
                         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <div className="relative h-[400px] sm:h-[500px] lg:h-[550px] rounded-3xl overflow-hidden">
+                        <div className="relative h-[300px] sm:h-[360px] lg:h-[400px] rounded-3xl overflow-hidden">
                             {/* Glowing border */}
-                            <div className="absolute -inset-1 bg-gradient-to-br from-green-500/30 via-emerald-500/20 to-cyan-500/30 rounded-3xl blur-sm" />
+                            <div className="absolute -inset-1 bg-gradient-to-br from-green-500/20 via-emerald-500/10 to-teal-500/20 rounded-3xl blur-sm" />
 
                             {/* Image container */}
-                            <div className="relative h-full rounded-3xl overflow-hidden border border-white/10">
+                            <div className="relative h-full rounded-3xl overflow-hidden border border-white/10 bg-neutral-900 touch-pan-y">
                                 <AnimatePresence initial={false} custom={direction} mode="wait">
                                     <motion.div
                                         key={currentIndex}
@@ -274,9 +274,19 @@ export function TestimonialsSection() {
                                         animate="center"
                                         exit="exit"
                                         transition={smoothTransition}
-                                        className="absolute inset-0 w-full h-full will-change-transform"
+                                        drag="x"
+                                        dragConstraints={{ left: 0, right: 0 }}
+                                        dragElastic={0.2}
+                                        onDragEnd={(_, { offset, velocity }) => {
+                                            if (offset.x > 40 || velocity.x > 300) {
+                                                handlePrev();
+                                            } else if (offset.x < -40 || velocity.x < -300) {
+                                                handleNext();
+                                            }
+                                        }}
+                                        className="absolute inset-0 w-full h-full will-change-transform cursor-grab active:cursor-grabbing"
                                     >
-                                        <Image
+                                        <FallbackImage
                                             src={activeTestimonial.imageSrc}
                                             alt={activeTestimonial.name}
                                             fill
@@ -287,24 +297,24 @@ export function TestimonialsSection() {
                                 </AnimatePresence>
 
                                 {/* Overlay gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-neutral-950/30" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/85 via-transparent to-neutral-950/20 pointer-events-none" />
 
                                 {/* Category badge */}
                                 <motion.div
-                                    className="absolute top-4 left-4 flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20"
+                                    className="absolute top-4 left-4 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 pointer-events-none"
                                     key={`badge-${currentIndex}`}
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.15, duration: 0.3, ease: "easeOut" }}
                                 >
                                     <span className="text-green-400">{activeTestimonial.categoryIcon}</span>
-                                    <span className="text-sm font-medium text-white">{activeTestimonial.category}</span>
+                                    <span className="text-xs sm:text-sm font-medium text-white">{activeTestimonial.category}</span>
                                 </motion.div>
 
                                 {/* Rating */}
-                                <div className="absolute bottom-4 left-4 flex items-center gap-1">
+                                <div className="absolute bottom-4 left-4 flex items-center gap-1 pointer-events-none">
                                     {[...Array(activeTestimonial.rating)].map((_, i) => (
-                                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                                        <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
                                     ))}
                                 </div>
                             </div>
@@ -322,16 +332,16 @@ export function TestimonialsSection() {
 
                     {/* Right: Content */}
                     <motion.div
-                        className="lg:col-span-7 flex flex-col h-[500px] sm:h-[550px]"
+                        className="lg:col-span-7 flex flex-col justify-between min-h-[300px] sm:min-h-[360px] lg:min-h-[400px]"
                         initial={{ opacity: 0, x: 50 }}
                         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
                     >
                         {/* Quote icon */}
-                        <Quote className="w-12 h-12 text-green-500/30 mb-6 flex-shrink-0" />
+                        <Quote className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-500/40 mb-2 sm:mb-4 flex-shrink-0" />
 
                         {/* Quote content - takes remaining space */}
-                        <div className="relative flex-1 overflow-hidden">
+                        <div className="relative flex-1 flex items-center overflow-hidden py-1.5">
                             <AnimatePresence initial={false} custom={direction} mode="wait">
                                 <motion.div
                                     key={currentIndex}
@@ -341,17 +351,17 @@ export function TestimonialsSection() {
                                     animate="center"
                                     exit="exit"
                                     transition={smoothTransition}
-                                    className="absolute inset-0 will-change-transform"
+                                    className="w-full will-change-transform"
                                 >
-                                    <blockquote className="text-xl sm:text-2xl md:text-3xl font-medium text-white leading-relaxed mb-8 line-clamp-6">
+                                    <blockquote className="text-base sm:text-lg md:text-xl lg:text-[21px] font-light text-neutral-100 leading-relaxed sm:leading-relaxed md:leading-[1.6] mb-4 sm:mb-6">
                                         "{activeTestimonial.quote}"
                                     </blockquote>
 
                                     <div className="flex items-center gap-4">
-                                        <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-green-500 to-transparent" />
+                                        <div className="h-px flex-1 max-w-[40px] bg-gradient-to-r from-emerald-500 to-transparent" />
                                         <div>
-                                            <p className="text-lg font-semibold text-white">{activeTestimonial.name}</p>
-                                            <p className="text-white/50">{activeTestimonial.location}</p>
+                                            <p className="text-sm sm:text-base font-semibold text-white">{activeTestimonial.name}</p>
+                                            <p className="text-neutral-400 text-xs">{activeTestimonial.location}</p>
                                         </div>
                                     </div>
                                 </motion.div>
@@ -359,9 +369,9 @@ export function TestimonialsSection() {
                         </div>
 
                         {/* Navigation - stays at bottom */}
-                        <div className="flex items-center justify-between mt-auto pt-8 border-t border-white/10 flex-shrink-0">
+                        <div className="flex items-center justify-between mt-auto pt-5 sm:pt-6 border-t border-white/10 flex-shrink-0">
                             {/* Dots */}
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-1.5 sm:gap-2">
                                 {testimonials.map((_, index) => (
                                     <button
                                         key={index}
@@ -369,7 +379,7 @@ export function TestimonialsSection() {
                                         className={cn(
                                             "w-2 h-2 rounded-full transition-all duration-300",
                                             index === currentIndex
-                                                ? "w-8 bg-gradient-to-r from-green-500 to-emerald-400"
+                                                ? "w-6 sm:w-8 bg-gradient-to-r from-green-500 to-emerald-400"
                                                 : "bg-white/20 hover:bg-white/40"
                                         )}
                                         aria-label={`Go to testimonial ${index + 1}`}
@@ -378,25 +388,25 @@ export function TestimonialsSection() {
                             </div>
 
                             {/* Pagination text */}
-                            <span className="text-white/40 font-mono text-sm">
+                            <span className="text-white/40 font-mono text-xs sm:text-sm">
                                 {String(currentIndex + 1).padStart(2, "0")} / {String(testimonials.length).padStart(2, "0")}
                             </span>
 
                             {/* Arrow buttons */}
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2.5 sm:gap-3">
                                 <button
                                     onClick={handlePrev}
-                                    className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
+                                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
                                     aria-label="Previous testimonial"
                                 >
-                                    <ArrowLeft className="w-5 h-5" />
+                                    <ArrowLeft className="w-4 h-4" />
                                 </button>
                                 <button
                                     onClick={handleNext}
-                                    className="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center text-white hover:from-green-600 hover:to-emerald-600 transition-all duration-300 shadow-lg shadow-green-500/30"
+                                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center text-white hover:from-green-600 hover:to-emerald-600 transition-all duration-300 shadow-lg shadow-green-500/30"
                                     aria-label="Next testimonial"
                                 >
-                                    <ArrowRight className="w-5 h-5" />
+                                    <ArrowRight className="w-4 h-4" />
                                 </button>
                             </div>
                         </div>

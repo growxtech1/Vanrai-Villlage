@@ -16,6 +16,7 @@ import {
     ExternalLink
 } from "lucide-react";
 import { IconBrandX } from "@tabler/icons-react";
+import { RESORT_CONTACT, getWhatsAppUrl, WHATSAPP_MESSAGES } from "@/lib/contact-config";
 
 export const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -24,41 +25,41 @@ export const Footer = () => {
         {
             title: "Navigation",
             links: [
-                { name: "Home", href: "#home" },
-                { name: "Stays", href: "#stays" },
-                { name: "Experiences", href: "#experiences" },
-                { name: "About Vanrai", href: "#about-vanrai" },
+                { name: "Home", href: "/" },
+                { name: "Stays", href: "/stays" },
+                { name: "Experiences", href: "/experiences" },
+                { name: "About Vanrai", href: "/about" },
                 { name: "Gallery", href: "/gallery" },
             ]
         },
         {
             title: "Explore",
             links: [
-                { name: "Privilege Club", href: "#privilege-club" },
-                { name: "Water Activities", href: "#experiences" },
-                { name: "Event Spaces", href: "#contact" },
-                { name: "Dining Menu", href: "#" },
+                { name: "Privilege Club", href: "/membership" },
+                { name: "Water Activities", href: "/experiences" },
+                { name: "Event Spaces", href: "/events" },
+                { name: "Dining Menu", href: "/experiences" },
             ]
         },
         {
             title: "Support",
             links: [
-                { name: "Contact Us", href: "#contact" },
-                { name: "Location Map", href: "#contact" },
-                { name: "Terms & Conditions", href: "#" },
-                { name: "Privacy Policy", href: "#" },
+                { name: "Contact Us", href: "/contact" },
+                { name: "Location Map", href: "/contact" },
+                { name: "Terms & Conditions", href: "/membership" },
+                { name: "Privacy Policy", href: "/about" },
             ]
         }
     ];
 
     return (
-        <footer className="relative bg-[#050505] text-neutral-400 pt-28 pb-12 overflow-hidden border-t border-white/[0.03]">
-            {/* Background Orbs - More subtle and artistic */}
+        <footer className="relative bg-[#050505] text-neutral-400 overflow-hidden border-t border-white/[0.04]">
+            {/* Background Orbs */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
-                <div className="absolute top-[-10%] right-[-5%] w-[35%] h-[35%] rounded-full bg-emerald-500/10 blur-[140px] animate-pulse" />
-                <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-green-900/10 blur-[150px] animate-pulse" style={{ animationDelay: '3s' }} />
-                {/* Fine grid pattern for premium texture */}
-                <div className="absolute inset-0"
+                <div className="absolute top-[-10%] right-[-5%] w-[35%] h-[35%] rounded-full bg-emerald-500/10 blur-[140px]" />
+                <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-green-900/10 blur-[150px]" />
+                <div
+                    className="absolute inset-0"
                     style={{
                         backgroundImage: 'radial-gradient(circle at 1.5px 1.5px, rgba(255,255,255,0.03) 1px, transparent 0)',
                         backgroundSize: '40px 40px'
@@ -66,97 +67,223 @@ export const Footer = () => {
                 />
             </div>
 
-            <div className="container mx-auto px-6 lg:px-12 relative z-10">
-                {/* Top Section: Brand & Newsletter */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-start mb-24">
-                    <div className="lg:col-span-5 space-y-8">
-                        <div className="flex flex-col space-y-6">
-                            <a href="#" className="flex items-center group">
-                                <div className="relative">
-                                    <img
-                                        src="/svg/Vanrai.svg"
-                                        alt="Vanrai Village Logo"
-                                        className="w-16 h-16 brightness-110 contrast-125 transition-transform duration-500 group-hover:scale-105"
-                                    />
-                                    <div className="absolute -inset-2 bg-emerald-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                                </div>
-                                <div className="ml-4 flex flex-col">
-                                    <span className="text-3xl font-bold text-white tracking-[0.1em] leading-none uppercase">
-                                        VANRAI
-                                    </span>
-                                    <span className="text-[11px] text-emerald-500 font-semibold tracking-[0.4em] mt-1 uppercase">
-                                        Village Resort
-                                    </span>
-                                </div>
+            {/* MOBILE FOOTER COMPOSITION (per §20) */}
+            <div className="block md:hidden relative z-10 px-5 py-9">
+                <div className="flex flex-col space-y-7">
+                    {/* LOGO & Short brand statement */}
+                    <div className="flex flex-col space-y-3">
+                        <a href="/" className="flex items-center gap-3">
+                            <img
+                                src="/svg/Vanrai.svg"
+                                alt="Vanrai Village Logo"
+                                className="w-12 h-12 brightness-110 contrast-125"
+                            />
+                            <div className="flex flex-col">
+                                <span className="text-xl font-bold text-white tracking-[0.12em] uppercase">
+                                    VANRAI
+                                </span>
+                                <span className="text-[10px] text-emerald-400 font-semibold tracking-[0.3em] uppercase">
+                                    Village Resort
+                                </span>
+                            </div>
+                        </a>
+                        <p className="text-neutral-400 text-sm leading-relaxed font-light">
+                            Where Rustic Charm Meets Refined Luxury. An Eco-Conscious Sanctuary Designed For The Modern Soul.
+                        </p>
+                    </div>
+
+                    {/* SOCIAL ICONS */}
+                    <div className="flex items-center gap-2.5">
+                        {[
+                            { icon: <Instagram size={17} />, href: RESORT_CONTACT.socials.instagram, label: "Instagram" },
+                            { icon: <Facebook size={17} />, href: RESORT_CONTACT.socials.facebook, label: "Facebook" },
+                            { icon: <IconBrandX size={17} />, href: RESORT_CONTACT.socials.x, label: "X" },
+                            { icon: <Youtube size={17} />, href: RESORT_CONTACT.socials.youtube, label: "YouTube" },
+                        ].map((social, idx) => (
+                            <a
+                                key={idx}
+                                href={social.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={social.label}
+                                className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-neutral-400 hover:text-[#00c97b] transition-colors"
+                            >
+                                {social.icon}
                             </a>
-                            <p className="text-neutral-500 text-lg leading-relaxed font-light max-w-md">
-                                Where Rustic Charm Meets Refined Luxury. Experience An Eco-Conscious Sanctuary Designed For The Modern Soul.
-                            </p>
+                        ))}
+                    </div>
+
+                    {/* 2-COLUMN GRID: EXPLORE & CONNECT */}
+                    <div className="grid grid-cols-2 gap-6 pt-2 border-t border-white/10">
+                        {/* EXPLORE */}
+                        <div className="space-y-3">
+                            <h4 className="text-white font-semibold text-xs uppercase tracking-[0.18em] flex items-center gap-1.5">
+                                <span className="w-1 h-3 bg-[#00c97b] rounded-full inline-block" />
+                                Explore
+                            </h4>
+                            <ul className="space-y-2">
+                                {[
+                                    { name: "Home", href: "/" },
+                                    { name: "Stays", href: "/stays" },
+                                    { name: "Experiences", href: "/experiences" },
+                                    { name: "Gallery", href: "/gallery" },
+                                    { name: "Events", href: "/events" },
+                                    { name: "Membership", href: "/membership" },
+                                ].map((link, idx) => (
+                                    <li key={idx}>
+                                        <a href={link.href} className="text-neutral-400 hover:text-white text-xs font-normal transition-colors">
+                                            {link.name}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
 
-                        <div className="flex items-center gap-4">
+                        {/* CONNECT */}
+                        <div className="space-y-3">
+                            <h4 className="text-white font-semibold text-xs uppercase tracking-[0.18em] flex items-center gap-1.5">
+                                <span className="w-1 h-3 bg-[#00c97b] rounded-full inline-block" />
+                                Connect
+                            </h4>
+                            <div className="space-y-2.5 text-xs text-neutral-400">
+                                <div>
+                                    <span className="text-[10px] text-neutral-500 uppercase block">Phone & WhatsApp</span>
+                                    <a href={RESORT_CONTACT.phoneTel} className="text-neutral-300 hover:text-[#00c97b] transition-colors">
+                                        {RESORT_CONTACT.phoneDisplay}
+                                    </a>
+                                </div>
+                                <div>
+                                    <span className="text-[10px] text-neutral-500 uppercase block">Email</span>
+                                    <a href={RESORT_CONTACT.emailMailto} className="text-neutral-300 hover:text-[#00c97b] transition-colors break-all">
+                                        {RESORT_CONTACT.emailAddress}
+                                    </a>
+                                </div>
+                                <div>
+                                    <span className="text-[10px] text-neutral-500 uppercase block">Location</span>
+                                    <p className="text-neutral-300 leading-snug">Ahmednagar Bypass, MH</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* BOOK YOUR STAY CTA */}
+                    <div className="pt-2">
+                        <a
+                            href="/book"
+                            className="w-full max-w-[340px] mx-auto h-12 bg-[#00c97b] hover:bg-[#00b06c] text-neutral-950 font-bold text-sm rounded-[16px] flex items-center justify-center shadow-lg shadow-emerald-950/40 transition-transform active:scale-[0.98]"
+                        >
+                            Book Your Stay
+                        </a>
+                    </div>
+
+                    {/* COPYRIGHT & CREDITS */}
+                    <div className="pt-5 border-t border-white/10 flex flex-col items-center gap-2 text-[11px] text-neutral-500 text-center">
+                        <p suppressHydrationWarning>© {currentYear} Vanrai Village Resort. All Rights Reserved.</p>
+                        <div className="flex items-center gap-1 text-[11px] text-neutral-400">
+                            <span>Crafted with</span>
+                            <Heart size={11} className="text-rose-500 fill-rose-500 inline" />
+                            <span>by</span>
+                            <a href="https://growxtech.com" target="_blank" rel="noreferrer" className="text-white hover:text-[#00c97b] font-medium">
+                                GrowX Technologies
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* DESKTOP & TABLET FOOTER (spacious & editorial) */}
+            <div className="hidden md:block container mx-auto px-6 lg:px-12 pt-14 sm:pt-16 pb-10 relative z-10">
+                {/* Top Section: Brand & Newsletter */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-12">
+                    <div className="lg:col-span-5 space-y-5">
+                        <a href="/" className="flex items-center group">
+                            <img
+                                src="/svg/Vanrai.svg"
+                                alt="Vanrai Village Logo"
+                                className="w-12 h-12 brightness-110 contrast-125 transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div className="ml-3 flex flex-col">
+                                <span className="text-xl font-bold text-white tracking-[0.1em] uppercase leading-none">
+                                    VANRAI
+                                </span>
+                                <span className="text-[10px] text-emerald-400 font-semibold tracking-[0.35em] mt-1 uppercase">
+                                    Village Resort
+                                </span>
+                            </div>
+                        </a>
+                        <p className="text-neutral-400 text-sm leading-relaxed font-light max-w-md">
+                            Where Rustic Charm Meets Refined Luxury. Experience An Eco-Conscious Sanctuary Designed For The Modern Soul.
+                        </p>
+                        <div className="flex items-center gap-2.5">
                             {[
-                                { icon: <Instagram size={20} />, href: "#" },
-                                { icon: <Facebook size={20} />, href: "#" },
-                                { icon: <IconBrandX size={20} />, href: "#" },
-                                { icon: <Youtube size={20} />, href: "#" },
+                                { icon: <Instagram size={17} />, href: RESORT_CONTACT.socials.instagram, label: "Instagram" },
+                                { icon: <Facebook size={17} />, href: RESORT_CONTACT.socials.facebook, label: "Facebook" },
+                                { icon: <IconBrandX size={17} />, href: RESORT_CONTACT.socials.x, label: "X" },
+                                { icon: <Youtube size={17} />, href: RESORT_CONTACT.socials.youtube, label: "YouTube" },
                             ].map((social, idx) => (
-                                <motion.a
+                                <a
                                     key={idx}
                                     href={social.href}
-                                    whileHover={{ y: -5, backgroundColor: "rgba(16, 185, 129, 0.1)", borderColor: "rgba(16, 185, 129, 0.3)", color: "#10b981" }}
-                                    className="w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center transition-all duration-300 text-neutral-400 group"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={social.label}
+                                    className="w-9 h-9 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/10 transition-all duration-300"
                                 >
                                     {social.icon}
-                                </motion.a>
+                                </a>
                             ))}
                         </div>
                     </div>
 
-                    <div className="lg:col-span-7 lg:pl-12">
-                        <div className="p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/[0.05] backdrop-blur-3xl relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-emerald-500/5 rounded-full blur-[80px] -z-10 group-hover:bg-emerald-400/10 transition-colors duration-700" />
-
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
-                                <div className="space-y-2">
-                                    <h3 className="text-2xl font-semibold text-white tracking-tight">Stay In The Loop</h3>
-                                    <p className="text-neutral-500 font-light">Join Our Insider List For Exclusive Offers And Seasonal News.</p>
+                    <div className="lg:col-span-7 lg:pl-6">
+                        <div className="p-6 sm:p-7 rounded-2xl bg-neutral-900/60 border border-white/10 backdrop-blur-xl relative overflow-hidden">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 relative z-10">
+                                <div className="space-y-1">
+                                    <h3 className="text-lg font-semibold text-white tracking-tight">Stay In The Loop</h3>
+                                    <p className="text-neutral-400 text-xs sm:text-sm font-light">Join Our Insider List For Seasonal Offers And Resort News.</p>
                                 </div>
-
-                                <div className="relative min-w-[300px] w-full md:w-auto">
+                                <form 
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        alert("Thank you for subscribing to Vanrai updates!");
+                                    }}
+                                    className="relative min-w-[240px] w-full sm:w-auto"
+                                >
                                     <input
                                         type="email"
+                                        required
                                         placeholder="your@email.com"
-                                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-emerald-500/50 transition-all placeholder:text-neutral-700 font-light pr-16"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-[#00c97b] transition-all placeholder:text-neutral-600 pr-11"
                                     />
-                                    <button className="absolute right-2 top-2 bottom-2 aspect-square bg-emerald-500 text-black rounded-xl flex items-center justify-center hover:bg-emerald-400 transition-colors shadow-[0_0_20px_rgba(16,185,129,0.2)]">
-                                        <ArrowRight size={20} />
+                                    <button
+                                        type="submit"
+                                        aria-label="Subscribe to newsletter"
+                                        className="absolute right-1 top-1 bottom-1 aspect-square bg-[#00c97b] text-neutral-950 rounded-lg flex items-center justify-center hover:bg-[#00b06c] transition-colors shadow-md cursor-pointer"
+                                    >
+                                        <ArrowRight size={15} />
                                     </button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Middle Section: Links & Contact */}
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-y-16 gap-x-8 mb-24">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 lg:gap-8 mb-12">
                     {footerLinksArr.map((section, idx) => (
-                        <div key={idx} className="space-y-8">
-                            <h4 className="text-white font-semibold text-sm uppercase tracking-[0.2em] relative inline-block pl-4">
-                                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-emerald-500 rounded-full" />
+                        <div key={idx} className="space-y-3.5">
+                            <h4 className="text-white font-semibold text-xs uppercase tracking-[0.2em] relative inline-block pl-2.5">
+                                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-2.5 bg-[#00c97b] rounded-full" />
                                 {section.title}
                             </h4>
-                            <ul className="space-y-4">
+                            <ul className="space-y-2">
                                 {section.links.map((link, linkIdx) => (
                                     <li key={linkIdx}>
                                         <a
                                             href={link.href}
-                                            className="text-neutral-500 hover:text-white text-[15px] transition-all duration-300 flex items-center group/link font-light"
+                                            className="text-neutral-400 hover:text-white text-xs sm:text-sm transition-colors duration-200 block font-light"
                                         >
-                                            <span className="opacity-0 group-hover/link:opacity-100 group-hover/link:translate-x-1 transition-all">
-                                                <ArrowRight size={12} className="mr-2 text-emerald-500" />
-                                            </span>
-                                            <span className="group-hover/link:translate-x-1 transition-transform">{link.name}</span>
+                                            {link.name}
                                         </a>
                                     </li>
                                 ))}
@@ -164,92 +291,50 @@ export const Footer = () => {
                         </div>
                     ))}
 
-                    {/* Contact Details x2 Columns for layout */}
-                    <div className="col-span-2 lg:col-span-2 space-y-10">
-                        <h4 className="text-white font-semibold text-sm uppercase tracking-[0.2em] relative inline-block pl-4">
-                            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-emerald-500 rounded-full" />
+                    {/* Contact Column */}
+                    <div className="col-span-2 space-y-3.5">
+                        <h4 className="text-white font-semibold text-xs uppercase tracking-[0.2em] relative inline-block pl-2.5">
+                            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-2.5 bg-[#00c97b] rounded-full" />
                             Contact & Location
                         </h4>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="space-y-6">
-                                <div className="flex gap-4 group/item">
-                                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-center justify-center shrink-0 group-hover/item:border-emerald-500/30 transition-all duration-300">
-                                        <MapPin size={20} className="text-emerald-500" />
-                                    </div>
-                                    <div>
-                                        <span className="block text-white text-sm font-medium mb-1">Our Sanctuary</span>
-                                        <address className="not-italic text-sm text-neutral-500 leading-relaxed font-light hover:text-neutral-300 transition-colors">
-                                            Vanrai Village Resort, <br />Ahmednagar, MH 414001
-                                        </address>
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-4 group/item">
-                                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-center justify-center shrink-0 group-hover/item:border-emerald-500/30 transition-all duration-300">
-                                        <Clock size={20} className="text-emerald-500" />
-                                    </div>
-                                    <div>
-                                        <span className="block text-white text-sm font-medium mb-1">Reception Hours</span>
-                                        <span className="text-sm text-neutral-500 font-light">Mon - Sun: 08:00 - 22:00</span>
-                                    </div>
-                                </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-neutral-400">
+                            <div className="space-y-1.5">
+                                <span className="text-xs text-white font-medium block">Resort Location</span>
+                                <p className="text-xs text-neutral-400 leading-relaxed font-light">
+                                    Vanrai Village Resort, <br />Ahmednagar City Bypass, MH 414111
+                                </p>
                             </div>
-
-                            <div className="space-y-6">
-                                <div className="flex gap-4 group/item">
-                                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-center justify-center shrink-0 group-hover/item:border-emerald-500/30 transition-all duration-300">
-                                        <Phone size={20} className="text-emerald-500" />
-                                    </div>
-                                    <div>
-                                        <span className="block text-white text-sm font-medium mb-1">Direct Line</span>
-                                        <a href="tel:+919765122888" className="text-lg text-emerald-400/90 font-medium hover:text-emerald-400 transition-colors">
-                                            +91 97651 22888
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-4 group/item">
-                                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-center justify-center shrink-0 group-hover/item:border-emerald-500/30 transition-all duration-300">
-                                        <Mail size={20} className="text-emerald-500" />
-                                    </div>
-                                    <div>
-                                        <span className="block text-white text-sm font-medium mb-1">Support</span>
-                                        <a href="mailto:contact@vanrai.com" className="text-sm text-neutral-500 font-light hover:text-emerald-400 transition-colors">
-                                            contact@vanrai.com
-                                        </a>
-                                    </div>
-                                </div>
+                            <div className="space-y-1.5">
+                                <span className="text-xs text-white font-medium block">Direct Inquiries & WhatsApp</span>
+                                <a href={RESORT_CONTACT.phoneTel} className="text-xs text-[#00c97b] font-medium block hover:underline">
+                                    {RESORT_CONTACT.phoneDisplay}
+                                </a>
+                                <a href={RESORT_CONTACT.emailMailto} className="text-xs text-neutral-400 font-light block hover:text-white transition-colors">
+                                    {RESORT_CONTACT.emailAddress}
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Separator */}
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-white/[0.05] to-transparent mb-12" />
+                <div className="w-full h-px bg-white/10 mb-6" />
 
                 {/* Footer Bottom */}
-                <div className="flex flex-col lg:flex-row justify-between items-center gap-8 text-sm font-light">
-                    <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 text-neutral-600">
-                        <p suppressHydrationWarning>© {currentYear} Vanrai Village Resort. All Sanctuary Rights Reserved.</p>
-                        <div className="flex gap-6">
-                            <a href="#" className="hover:text-neutral-400 transition-colors">Terms Of Use</a>
-                            <a href="#" className="hover:text-neutral-400 transition-colors">Privacy</a>
-                            <a href="#" className="hover:text-neutral-400 transition-colors">Cookies</a>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 text-neutral-500 px-6 py-3 rounded-2xl bg-white/[0.02] border border-white/5 transition-colors hover:border-white/10 group">
-                        <span className="text-[13px]">Crafted With</span>
-                        <Heart size={14} className="text-rose-500 animate-pulse fill-rose-500 group-hover:scale-125 transition-transform" />
-                        <span className="text-[13px]">By</span>
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-light text-neutral-500">
+                    <p suppressHydrationWarning>© {currentYear} Vanrai Village Resort. All Rights Reserved.</p>
+                    <div className="flex items-center gap-2">
+                        <span>Crafted with</span>
+                        <Heart size={12} className="text-rose-500 fill-rose-500" />
+                        <span>by</span>
                         <a
                             href="https://growxtech.com"
                             target="_blank"
-                            className="text-white hover:text-emerald-500 transition-colors font-semibold flex items-center gap-1.5"
+                            rel="noreferrer"
+                            className="text-white hover:text-[#00c97b] font-medium flex items-center gap-1 transition-colors"
                         >
                             GrowX Technologies
-                            <ExternalLink size={12} className="opacity-40" />
+                            <ExternalLink size={10} className="opacity-50" />
                         </a>
                     </div>
                 </div>

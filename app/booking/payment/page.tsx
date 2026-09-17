@@ -16,6 +16,17 @@ export default function PaymentPage() {
   const { finalTotal } = calculateTotal();
   const [paymentMethod, setPaymentMethod] = useState<"upi" | "card" | "netbanking">("upi");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [upiId, setUpiId] = useState("");
+  const [isUpiVerified, setIsUpiVerified] = useState(false);
+  const [selectedBank, setSelectedBank] = useState<string | null>(null);
+
+  const handleVerifyUpi = () => {
+    if (upiId.includes("@")) {
+      setIsUpiVerified(true);
+    } else {
+      alert("Please enter a valid UPI ID (e.g., yourname@upi)");
+    }
+  };
 
   const handlePayment = () => {
     setIsProcessing(true);
@@ -72,25 +83,25 @@ export default function PaymentPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
             
             {/* Left: Payment Options */}
-            <div className="lg:col-span-3 space-y-8">
+            <div className="lg:col-span-3 space-y-6 sm:space-y-8">
                
                {/* Selection Tabs */}
-               <div className="flex gap-2 p-1.5 bg-neutral-900 border border-white/5 rounded-2xl">
+               <div className="flex gap-2 p-1.5 bg-neutral-900 border border-white/5 rounded-[16px]">
                   <button 
                     onClick={() => setPaymentMethod("upi")}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all ${paymentMethod === 'upi' ? 'bg-emerald-500 text-black' : 'hover:bg-white/5 text-neutral-400'}`}
+                    className={`flex-1 h-11 flex items-center justify-center gap-2 rounded-[12px] text-xs sm:text-sm font-semibold transition-all ${paymentMethod === 'upi' ? 'bg-emerald-500 text-black shadow-md' : 'hover:bg-white/5 text-neutral-400'}`}
                   >
                     <Smartphone className="w-4 h-4" /> UPI
                   </button>
                   <button 
                     onClick={() => setPaymentMethod("card")}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all ${paymentMethod === 'card' ? 'bg-emerald-500 text-black' : 'hover:bg-white/5 text-neutral-400'}`}
+                    className={`flex-1 h-11 flex items-center justify-center gap-2 rounded-[12px] text-xs sm:text-sm font-semibold transition-all ${paymentMethod === 'card' ? 'bg-emerald-500 text-black shadow-md' : 'hover:bg-white/5 text-neutral-400'}`}
                   >
                     <CreditCard className="w-4 h-4" /> Cards
                   </button>
                   <button 
                     onClick={() => setPaymentMethod("netbanking")}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all ${paymentMethod === 'netbanking' ? 'bg-emerald-500 text-black' : 'hover:bg-white/5 text-neutral-400'}`}
+                    className={`flex-1 h-11 flex items-center justify-center gap-2 rounded-[12px] text-xs sm:text-sm font-semibold transition-all ${paymentMethod === 'netbanking' ? 'bg-emerald-500 text-black shadow-md' : 'hover:bg-white/5 text-neutral-400'}`}
                   >
                     <Landmark className="w-4 h-4" /> Net Banking
                   </button>
@@ -101,13 +112,13 @@ export default function PaymentPage() {
                  key={paymentMethod}
                  initial={{ opacity: 0, y: 10 }}
                  animate={{ opacity: 1, y: 0 }}
-                 className="bg-neutral-900/40 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl"
+                 className="bg-neutral-900/40 backdrop-blur-xl border border-white/10 rounded-[24px] p-6 sm:p-8 shadow-2xl"
                >
                   {paymentMethod === "upi" && (
-                    <div className="space-y-8">
-                       <div className="flex flex-col items-center justify-center p-8 bg-white/5 border border-white/5 rounded-2xl text-center">
-                          <QrCode className="w-32 h-32 text-white mb-4" />
-                          <p className="text-sm text-neutral-400 mb-2">Scan QR Code Using Any UPI App</p>
+                    <div className="space-y-6 sm:space-y-8">
+                       <div className="flex flex-col items-center justify-center p-6 sm:p-8 bg-white/5 border border-white/5 rounded-[18px] text-center">
+                          <QrCode className="w-28 h-28 sm:w-32 sm:h-32 text-white mb-4" />
+                          <p className="text-xs sm:text-sm text-neutral-400 mb-2">Scan QR Code Using Any UPI App</p>
                           <div className="flex gap-4">
                              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center overflow-hidden">
                                 <NextImage src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/1200px-UPI-Logo-vector.svg.png" alt="UPI" width={30} height={30} />
@@ -118,86 +129,100 @@ export default function PaymentPage() {
                           </div>
                        </div>
                        
-                       <div className="space-y-4">
-                          <p className="text-xs font-bold tracking-widest text-neutral-500">Or Enter VPA / UPI ID</p>
-                          <div className="flex gap-4">
-                             <input 
-                               type="text" 
-                               placeholder="user@upi"
-                               className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors"
-                             />
-                             <button className="px-6 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold tracking-widest transition-colors">Verify</button>
-                          </div>
-                       </div>
-                    </div>
-                  )}
+                        <div className="space-y-3">
+                           <p className="text-xs font-bold tracking-widest text-neutral-500">Or Enter VPA / UPI ID</p>
+                           <div className="flex gap-3">
+                              <input 
+                                type="text" 
+                                value={upiId}
+                                onChange={(e) => { setUpiId(e.target.value); setIsUpiVerified(false); }}
+                                placeholder="user@upi"
+                                className="flex-1 h-12 bg-white/5 border border-white/10 rounded-[14px] px-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+                              />
+                              <button 
+                                onClick={handleVerifyUpi}
+                                className={`h-12 px-6 rounded-[14px] text-xs font-bold tracking-widest transition-colors ${isUpiVerified ? "bg-emerald-500 text-black" : "bg-white/10 hover:bg-white/20 text-white"}`}
+                              >
+                                {isUpiVerified ? "Verified ✓" : "Verify"}
+                              </button>
+                           </div>
+                           {isUpiVerified && (
+                              <p className="text-xs text-emerald-400 font-medium">UPI ID verified successfully.</p>
+                           )}
+                        </div>
+                     </div>
+                   )}
 
-                  {paymentMethod === "card" && (
-                    <div className="space-y-6">
-                       <div className="space-y-2">
-                          <label className="text-xs font-bold tracking-widest text-neutral-500">Cardholder Name</label>
-                          <input type="text" placeholder="Full Name on Card" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors" />
-                       </div>
-                       <div className="space-y-2">
-                          <label className="text-xs font-bold tracking-widest text-neutral-500">Card Number</label>
-                          <div className="relative">
-                             <input type="text" placeholder="0000 0000 0000 0000" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors" />
-                             <CreditCard className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
-                          </div>
-                       </div>
-                       <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                             <label className="text-xs font-bold tracking-widest text-neutral-500">Expiry Date</label>
-                             <input type="text" placeholder="MM / YY" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors" />
-                          </div>
-                          <div className="space-y-2">
-                             <label className="text-xs font-bold tracking-widest text-neutral-500">CVV</label>
-                             <input type="password" placeholder="***" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors" />
-                          </div>
-                       </div>
-                       <div className="flex items-center gap-3 py-4">
-                          <input type="checkbox" id="save-card" className="w-4 h-4 rounded border-white/10 bg-white/5 text-emerald-500 focus:ring-emerald-500" />
-                          <label htmlFor="save-card" className="text-xs text-neutral-400">Save Card Details For Future Bookings</label>
-                       </div>
-                    </div>
-                  )}
+                   {paymentMethod === "card" && (
+                     <div className="space-y-5">
+                        <div className="space-y-2">
+                           <label className="text-xs font-bold tracking-widest text-neutral-500">Cardholder Name</label>
+                           <input type="text" placeholder="Full Name on Card" className="w-full h-12 bg-white/5 border border-white/10 rounded-[14px] px-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors" />
+                        </div>
+                        <div className="space-y-2">
+                           <label className="text-xs font-bold tracking-widest text-neutral-500">Card Number</label>
+                           <div className="relative">
+                              <input type="text" placeholder="0000 0000 0000 0000" className="w-full h-12 bg-white/5 border border-white/10 rounded-[14px] px-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors" />
+                              <CreditCard className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
+                           </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                           <div className="space-y-2">
+                              <label className="text-xs font-bold tracking-widest text-neutral-500">Expiry Date</label>
+                              <input type="text" placeholder="MM / YY" className="w-full h-12 bg-white/5 border border-white/10 rounded-[14px] px-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors" />
+                           </div>
+                           <div className="space-y-2">
+                              <label className="text-xs font-bold tracking-widest text-neutral-500">CVV</label>
+                              <input type="password" placeholder="***" className="w-full h-12 bg-white/5 border border-white/10 rounded-[14px] px-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors" />
+                           </div>
+                        </div>
+                        <div className="flex items-center gap-3 py-2">
+                           <input type="checkbox" id="save-card" className="w-4 h-4 rounded border-white/10 bg-white/5 text-emerald-500 focus:ring-emerald-500" />
+                           <label htmlFor="save-card" className="text-xs text-neutral-400">Save Card Details For Future Bookings</label>
+                        </div>
+                     </div>
+                   )}
 
-                  {paymentMethod === "netbanking" && (
-                    <div className="space-y-6">
-                       <p className="text-xs font-bold tracking-widest text-neutral-500 mb-4">Choose Your Bank</p>
-                       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                          {["HDFC Bank", "ICICI Bank", "SBI", "Axis Bank", "Kotak", "Yes Bank"].map(bank => (
-                            <button key={bank} className="p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all text-sm font-medium">
-                               {bank}
-                            </button>
-                          ))}
-                       </div>
-                    </div>
-                  )}
+                   {paymentMethod === "netbanking" && (
+                     <div className="space-y-5">
+                        <p className="text-xs font-bold tracking-widest text-neutral-500 mb-2">Choose Your Bank</p>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                           {["HDFC Bank", "ICICI Bank", "SBI", "Axis Bank", "Kotak", "Yes Bank"].map(bank => (
+                             <button 
+                               key={bank} 
+                               onClick={() => setSelectedBank(bank)}
+                               className={`p-3.5 sm:p-4 border rounded-[14px] transition-all text-xs sm:text-sm font-medium ${selectedBank === bank ? "bg-emerald-500/20 border-emerald-500 text-emerald-400 font-bold" : "bg-white/5 border-white/10 text-white hover:bg-emerald-500/10 hover:border-emerald-500/30"}`}
+                             >
+                                {bank}
+                             </button>
+                           ))}
+                        </div>
+                     </div>
+                   )}
                </motion.div>
             </div>
 
             {/* Right: Payment Sidebar */}
             <aside className="lg:col-span-2">
                <div className="sticky top-24 space-y-6">
-                  <div className="bg-neutral-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
-                     <div className="p-8 border-b border-white/5">
-                        <h3 className="font-bold">Payment <span className="text-emerald-500">Breakdown</span></h3>
+                  <div className="bg-neutral-900 border border-white/10 rounded-[24px] overflow-hidden shadow-2xl">
+                     <div className="p-6 sm:p-7 border-b border-white/5">
+                        <h3 className="font-bold text-lg">Payment <span className="text-emerald-500">Breakdown</span></h3>
                      </div>
-                     <div className="p-8 space-y-4">
-                        <div className="flex justify-between text-sm">
+                     <div className="p-6 sm:p-7 space-y-4">
+                        <div className="flex justify-between items-center text-sm">
                            <span className="text-neutral-500">Total Payable Amount</span>
                            <span className="text-2xl font-bold text-emerald-500">₹{finalTotal}</span>
                         </div>
-                        <p className="text-[10px] text-neutral-500 font-light leading-relaxed">By Clicking "Pay Now", You Agree To Our Terms Of Service And Cancellation Policy.</p>
+                        <p className="text-[11px] text-neutral-500 font-light leading-relaxed">By Clicking "Confirm & Pay Now", You Agree To Our Terms Of Service And Cancellation Policy.</p>
                         
                         <button 
                           onClick={handlePayment}
                           disabled={isProcessing}
-                          className="w-full bg-emerald-500 text-black font-bold py-4 rounded-full mt-4 hover:bg-emerald-400 transition-all flex items-center justify-center gap-2 group disabled:opacity-50"
+                          className="w-full h-12 bg-emerald-500 text-black font-semibold text-sm rounded-[16px] mt-4 hover:bg-emerald-400 transition-all flex items-center justify-center gap-2 group disabled:opacity-50 shadow-lg shadow-emerald-500/20"
                         >
                           {isProcessing ? "Processing..." : "Confirm & Pay Now"}
-                          {!isProcessing && <CheckCircle2 className="w-5 h-5" />}
+                          {!isProcessing && <CheckCircle2 className="w-4 h-4" />}
                         </button>
                      </div>
                   </div>

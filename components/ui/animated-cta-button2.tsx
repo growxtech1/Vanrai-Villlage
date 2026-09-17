@@ -28,10 +28,10 @@ export function AnimatedCTAButton2({
             onClick={handleClick}
             className={`animated-cta-button2 ${isAnimating ? 'animate-flow' : ''} ${className}`}
         >
-            <div className="button-circle">
-                <ArrowRight className="arrow-icon" size={20} />
-            </div>
             <span className="button-text">{text}</span>
+            <div className="button-circle">
+                <ArrowRight className="arrow-icon" size={15} />
+            </div>
             <div className="flow-overlay"></div>
         </button>
     );

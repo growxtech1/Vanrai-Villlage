@@ -11,13 +11,13 @@ export function MembershipTerms() {
     ];
 
     return (
-        <section className="py-24 bg-[#0a0a0a]">
+        <section className="py-24 sm:py-32 bg-[#0a0a0a]">
             <div className="container mx-auto px-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="max-w-5xl mx-auto p-12 rounded-[2.5rem] border border-white/5 bg-white/[0.01] relative overflow-hidden"
+                    className="max-w-5xl mx-auto p-6 sm:p-8 md:p-10 rounded-[22px] sm:rounded-[26px] border border-white/5 bg-white/[0.01] relative overflow-hidden"
                 >
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-10">
                         <div className="md:w-1/3">

@@ -2,14 +2,26 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import hero3 from "@/public/img/hero-3.png";
+import hero1 from "@/public/img/hero-1.png";
+import hero2 from "@/public/img/hero-2.png";
 import { AnimatedCTAButton } from "./animated-cta-button";
 import { AnimatedCTAButton2 } from "./animated-cta-button2";
 import { BookingBar } from "./booking-bar";
 
-const heroImages = [
-    "/img/hero-1.png",
-    "/img/hero-2.png",
-    "/img/hero-3.png",
+const heroSlides = [
+    {
+        src: hero3,
+        alt: "Vanrai Village Resort - Swimming Pool & Water Park",
+    },
+    {
+        src: hero1,
+        alt: "Vanrai Village Resort - Reception & Entrance",
+    },
+    {
+        src: hero2,
+        alt: "Vanrai Village Resort - Dining & Restaurant",
+    },
 ];
 
 export function HeroSlider() {
@@ -17,29 +29,30 @@ export function HeroSlider() {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+            setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
         }, 5000); // Change slide every 5 seconds
 
         return () => clearInterval(timer);
     }, []);
 
     return (
-        <section className="relative h-[110vh] sm:h-screen w-full">
+        <section className="relative min-h-screen sm:h-screen w-full flex flex-col justify-center overflow-hidden">
             {/* Image Slider Background */}
             <div className="absolute inset-0 overflow-hidden">
-                {heroImages.map((image, index) => (
+                {heroSlides.map((slide, index) => (
                     <div
                         key={index}
-                        className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-100" : "opacity-0"
+                        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out will-change-[opacity] ${index === currentSlide ? "opacity-100 z-1" : "opacity-0 z-0 pointer-events-none"
                             }`}
                     >
                         <Image
-                            src={image}
-                            alt={`Hero slide ${index + 1}`}
+                            src={slide.src}
+                            alt={slide.alt}
                             fill
-                            className="object-cover"
                             priority={index === 0}
                             sizes="100vw"
+                            quality={90}
+                            className="object-cover"
                         />
                         {/* Dark overlay for better text readability */}
                         <div className="absolute inset-0 bg-black/40" />
@@ -48,34 +61,33 @@ export function HeroSlider() {
             </div>
 
             {/* Overlapping Text Content */}
-            <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 md:px-8">
-                <div className="flex w-full max-w-[900px] flex-col items-center text-center text-white">
+            <div className="relative z-10 flex min-h-[100dvh] sm:min-h-0 sm:h-full flex-col items-center justify-center pt-24 pb-14 sm:pt-28 sm:pb-14 md:py-0 px-4 sm:px-6 md:px-8">
+                <div className="flex w-full max-w-[840px] flex-col items-center text-center text-white">
                     {/* Main Heading */}
-                    <h1 className="text-6xl md:text-7xl lg:text-[86px] font-semibold leading-[1.1] tracking-tight">
-                        Escape to <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-green-600 bg-clip-text text-transparent">Nature</span>
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[1.08] tracking-tight">
+                        Escape to <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-green-600 bg-clip-text text-transparent italic font-normal">Nature</span>
                     </h1>
 
                     {/* Subheading */}
-                    <h2 className="mt-4 md:mt-5 text-4xl md:text-5xl lg:text-[46px] font-regular tracking-wide text-white/90 italic">
+                    <h2 className="mt-3 sm:mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-normal tracking-wide text-white/90 italic">
                         Stay in Comfort.
                     </h2>
 
                     {/* Description */}
-                    <p className="mt-4 max-w-[650px] text-xl md:text-2xl font-light leading-[1.6] text-white/80">
+                    <p className="mt-3.5 sm:mt-4 md:mt-5 max-w-3xl text-base sm:text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-neutral-300">
                         A peaceful village-style resort near Ahmednagar, surrounded by
                         greenery and open lawns.
                     </p>
 
                     {/* Booking Bar */}
-                    <div className="w-full mt-[50px] md:mt-[60px] relative z-20">
+                    <div className="w-full mt-5 sm:mt-7 md:mt-8 lg:mt-9 relative z-20">
                         <BookingBar />
                     </div>
                 </div>
             </div>
-
             {/* Slide Indicators */}
-            <div className="absolute bottom-6 sm:bottom-12 left-1/2 z-20 flex -translate-x-1/2 gap-2 sm:gap-3">
-                {heroImages.map((_, index) => (
+            <div className="absolute bottom-5 sm:bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-2 sm:gap-3">
+                {heroSlides.map((_, index) => (
                     <button
                         key={index}
                         onClick={() => setCurrentSlide(index)}

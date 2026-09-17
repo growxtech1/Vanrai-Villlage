@@ -3,50 +3,71 @@
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useInView, useScroll, useTransform, type Variants } from "framer-motion";
+import { FallbackImage } from "@/components/ui/fallback-image";
+import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowRight, Camera, Sparkles } from "lucide-react";
 
-// Gallery preview images for homepage
+// Gallery preview images for homepage with real resort photography
 const galleryImages = [
     {
         id: 1,
-        src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop",
-        alt: "Resort Pool",
+        src: "/img/vanrai-entrance-gate.webp",
+        alt: "Vanrai Village Resort - Grand Entrance Gate",
     },
     {
         id: 2,
-        src: "https://images.unsplash.com/photo-1571896349842-33c89424de62?w=600&h=400&fit=crop",
-        alt: "Dining Experience",
+        src: "/img/Rooms/StaysCoversHero.webp",
+        alt: "Vanrai Village Resort - Wooden Cottages Sunset View",
     },
     {
         id: 3,
-        src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=400&fit=crop",
-        alt: "Resort View",
+        src: "/img/candle-light-dinner.jpg",
+        alt: "Vanrai Village Resort - Romantic Candle Light Dinner",
     },
     {
         id: 4,
-        src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&h=400&fit=crop",
-        alt: "Luxury Stay",
+        src: "/img/evening-bonfire.jpg",
+        alt: "Vanrai Village Resort - Evening Bonfire & Campfire Night",
     },
     {
         id: 5,
-        src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop",
-        alt: "Green Lawns",
+        src: "/img/rain-dance.jpg",
+        alt: "Vanrai Village Resort - Rain Dance & Poolside Fun",
     },
     {
         id: 6,
-        src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&h=400&fit=crop",
-        alt: "Event Space",
+        src: "/img/event-wedding-hall-stage.webp",
+        alt: "Vanrai Village Resort - Royal Wedding & Banquet Hall Stage",
     },
     {
         id: 7,
-        src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop",
-        alt: "Fine Dining",
+        src: "/img/dining-hall-wide.webp",
+        alt: "Vanrai Village Resort - Family Dining Hall & Restaurant",
     },
     {
         id: 8,
-        src: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&h=400&fit=crop",
-        alt: "Resort Amenities",
+        src: "/img/pool-sunset-luxury.jpg",
+        alt: "Vanrai Village Resort - Swimming Pool & Waterpark at Sunset",
+    },
+    {
+        id: 9,
+        src: "/img/vanrai-lawn-sunset.webp",
+        alt: "Vanrai Village Resort - Sunset View over Lush Central Lawn & Cottages",
+    },
+    {
+        id: 10,
+        src: "/img/waterpark-slides.jpg",
+        alt: "Vanrai Village Resort - Waterpark Slides",
+    },
+    {
+        id: 11,
+        src: "/img/vanrai-walkway-night.webp",
+        alt: "Vanrai Village Resort - Illuminated Night Walkway with Lanterns",
+    },
+    {
+        id: 12,
+        src: "/img/vanrai-resort-aerial-lawn.webp",
+        alt: "Vanrai Village Resort - Aerial Courtyard & Lawn View",
     },
 ];
 
@@ -89,30 +110,19 @@ export function GallerySection() {
     const sectionRef = useRef<HTMLElement>(null);
     const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-    // Parallax effect
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start end", "end start"],
-    });
-
-    const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -100]);
-
     return (
         <section
             ref={sectionRef}
             id="gallery"
-            className="relative py-24 md:py-32 lg:py-40 overflow-hidden bg-gradient-to-b from-[#0a0b0a] via-[#0e100e] to-[#0a0b0a] text-white"
+            className="relative py-24 sm:py-32 overflow-hidden bg-gradient-to-b from-[#0a0b0a] via-[#0e100e] to-[#0a0b0a] text-white"
         >
             {/* Animated Background Elements */}
-            <motion.div
-                style={{ y: backgroundY }}
-                className="absolute inset-0 pointer-events-none"
-            >
-                {/* Large gradient orbs */}
-                <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-green-600/20 to-emerald-600/10 rounded-full blur-[150px] animate-pulse" />
-                <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-emerald-500/15 to-teal-500/10 rounded-full blur-[120px]" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-green-900/10 to-emerald-900/10 rounded-full blur-[200px]" />
-            </motion.div>
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                {/* Large gradient orbs with optimized blurs */}
+                <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-green-600/15 to-emerald-600/5 rounded-full blur-[80px]" />
+                <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-gradient-to-tr from-emerald-500/10 to-teal-500/5 rounded-full blur-[70px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-green-900/10 to-emerald-900/10 rounded-full blur-[90px]" />
+            </div>
 
             {/* Decorative grid pattern */}
             <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{
@@ -134,28 +144,28 @@ export function GallerySection() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header Section */}
                 <motion.div
-                    className="text-center mb-16 md:mb-20 lg:mb-24 max-w-4xl mx-auto"
+                    className="text-center mb-10 sm:mb-12 md:mb-14 max-w-3xl mx-auto"
                     initial={{ opacity: 0, y: 40 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     {/* Badge - Consistent with app style */}
                     <motion.div
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black border border-white/10 mb-6 shadow-xl"
+                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black border border-white/10 mb-4 shadow-xl"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
                     >
-                        <div className="relative flex items-center justify-center w-2 h-2">
+                        <div className="relative flex items-center justify-center w-1.5 h-1.5">
                             <span className="absolute w-full h-full bg-green-500 rounded-full animate-ping opacity-75"></span>
-                            <span className="relative w-2 h-2 bg-green-500 rounded-full"></span>
+                            <span className="relative w-1.5 h-1.5 bg-green-500 rounded-full"></span>
                         </div>
-                        <span className="text-sm font-bold text-white tracking-widest uppercase">Photo Gallery</span>
+                        <span className="text-xs font-semibold text-white tracking-widest uppercase">Photo Gallery</span>
                     </motion.div>
 
                     {/* Title with gradient */}
                     <motion.h2
-                        className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6"
+                        className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3 sm:mb-4"
                         initial={{ opacity: 0, y: 30 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                         transition={{ delay: 0.3, duration: 0.7 }}
@@ -165,23 +175,23 @@ export function GallerySection() {
 
                     {/* Subtitle with sparkle */}
                     <motion.div
-                        className="flex items-center justify-center gap-3 mb-6"
+                        className="flex items-center justify-center gap-2.5 mb-3 sm:mb-4"
                         initial={{ opacity: 0 }}
                         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                         transition={{ delay: 0.5, duration: 0.6 }}
                     >
-                        <div className="h-px w-12 bg-gradient-to-r from-transparent to-green-500/50" />
-                        <Sparkles className="w-5 h-5 text-green-400" />
-                        <h3 className="text-xl md:text-2xl lg:text-3xl font-light italic text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-300 to-teal-400">
+                        <div className="h-px w-10 bg-gradient-to-r from-transparent to-green-500/50" />
+                        <Sparkles className="w-4 h-4 text-green-400" />
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-light italic text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-300 to-teal-400">
                             A Glimpse of Life at Vanrai
                         </h3>
-                        <Sparkles className="w-5 h-5 text-green-400" />
-                        <div className="h-px w-12 bg-gradient-to-l from-transparent to-green-500/50" />
+                        <Sparkles className="w-4 h-4 text-green-400" />
+                        <div className="h-px w-10 bg-gradient-to-l from-transparent to-green-500/50" />
                     </motion.div>
 
                     {/* Description */}
                     <motion.p
-                        className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
+                        className="text-neutral-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed"
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ delay: 0.6, duration: 0.6 }}
@@ -200,7 +210,7 @@ export function GallerySection() {
                 >
                     {galleryImages.map((image, index) => (
                         <motion.div
-                            key={image.id}
+                            key={`${image.id}-${image.src}`}
                             className={`relative overflow-hidden rounded-2xl sm:rounded-3xl group cursor-pointer
                                 ${index === 0 || index === 5 ? 'md:col-span-2 md:row-span-2 aspect-square' : 'aspect-[4/3]'}
                             `}
@@ -209,7 +219,7 @@ export function GallerySection() {
                             whileTap={{ scale: 0.98 }}
                         >
                             {/* Image */}
-                            <Image
+                            <FallbackImage
                                 src={image.src}
                                 alt={image.alt}
                                 fill
@@ -236,27 +246,27 @@ export function GallerySection() {
 
                 {/* CTA Button */}
                 <motion.div
-                    className="flex justify-center mt-14 md:mt-20"
+                    className="flex justify-center mt-10 sm:mt-12"
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                     transition={{ delay: 1, duration: 0.6 }}
                 >
                     <Link
                         href="/gallery"
-                        className="group relative px-10 py-5 bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 text-white font-semibold text-lg rounded-full shadow-2xl shadow-green-500/30 hover:shadow-green-500/50 transition-all duration-500 flex items-center gap-4 overflow-hidden"
+                        className="group relative px-7 py-3.5 bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 text-white font-medium text-sm sm:text-base rounded-full shadow-xl shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-500 flex items-center gap-3 overflow-hidden"
                     >
                         {/* Animated background shimmer */}
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
 
                         {/* Pulsing dot */}
-                        <span className="relative flex h-3 w-3">
+                        <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
                         </span>
 
                         <span className="relative z-10">View Full Gallery</span>
 
-                        <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                        <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
 
                         {/* Hover gradient overlay */}
                         <div className="absolute inset-0 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
@@ -265,12 +275,12 @@ export function GallerySection() {
 
                 {/* Bottom decorative line */}
                 <motion.div
-                    className="flex justify-center mt-16 md:mt-20"
+                    className="flex justify-center mt-10 sm:mt-12"
                     initial={{ opacity: 0, scaleX: 0 }}
                     animate={isInView ? { opacity: 1, scaleX: 1 } : { opacity: 0, scaleX: 0 }}
                     transition={{ delay: 1.2, duration: 0.8 }}
                 >
-                    <div className="h-px w-32 bg-gradient-to-r from-transparent via-green-500/50 to-transparent" />
+                    <div className="h-px w-24 bg-gradient-to-r from-transparent via-green-500/50 to-transparent" />
                 </motion.div>
             </div>
         </section>
