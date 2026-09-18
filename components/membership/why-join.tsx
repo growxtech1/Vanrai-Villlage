@@ -75,7 +75,7 @@ export function WhyJoin() {
                             transition={{ delay: 0.5 }}
                             className="space-y-4"
                         >
-                            {["Guaranteed ROI after 22 visits", "Priority festive access", "Personal concierge support"].map((item, i) => (
+                            {["365-Day Unlimited Access (Breakeven in just 22 visits)", "Priority festive access", "Personal concierge support"].map((item, i) => (
                                 <div key={i} className="flex items-center gap-3 text-white/60 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500" />
                                     <span>{item}</span>

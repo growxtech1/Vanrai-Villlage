@@ -1,6 +1,6 @@
 "use client";
 
-import { Waves, UtensilsCrossed, Sprout, Gamepad2, ShieldCheck, Sunset, Sparkles } from "lucide-react";
+import { Waves, UtensilsCrossed, Sprout, Gamepad2, ShieldCheck, Sunset } from "lucide-react";
 import { RESORT_PRIVILEGES } from "@/lib/stays-data";
 
 function getPrivilegeIcon(iconName: string) {
@@ -19,7 +19,7 @@ function getPrivilegeIcon(iconName: string) {
     case "Sunset":
       return <Sunset {...iconProps} />;
     default:
-      return <Sparkles {...iconProps} />;
+      return <ShieldCheck {...iconProps} />;
   }
 }
 
@@ -30,7 +30,7 @@ export function StaysPrivileges() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
+            <ShieldCheck className="w-3.5 h-3.5" />
             Included With Every Stay
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight">

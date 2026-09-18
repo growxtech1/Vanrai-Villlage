@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import hero3 from "@/public/img/hero-3.png";
-import { ArrowLeft, Clock, Phone, Mail, Sparkles, CalendarClock, MessageCircle, ArrowRight } from "lucide-react";
+import { ArrowLeft, Clock, Phone, Mail, ShieldCheck, CalendarClock, MessageCircle, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { RESORT_CONTACT, getWhatsAppUrl, WHATSAPP_MESSAGES } from "@/lib/contact-config";
 
@@ -41,7 +41,7 @@ export default function BookPage() {
         </Link>
 
         <div className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[#00c97b] text-xs font-semibold tracking-wider uppercase">
-          <Sparkles className="w-3.5 h-3.5" />
+          <ShieldCheck className="w-3.5 h-3.5" />
           <span>Best Rate Guarantee</span>
         </div>
       </header>

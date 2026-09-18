@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Gift, Bell, Heart, Trophy, Sparkles, Star } from "lucide-react";
+import { CheckCircle2, Gift, Bell, Heart, Trophy, Armchair, Star } from "lucide-react";
 
 export function ExclusivePrivileges() {
     const privileges = [
@@ -36,7 +36,7 @@ export function ExclusivePrivileges() {
             color: "text-green-400"
         },
         {
-            icon: <Sparkles className="w-6 h-6" />,
+            icon: <Armchair className="w-6 h-6" />,
             title: "Member Lounging",
             description: "Priority seating and services in our premium dining areas.",
             color: "text-emerald-400"   

@@ -95,32 +95,32 @@ export function MembershipPlans() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: index * 0.2, ease: [0.22, 1, 0.36, 1] }}
                             viewport={{ once: true }}
-                            className={`group relative flex flex-col p-6 sm:p-7 md:p-8 rounded-[22px] sm:rounded-[26px] border transition-all duration-500 hover:-translate-y-1 ${plan.highlight
+                            className={`group relative flex flex-col p-5 sm:p-7 md:p-8 rounded-[20px] sm:rounded-[26px] border transition-all duration-500 hover:-translate-y-1 ${plan.highlight
                                     ? "border-amber-500/30 bg-gradient-to-b from-amber-500/[0.08] to-transparent shadow-[0_20px_50px_rgba(245,158,11,0.05)]"
                                     : "border-white/10 bg-white/[0.03] hover:border-green-500/30"
                                 }`}
                         >
                             {plan.highlight && (
-                                <div className="absolute -top-3.5 right-6 sm:right-10 px-4 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 text-black text-[10px] font-black tracking-[0.2em] uppercase shadow-xl">
+                                <div className="absolute -top-3 right-4 sm:right-10 px-3 py-0.5 sm:px-4 sm:py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 text-black text-[9px] sm:text-[10px] font-black tracking-[0.2em] uppercase shadow-xl">
                                     Most Recommended
                                 </div>
                             )}
 
-                            <div className="flex justify-between items-start mb-6 sm:mb-8">
-                                <div className={`p-3 sm:p-3.5 rounded-xl sm:rounded-2xl ${plan.highlight ? "bg-amber-500/10 border border-amber-500/20" : "bg-white/5 border border-white/10"}`}>
+                            <div className="flex justify-between items-start mb-5 sm:mb-8">
+                                <div className={`p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl ${plan.highlight ? "bg-amber-500/10 border border-amber-500/20" : "bg-white/5 border border-white/10"}`}>
                                     {plan.icon}
                                 </div>
                                 <div className="text-right">
                                     <div className="text-white/30 text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase mb-0.5">Annual Fee</div>
                                     <div className="flex items-baseline gap-1 justify-end">
-                                        <span className="text-white/50 text-lg sm:text-xl font-light">₹</span>
+                                        <span className="text-white/50 text-base sm:text-xl font-light">₹</span>
                                         <span className="text-white text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">{plan.price}</span>
                                         <span className="text-white/30 text-xs sm:text-sm font-medium">{plan.period}</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="mb-6">
+                            <div className="mb-5 sm:mb-6">
                                 <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 tracking-tight">{plan.title}</h3>
                                 <div className="flex flex-wrap gap-2 sm:gap-2.5">
                                     <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-white/70 text-xs font-medium flex items-center gap-1.5">
@@ -133,7 +133,7 @@ export function MembershipPlans() {
                             </div>
 
                             <div className="flex-grow space-y-3 mb-6 sm:mb-8">
-                                <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] mb-3">Platinum Privileges</p>
+                                <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] mb-2.5">Platinum Privileges</p>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2.5 gap-x-5">
                                     {plan.benefits.map((benefit, bIndex) => (
                                         <div key={bIndex} className="flex items-start gap-2 group/item">
@@ -149,7 +149,7 @@ export function MembershipPlans() {
                             <div className="mt-auto">
                                 <a
                                     href={`/contact?subject=membership&plan=${encodeURIComponent(plan.title)}`}
-                                    className={`w-full h-11 rounded-[14px] font-semibold text-sm transition-all duration-300 flex items-center justify-center ${plan.highlight
+                                    className={`w-full h-12 rounded-[14px] font-semibold text-sm transition-all duration-300 flex items-center justify-center ${plan.highlight
                                             ? "bg-amber-500 text-black hover:bg-amber-400 shadow-lg shadow-amber-500/20"
                                             : "bg-white/10 text-white border border-white/10 hover:bg-white/15"
                                         }`}

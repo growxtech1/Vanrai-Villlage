@@ -26,6 +26,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Waves,
+  BedDouble,
+  CheckCircle2,
 } from "lucide-react";
 import { RoomDetail } from "@/lib/stays-data";
 import { getWhatsAppUrl, WHATSAPP_MESSAGES } from "@/lib/contact-config";
@@ -48,6 +50,8 @@ function getAmenityIcon(iconName: string) {
       return <Droplets {...iconProps} />;
     case "Sparkles":
       return <Sparkles {...iconProps} />;
+    case "BedDouble":
+      return <BedDouble {...iconProps} />;
     case "ShieldCheck":
       return <ShieldCheck {...iconProps} />;
     case "Utensils":
@@ -59,7 +63,7 @@ function getAmenityIcon(iconName: string) {
     case "Waves":
       return <Waves {...iconProps} />;
     default:
-      return <Sparkles {...iconProps} />;
+      return <CheckCircle2 {...iconProps} />;
   }
 }
 

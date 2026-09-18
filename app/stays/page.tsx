@@ -16,7 +16,7 @@ import { StaysPolicies } from "@/components/stays/stays-policies";
 import { StaysMobileBar } from "@/components/stays/stays-mobile-bar";
 import { ROOMS_DATA } from "@/lib/stays-data";
 import { RESORT_CONTACT, getWhatsAppUrl, WHATSAPP_MESSAGES } from "@/lib/contact-config";
-import { Calendar, MessageCircle, PhoneCall, Sparkles, BedDouble } from "lucide-react";
+import { Calendar, MessageCircle, PhoneCall, Compass, BedDouble } from "lucide-react";
 
 export default function StaysPage() {
   const [activeCategory, setActiveCategory] = useState<FilterCategory>("all");
@@ -147,7 +147,7 @@ export default function StaysPage() {
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12 max-w-5xl">
           <div className="rounded-3xl bg-neutral-900/70 border border-white/10 backdrop-blur-2xl p-8 sm:p-12 md:p-16 text-center shadow-2xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-5">
-              <Sparkles className="w-3.5 h-3.5" />
+              <Compass className="w-3.5 h-3.5" />
               Plan Your Countryside Escape
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-white tracking-tight leading-tight mb-4">

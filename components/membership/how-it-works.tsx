@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MousePointer2, CreditCard, IdCard, Sparkles, ArrowRight } from "lucide-react";
+import { MousePointer2, CreditCard, IdCard, Crown, ArrowRight } from "lucide-react";
 
 export function HowItWorks() {
     const steps = [
@@ -21,7 +21,7 @@ export function HowItWorks() {
             description: "Receive your Digital Membership ID instantly on your registered email."
         },
         {
-            icon: <Sparkles className="w-6 h-6" />,
+            icon: <Crown className="w-6 h-6" />,
             title: "Enjoy Benefits",
             description: "Start using your privileges, discounts, and complimentary stays immediately."
         }

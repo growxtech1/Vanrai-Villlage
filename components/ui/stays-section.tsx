@@ -4,13 +4,12 @@ import { useRef } from "react";
 import Link from "next/link";
 import { FallbackImage } from "@/components/ui/fallback-image";
 import { motion, useInView, type Variants } from "framer-motion";
-import { ArrowUpRight, Bed, Bath, Maximize, UtensilsCrossed } from "lucide-react";
+import { ArrowUpRight, Bed, Bath, UtensilsCrossed } from "lucide-react";
 
 interface Room {
     id: number;
     name: string;
     image: string;
-    size: string;
     beds: number;
     baths: number;
     price: string;
@@ -23,7 +22,6 @@ const rooms: Room[] = [
         id: 1,
         name: "Standard Room",
         image: "/img/Rooms/StandardRoom.jpeg",
-        size: "320 sqft",
         beds: 1,
         baths: 1,
         price: "₹2,500",
@@ -33,7 +31,6 @@ const rooms: Room[] = [
         id: 2,
         name: "Deluxe AC Room",
         image: "/img/Rooms/DeluxeAc.jpeg",
-        size: "450 sqft",
         beds: 2,
         baths: 1,
         price: "₹3,500",
@@ -44,7 +41,6 @@ const rooms: Room[] = [
         id: 3,
         name: "Wooden Cottages",
         image: "/img/Rooms/StaysCoversHero.webp",
-        size: "600 sqft",
         beds: 2,
         baths: 2,
         price: "₹4,500",
@@ -168,11 +164,6 @@ export function StaysSection() {
                             <div className="p-5 sm:p-6 space-y-4 flex-1 flex flex-col justify-between">
                                 <div className="space-y-3">
                                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs sm:text-sm text-neutral-400">
-                                        <div className="flex items-center gap-1.5">
-                                            <Maximize className="w-3.5 h-3.5 text-green-400" />
-                                            <span>{room.size}</span>
-                                        </div>
-                                        <span className="text-neutral-600">•</span>
                                         <div className="flex items-center gap-1.5">
                                             <Bed className="w-3.5 h-3.5 text-green-400" />
                                             <span>{room.beds} {room.beds > 1 ? "beds" : "bed"}</span>

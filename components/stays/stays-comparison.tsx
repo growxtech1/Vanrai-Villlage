@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Check, X, ArrowUpRight, Sparkles } from "lucide-react";
+import { Check, X, ArrowUpRight, BedDouble } from "lucide-react";
 import { ROOMS_DATA } from "@/lib/stays-data";
 
 export function StaysComparison() {
@@ -82,7 +82,7 @@ export function StaysComparison() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
+            <BedDouble className="w-3.5 h-3.5" />
             Side-By-Side Comparison
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight">
