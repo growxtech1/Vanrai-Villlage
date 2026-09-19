@@ -1,5 +1,5 @@
 /**
- * Centralized Contact & Sales Configuration for Vanrai Village Resort
+ * Centralized Contact & Sales Configuration for Vanrai Resort
  * Single source of truth for phone numbers, WhatsApp, and official email.
  */
 
@@ -19,7 +19,7 @@ export const RESORT_CONTACT = {
 
   // Physical Location
   address: "G.No 648, Wadgaon Gupta, Ahmednagar City Bypass, Maharashtra 414111",
-  mapQuery: "Vanrai+Village+Resort+Ahmednagar",
+  mapQuery: "Vanrai+Resort+Ahmednagar",
 
   // Social Channels
   socials: {
@@ -42,18 +42,18 @@ export function getWhatsAppUrl(message?: string): string {
 }
 
 export const WHATSAPP_MESSAGES = {
-  general: "Hi, I would like to know more about Vanrai Village Resort.",
-  stay: "Hi, I would like to enquire about staying at Vanrai Village Resort.",
-  room: (roomName: string) => `Hi, I would like to enquire about booking the ${roomName} at Vanrai Village Resort.`,
-  events: "Hi, I would like to enquire about hosting an event at Vanrai Village Resort.",
-  eventCategory: (categoryName: string) => `Hi, I would like to enquire about hosting a ${categoryName} event at Vanrai Village Resort.`,
-  dining: "Hi, I would like to enquire about dining at Vanrai Village Resort.",
+  general: "Hi, I would like to know more about Vanrai Resort.",
+  stay: "Hi, I would like to enquire about staying at Vanrai Resort.",
+  room: (roomName: string) => `Hi, I would like to enquire about booking the ${roomName} at Vanrai Resort.`,
+  events: "Hi, I would like to enquire about hosting an event at Vanrai Resort.",
+  eventCategory: (categoryName: string) => `Hi, I would like to enquire about hosting a ${categoryName} event at Vanrai Resort.`,
+  dining: "Hi, I would like to enquire about dining at Vanrai Resort.",
   experience: (experienceName?: string) =>
     experienceName
-      ? `Hi, I would like to know more about the ${experienceName} experience at Vanrai Village Resort.`
-      : "Hi, I would like to know more about the experiences at Vanrai Village Resort.",
+      ? `Hi, I would like to know more about the ${experienceName} experience at Vanrai Resort.`
+      : "Hi, I would like to know more about the experiences at Vanrai Resort.",
   membership: (planName?: string) =>
     planName
-      ? `Hi, I would like to enquire about the ${planName} Membership at Vanrai Village Resort.`
-      : "Hi, I would like to enquire about the Privilege Club Membership at Vanrai Village Resort."
+      ? `Hi, I would like to enquire about the ${planName} Membership at Vanrai Resort.`
+      : "Hi, I would like to enquire about the Privilege Club Membership at Vanrai Resort."
 } as const;

@@ -49,7 +49,7 @@ export function MembershipPlans() {
     ];
 
     return (
-        <section id="plans" className="py-24 sm:py-32 bg-[#0a0a0a] relative overflow-hidden">
+        <section id="plans" className="scroll-mt-24 sm:scroll-mt-28 py-24 sm:py-32 bg-[#0a0a0a] relative overflow-hidden">
             {/* Ambient Background Glows */}
             <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-green-900/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-emerald-900/10 rounded-full blur-[120px] pointer-events-none" />

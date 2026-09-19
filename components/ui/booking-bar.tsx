@@ -6,6 +6,7 @@ import { Calendar, Users, Home, Search, ChevronDown, Info, X, Check } from "luci
 import { useBooking, RoomType } from "@/lib/booking-context";
 import { useRouter } from "next/navigation";
 import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 import { format, isBefore, startOfToday } from "date-fns";
 
 const CalendarDropdown = ({ 
@@ -22,6 +23,7 @@ const CalendarDropdown = ({
   title?: string
 }) => (
   <motion.div 
+    data-lenis-prevent
     initial={{ opacity: 0, scale: 0.95 }}
     animate={{ opacity: 1, scale: 1 }}
     exit={{ opacity: 0, scale: 0.95 }}
@@ -118,6 +120,7 @@ const CalendarDropdown = ({
 
 const DesktopCalendarDropdown = ({ selected, onSelect, disabledBefore }: { selected?: Date, onSelect: (date?: Date) => void, disabledBefore?: Date }) => (
   <motion.div 
+    data-lenis-prevent
     initial={{ opacity: 0, y: 10, scale: 0.95 }}
     animate={{ opacity: 1, y: 0, scale: 1 }}
     exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -367,6 +370,7 @@ export const BookingBar = () => {
 
             {activeDropdown === "guests" && (
               <motion.div 
+                data-lenis-prevent
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
@@ -424,6 +428,7 @@ export const BookingBar = () => {
 
             {activeDropdown === "roomType" && (
               <motion.div 
+                data-lenis-prevent
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
@@ -570,6 +575,7 @@ export const BookingBar = () => {
             <AnimatePresence>
               {activeDropdown === "guests" && (
                 <motion.div 
+                  data-lenis-prevent
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -620,6 +626,7 @@ export const BookingBar = () => {
             <AnimatePresence>
               {activeDropdown === "roomType" && (
                 <motion.div 
+                  data-lenis-prevent
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}

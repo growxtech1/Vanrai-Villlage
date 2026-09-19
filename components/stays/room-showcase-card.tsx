@@ -94,6 +94,7 @@ export function RoomShowcaseCard({ room, index, isReversed }: RoomShowcaseCardPr
     emerald: "bg-emerald-500/15 border-emerald-500/30 text-emerald-300",
     blue: "bg-blue-500/15 border-blue-500/30 text-blue-300",
     purple: "bg-purple-500/15 border-purple-500/30 text-purple-300",
+    neutral: "bg-neutral-500/15 border-neutral-500/30 text-neutral-300",
   }[room.badge.variant];
 
   return (
@@ -122,7 +123,7 @@ export function RoomShowcaseCard({ room, index, isReversed }: RoomShowcaseCardPr
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                   className="object-cover"
-                  priority={index === 0}
+                  preload={index === 0}
                 />
               </motion.div>
             </AnimatePresence>
@@ -381,7 +382,7 @@ export function RoomShowcaseCard({ room, index, isReversed }: RoomShowcaseCardPr
                 <span className="text-2xl sm:text-3xl font-bold text-white font-mono">
                   ₹{room.price.toLocaleString("en-IN")}
                 </span>
-                {room.originalPrice && (
+                {room.originalPrice && room.originalPrice > room.price && (
                   <span className="text-xs sm:text-sm text-neutral-500 line-through font-mono">
                     ₹{room.originalPrice.toLocaleString("en-IN")}
                   </span>

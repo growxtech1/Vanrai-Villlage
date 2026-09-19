@@ -32,7 +32,7 @@ type Testimonial = {
     rating: number;
 };
 
-// Vanrai Village Resort Testimonials
+// Vanrai Resort Testimonials
 const testimonials: Testimonial[] = [
     {
         id: 1,
@@ -40,7 +40,7 @@ const testimonials: Testimonial[] = [
         location: "Ahmednagar",
         category: "Family Stay",
         categoryIcon: <TreePine className="w-4 h-4" />,
-        quote: "We visited Vanrai Village Resort with our family and it turned out to be a very relaxing experience. The open lawns were perfect for children, the food was homely and tasty, and the overall atmosphere felt calm and safe. It's a great place to spend quality time together away from the city.",
+        quote: "We visited Vanrai Resort with our family and it turned out to be a very relaxing experience. The open lawns were perfect for children, the food was homely and tasty, and the overall atmosphere felt calm and safe. It's a great place to spend quality time together away from the city.",
         imageSrc: "https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&h=800&fit=crop&q=80",
         rating: 5,
     },
@@ -60,7 +60,7 @@ const testimonials: Testimonial[] = [
         location: "Nashik",
         category: "Candle Light Dinner",
         categoryIcon: <Heart className="w-4 h-4" />,
-        quote: "We booked a couple stay at Vanrai Village Resort and opted for the candle light dinner. The arrangement was simple, elegant, and very romantic. The quiet surroundings, warm lighting, and courteous staff made the evening truly special for us. Highly recommended for couples looking for a peaceful escape.",
+        quote: "We booked a couple stay at Vanrai Resort and opted for the candle light dinner. The arrangement was simple, elegant, and very romantic. The quiet surroundings, warm lighting, and courteous staff made the evening truly special for us. Highly recommended for couples looking for a peaceful escape.",
         imageSrc: "https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?w=600&h=800&fit=crop&q=80",
         rating: 5,
     },
@@ -70,7 +70,7 @@ const testimonials: Testimonial[] = [
         location: "Mumbai",
         category: "Destination Wedding",
         categoryIcon: <Gem className="w-4 h-4" />,
-        quote: "We chose Vanrai Village Resort for our destination wedding, and it was the best decision we made. The lawns, décor, food, and overall coordination were managed beautifully. The natural surroundings added a magical touch, and our guests couldn't stop appreciating the ambience. Vanrai made our special day truly unforgettable.",
+        quote: "We chose Vanrai Resort for our destination wedding, and it was the best decision we made. The lawns, décor, food, and overall coordination were managed beautifully. The natural surroundings added a magical touch, and our guests couldn't stop appreciating the ambience. Vanrai made our special day truly unforgettable.",
         imageSrc: "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=800&fit=crop&q=80",
         rating: 5,
     },
@@ -90,7 +90,7 @@ const testimonials: Testimonial[] = [
         location: "Ahmednagar",
         category: "Corporate Events",
         categoryIcon: <Building2 className="w-4 h-4" />,
-        quote: "We hosted a corporate offsite at Vanrai Village Resort, and the experience exceeded expectations. The peaceful environment helped everyone disconnect from routine work stress, while the arrangements for meetings, food, and stay were handled smoothly. It's an excellent venue for team-building and corporate events.",
+        quote: "We hosted a corporate offsite at Vanrai Resort, and the experience exceeded expectations. The peaceful environment helped everyone disconnect from routine work stress, while the arrangements for meetings, food, and stay were handled smoothly. It's an excellent venue for team-building and corporate events.",
         imageSrc: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=800&fit=crop&q=80",
         rating: 5,
     },
@@ -100,7 +100,7 @@ const testimonials: Testimonial[] = [
         location: "Maharashtra",
         category: "Sports Events",
         categoryIcon: <Trophy className="w-4 h-4" />,
-        quote: "We organised a sports event at Vanrai Village Resort, and the open grounds were perfect for outdoor activities. The resort provided ample space, good coordination, and comfortable stay arrangements for participants. A great place for sports groups and activity-based events.",
+        quote: "We organised a sports event at Vanrai Resort, and the open grounds were perfect for outdoor activities. The resort provided ample space, good coordination, and comfortable stay arrangements for participants. A great place for sports groups and activity-based events.",
         imageSrc: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=800&fit=crop&q=80",
         rating: 5,
     },
@@ -202,7 +202,7 @@ export function TestimonialsSection() {
         <motion.section
             ref={sectionRef}
             id="testimonials"
-            className="relative w-full py-24 sm:py-32 overflow-hidden bg-neutral-950"
+            className="scroll-mt-24 sm:scroll-mt-28 relative w-full py-24 sm:py-32 overflow-hidden bg-neutral-950"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             onTouchStart={() => setIsPaused(true)}

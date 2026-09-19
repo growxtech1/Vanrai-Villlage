@@ -28,7 +28,7 @@ export function FallbackImage({
     <Image
       {...rest}
       src={hasError ? fallbackSrc : imgSrc}
-      alt={alt || "Vanrai Village Resort"}
+      alt={alt || "Vanrai Resort"}
       className={className}
       onError={() => {
         if (!hasError) {

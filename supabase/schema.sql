@@ -1,5 +1,5 @@
 -- ==============================================================================
--- VANRAI VILLAGE RESORT - EVENT ENQUIRIES SCHEMA
+-- VANRAI RESORT - EVENT ENQUIRIES SCHEMA
 -- ==============================================================================
 -- Run this script in your Supabase SQL Editor (Dashboard > SQL Editor > New query)
 

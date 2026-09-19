@@ -185,7 +185,7 @@ export function ExperiencesSection() {
         <motion.section
             ref={sectionRef}
             id="experiences"
-            className="relative w-full py-24 sm:py-32 overflow-hidden"
+            className="scroll-mt-24 sm:scroll-mt-28 relative w-full py-24 sm:py-32 overflow-hidden"
         >
             {/* Premium dark gradient background */}
             <div className="absolute inset-0 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950" />
@@ -309,7 +309,8 @@ export function ExperiencesSection() {
                     {/* Scrollable container */}
                     <div
                         ref={scrollContainerRef}
-                        className="flex gap-4 overflow-x-auto scroll-smooth px-4 py-6 scrollbar-hide"
+                        data-lenis-prevent
+                        className="flex gap-4 overflow-x-auto scroll-smooth px-4 py-6 scrollbar-hide no-scrollbar"
                         style={{
                             scrollSnapType: 'x mandatory',
                             WebkitOverflowScrolling: 'touch',

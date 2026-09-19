@@ -4,6 +4,8 @@ export interface RoomGalleryImage {
   label: string;
 }
 
+import { WOODEN_COTTAGE_PRICE_PER_NIGHT } from "@/constants/pricing";
+
 export interface RoomDetail {
   id: string;
   name: string;
@@ -13,7 +15,7 @@ export interface RoomDetail {
   description: string;
   longDescription: string;
   price: number;
-  originalPrice?: number;
+  originalPrice: number;
   priceUnit: string;
   capacity: string;
   maxAdults: number;
@@ -25,16 +27,20 @@ export interface RoomDetail {
   hasPoolAccess: boolean;
   badge: {
     label: string;
-    variant: "emerald" | "amber" | "blue" | "purple";
+    variant: "amber" | "emerald" | "neutral" | "blue";
   };
   rating: number;
   reviewsCount: number;
-  images: RoomGalleryImage[];
+  images: {
+    src: string;
+    alt: string;
+    label: string;
+  }[];
   highlights: string[];
   amenities: {
     iconName: string;
     name: string;
-    category: "essentials" | "comfort" | "entertainment" | "bathroom";
+    category: "comfort" | "bathroom" | "entertainment" | "essentials";
   }[];
   packageInclusions: string[];
   bestFor: string;
@@ -50,8 +56,8 @@ export const ROOMS_DATA: RoomDetail[] = [
     tagline: "Rustic Luxury & Private Teak Retreat Amidst Nature",
     description: "Handcrafted teak cottages nestled among green foliage, offering maximum privacy, warm timber interiors, and a tranquil escape.",
     longDescription: "Our signature Wooden Cottages provide an intimate rustic sanctuary. Built with premium teak timber and natural materials, each cottage features plush bedding, nature-facing sit-outs, and handcrafted accents that evoke peaceful village tranquility while providing elite resort comforts.",
-    price: 4500,
-    originalPrice: 5200,
+    price: WOODEN_COTTAGE_PRICE_PER_NIGHT,
+    originalPrice: WOODEN_COTTAGE_PRICE_PER_NIGHT,
     priceUnit: "per night",
     capacity: "Up to 4 Guests (2 Adults + 2 Kids or 3 Adults)",
     maxAdults: 4,
@@ -108,7 +114,7 @@ export const ROOMS_DATA: RoomDetail[] = [
       { iconName: "Utensils", name: "In-Room Dining Service", category: "essentials" },
     ],
     packageInclusions: [
-      "Lavish Pure-Veg Breakfast Buffet Included",
+      "Lavish Breakfast Buffet Included",
       "Resort Swimming Pool Access Included",
       "Access to Sports Turf, Badminton & Indoor Games",
       "Guided Morning Village & Agro-Farm Tour",
@@ -125,7 +131,7 @@ export const ROOMS_DATA: RoomDetail[] = [
     description: "Spacious, climate-controlled rooms crafted for modern comfort, featuring contemporary appointments and tranquil green courtyard views.",
     longDescription: "Our Deluxe AC Rooms deliver the ideal balance between contemporary hospitality and natural countryside living. With sound insulation, high-grade linen, modern ensuite bathrooms, and premium amenities, these rooms offer pure comfort for couples and families looking for a relaxing holiday.",
     price: 3500,
-    originalPrice: 4000,
+    originalPrice: 3500,
     priceUnit: "per night",
     capacity: "Up to 4 Guests (2 Adults + 2 Kids or 3 Adults)",
     maxAdults: 4,
@@ -165,7 +171,7 @@ export const ROOMS_DATA: RoomDetail[] = [
     ],
     highlights: [
       "Modern climate-controlled split AC interior",
-      "Complimentary Pure Veg breakfast included",
+      "Complimentary breakfast buffet included",
       "Complimentary resort swimming pool access",
       "Relaxing living space with comfortable seating",
       "Smart modern washroom with premium fittings",
@@ -182,7 +188,7 @@ export const ROOMS_DATA: RoomDetail[] = [
       { iconName: "Car", name: "Designated Reserved Parking", category: "essentials" },
     ],
     packageInclusions: [
-      "Complimentary Nutritious Pure-Veg Breakfast Included",
+      "Complimentary Nutritious Breakfast Included",
       "Resort Swimming Pool Access Included",
       "Lawn Sports & Kids Play Zone Access",
       "Organic Farm Experience & Nursery Tour",
@@ -199,7 +205,7 @@ export const ROOMS_DATA: RoomDetail[] = [
     description: "Simple, welcoming, and spotless accommodation designed for value-conscious travelers, small families, and groups.",
     longDescription: "Our Standard Rooms are tailored for guests who prioritize neatness, genuine rustic warmth, and peace of mind. Built with traditional ventilation and surrounded by swaying trees, these comfortable rooms provide an authentic countryside resting haven with essential conveniences at an unbeatable value.",
     price: 2500,
-    originalPrice: 3000,
+    originalPrice: 2500,
     priceUnit: "per night",
     capacity: "Up to 3 Guests (2 Adults + 1 Child)",
     maxAdults: 3,
@@ -228,7 +234,7 @@ export const ROOMS_DATA: RoomDetail[] = [
       },
       {
         src: "/img/vanrai_resort_view.webp",
-        alt: "Village resort trees and landscape",
+        alt: "Vanrai Resort trees and landscape",
         label: "Resort Panorama",
       }
     ],
@@ -268,14 +274,14 @@ export const RESORT_PRIVILEGES = [
   },
   {
     icon: "UtensilsCrossed",
-    title: "Authentic Pure-Veg Dining",
-    desc: "Wholesome Maharashtrian village specialties, Punjabi delicacies, and freshly prepared pure vegetarian farm food.",
-    badge: "100% Pure Veg"
+    title: "Authentic Multi-Cuisine Dining",
+    desc: "Wholesome Maharashtrian village specialties, North Indian delicacies, and freshly prepared farm food.",
+    badge: "Farm-Fresh"
   },
   {
     icon: "Sprout",
-    title: "15+ Acres Agro-Tourism Park",
-    desc: "Stroll through organic fruit orchards, shaded tree groves, butterfly gardens, and serene village walking trails.",
+    title: "2.5 Acres Agro-Tourism Sanctuary",
+    desc: "Stroll through organic tree groves, flowering gardens, shaded sit-outs, and serene walking paths.",
     badge: "Agro Experience"
   },
   {
@@ -305,15 +311,15 @@ export const STAY_POLICIES = [
   },
   {
     title: "Complimentary Breakfast Policy",
-    content: "Complimentary chef-curated Pure-Veg breakfast is included exclusively for guests staying in Luxury Wooden Cottages and Deluxe AC Rooms. Guests in Standard Rooms may order breakfast separately at the resort dining hall."
+    content: "Complimentary chef-curated breakfast is included exclusively for guests staying in Luxury Wooden Cottages and Deluxe AC Rooms. Guests in Standard Rooms may order breakfast separately at the resort dining hall."
   },
   {
     title: "Swimming Pool Access",
     content: "All room stays include complimentary access to the resort swimming pool during standard operational pool hours (proper nylon/polyester swimwear required). Note: Waterpark slides are a separate resort facility."
   },
   {
-    title: "Food & Dining Guidelines (Strictly Pure Vegetarian)",
-    content: "Vanrai Village Resort is a 100% Pure Vegetarian property. Outside cooked non-vegetarian food and alcohol consumption are strictly prohibited on resort premises to honor the peaceful agro-tourism environment."
+    title: "Food & In-House Dining Guidelines",
+    content: "Vanrai Resort offers fresh in-house multi-cuisine dining prepared with local farm produce. Guests can enjoy breakfast, lunch, and dinner at our dining hall or request outdoor lawn seating."
   },
   {
     title: "Child & Extra Bed Policies",

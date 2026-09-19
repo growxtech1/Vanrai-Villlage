@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
     Mail,
@@ -28,7 +29,7 @@ export const Footer = () => {
                 { name: "Home", href: "/" },
                 { name: "Stays", href: "/stays" },
                 { name: "Experiences", href: "/experiences" },
-                { name: "About Vanrai", href: "/about" },
+                { name: "About Us", href: "/about" },
                 { name: "Gallery", href: "/gallery" },
             ]
         },
@@ -46,8 +47,8 @@ export const Footer = () => {
             links: [
                 { name: "Contact Us", href: "/contact" },
                 { name: "Location Map", href: "/contact" },
-                { name: "Terms & Conditions", href: "/membership" },
-                { name: "Privacy Policy", href: "/about" },
+                { name: "Terms & Conditions", href: "/terms" },
+                { name: "Privacy Policy", href: "/privacy-policy" },
             ]
         }
     ];
@@ -72,10 +73,10 @@ export const Footer = () => {
                 <div className="flex flex-col space-y-7">
                     {/* LOGO & Short brand statement */}
                     <div className="flex flex-col space-y-3">
-                        <a href="/" className="flex items-center gap-3">
+                        <Link href="/" className="flex items-center gap-3">
                             <img
                                 src="/svg/Vanrai.svg"
-                                alt="Vanrai Village Logo"
+                                alt="Vanrai Resort Logo"
                                 className="w-12 h-12 brightness-110 contrast-125"
                             />
                             <div className="flex flex-col">
@@ -83,10 +84,10 @@ export const Footer = () => {
                                     VANRAI
                                 </span>
                                 <span className="text-[10px] text-emerald-400 font-semibold tracking-[0.3em] uppercase">
-                                    Village Resort
+                                    Resort
                                 </span>
                             </div>
-                        </a>
+                        </Link>
                         <p className="text-neutral-400 text-sm leading-relaxed font-light">
                             Where Rustic Charm Meets Refined Luxury. An Eco-Conscious Sanctuary Designed For The Modern Soul.
                         </p>
@@ -131,9 +132,9 @@ export const Footer = () => {
                                     { name: "Membership", href: "/membership" },
                                 ].map((link, idx) => (
                                     <li key={idx}>
-                                        <a href={link.href} className="text-neutral-400 hover:text-white text-xs font-normal transition-colors">
+                                        <Link href={link.href} className="text-neutral-400 hover:text-white text-xs font-normal transition-colors">
                                             {link.name}
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
@@ -168,22 +169,27 @@ export const Footer = () => {
 
                     {/* BOOK YOUR STAY CTA */}
                     <div className="pt-2">
-                        <a
+                        <Link
                             href="/book"
                             className="w-full max-w-[340px] mx-auto h-12 bg-[#00c97b] hover:bg-[#00b06c] text-neutral-950 font-bold text-sm rounded-[16px] flex items-center justify-center shadow-lg shadow-emerald-950/40 transition-transform active:scale-[0.98]"
                         >
                             Book Your Stay
-                        </a>
+                        </Link>
                     </div>
 
                     {/* COPYRIGHT & CREDITS */}
-                    <div className="pt-5 border-t border-white/10 flex flex-col items-center gap-2 text-[11px] text-neutral-500 text-center">
-                        <p suppressHydrationWarning>© {currentYear} Vanrai Village Resort. All Rights Reserved.</p>
+                    <div className="pt-5 border-t border-white/10 flex flex-col items-center gap-2.5 text-[11px] text-neutral-500 text-center">
+                        <div className="flex items-center gap-3 text-[11px] text-neutral-400">
+                            <Link href="/privacy-policy" className="hover:text-[#00c97b] transition-colors">Privacy Policy</Link>
+                            <span className="text-neutral-600">·</span>
+                            <Link href="/terms" className="hover:text-[#00c97b] transition-colors">Terms & Conditions</Link>
+                        </div>
+                        <p suppressHydrationWarning>© {currentYear} Vanrai Resort. All Rights Reserved.</p>
                         <div className="flex items-center gap-1 text-[11px] text-neutral-400">
                             <span>Crafted with</span>
                             <Heart size={11} className="text-rose-500 fill-rose-500 inline" />
                             <span>by</span>
-                            <a href="https://growxtech.com" target="_blank" rel="noreferrer" className="text-white hover:text-[#00c97b] font-medium">
+                            <a href="https://growxtech.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#00c97b] font-medium">
                                 GrowX Technologies
                             </a>
                         </div>
@@ -196,10 +202,10 @@ export const Footer = () => {
                 {/* Top Section: Brand & Newsletter */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-12">
                     <div className="lg:col-span-5 space-y-5">
-                        <a href="/" className="flex items-center group">
+                        <Link href="/" className="flex items-center group">
                             <img
                                 src="/svg/Vanrai.svg"
-                                alt="Vanrai Village Logo"
+                                alt="Vanrai Resort Logo"
                                 className="w-12 h-12 brightness-110 contrast-125 transition-transform duration-500 group-hover:scale-105"
                             />
                             <div className="ml-3 flex flex-col">
@@ -207,10 +213,10 @@ export const Footer = () => {
                                     VANRAI
                                 </span>
                                 <span className="text-[10px] text-emerald-400 font-semibold tracking-[0.35em] mt-1 uppercase">
-                                    Village Resort
+                                    Resort
                                 </span>
                             </div>
-                        </a>
+                        </Link>
                         <p className="text-neutral-400 text-sm leading-relaxed font-light max-w-md">
                             Where Rustic Charm Meets Refined Luxury. Experience An Eco-Conscious Sanctuary Designed For The Modern Soul.
                         </p>
@@ -279,12 +285,12 @@ export const Footer = () => {
                             <ul className="space-y-2">
                                 {section.links.map((link, linkIdx) => (
                                     <li key={linkIdx}>
-                                        <a
+                                        <Link
                                             href={link.href}
                                             className="text-neutral-400 hover:text-white text-xs sm:text-sm transition-colors duration-200 block font-light"
                                         >
                                             {link.name}
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
@@ -301,7 +307,7 @@ export const Footer = () => {
                             <div className="space-y-1.5">
                                 <span className="text-xs text-white font-medium block">Resort Location</span>
                                 <p className="text-xs text-neutral-400 leading-relaxed font-light">
-                                    Vanrai Village Resort, <br />Ahmednagar City Bypass, MH 414111
+                                    Vanrai Resort, <br />Ahmednagar City Bypass, MH 414111
                                 </p>
                             </div>
                             <div className="space-y-1.5">
@@ -322,7 +328,12 @@ export const Footer = () => {
 
                 {/* Footer Bottom */}
                 <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-light text-neutral-500">
-                    <p suppressHydrationWarning>© {currentYear} Vanrai Village Resort. All Rights Reserved.</p>
+                    <p suppressHydrationWarning>© {currentYear} Vanrai Resort. All Rights Reserved.</p>
+                    <div className="flex items-center gap-4 text-xs text-neutral-400">
+                        <Link href="/privacy-policy" className="hover:text-[#00c97b] transition-colors">Privacy Policy</Link>
+                        <span className="text-neutral-600">·</span>
+                        <Link href="/terms" className="hover:text-[#00c97b] transition-colors">Terms & Conditions</Link>
+                    </div>
                     <div className="flex items-center gap-2">
                         <span>Crafted with</span>
                         <Heart size={12} className="text-rose-500 fill-rose-500" />
@@ -330,7 +341,7 @@ export const Footer = () => {
                         <a
                             href="https://growxtech.com"
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             className="text-white hover:text-[#00c97b] font-medium flex items-center gap-1 transition-colors"
                         >
                             GrowX Technologies

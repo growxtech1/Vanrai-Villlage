@@ -6,6 +6,8 @@ import {
   AnimatePresence,
 } from "motion/react";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -47,45 +49,10 @@ interface MobileNavMenuProps {
 }
 
 export const Navbar = ({ children, className }: NavbarProps) => {
-  const [visible, setVisible] = useState<boolean>(false);
-
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-
   return (
-    <motion.div
-      className={cn("relative w-full", className)}
-      animate={{
-        top: visible ? "16px" : "0px",
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 300,
-        damping: 40,
-        mass: 0.8,
-      }}
-    >
-      {React.Children.map(children, (child) =>
-        React.isValidElement(child)
-          ? React.cloneElement(
-            child as React.ReactElement<{ visible?: boolean }>,
-            { visible },
-          )
-          : child,
-      )}
-    </motion.div>
+    <nav className={cn("relative w-full", className)}>
+      {children}
+    </nav>
   );
 };
 
@@ -93,22 +60,18 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
     <motion.div
       animate={{
-        backdropFilter: "blur(20px)",
-        boxShadow: visible
-          ? "0 10px 40px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12)"
-          : "0 4px 20px -2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08)",
-        y: visible ? 6 : 0,
-        borderRadius: "9999px",
+        backdropFilter: "blur(16px)",
+        boxShadow: "0 10px 32px rgba(0, 0, 0, 0.6)",
+        y: visible ? 4 : 0,
       }}
       transition={{
         type: "spring",
-        stiffness: 220,
-        damping: 28,
-        mass: 0.8,
+        stiffness: 260,
+        damping: 32,
       }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-6xl flex-row items-center justify-between self-start px-5 py-2 lg:flex",
-        "bg-neutral-950/85 border border-white/10 shadow-2xl backdrop-blur-xl",
+        "relative z-50 mx-auto hidden lg:flex h-14 w-fit items-center justify-between gap-2 rounded-full px-4",
+        "bg-neutral-950/80 border border-white/10 shadow-2xl backdrop-blur-xl",
         className,
       )}
     >
@@ -117,8 +80,13 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   );
 };
 
-export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
+export const NavItems = ({
+  items,
+  className,
+  onItemClick,
+}: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
+  const pathname = usePathname();
 
   return (
     <motion.div
@@ -128,26 +96,35 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         className,
       )}
     >
-      {items.map((item, idx) => (
-        <a
-          onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
-          className={cn(
-            "relative px-3 py-1.5 font-medium tracking-wide transition-colors duration-200 text-neutral-300 hover:text-white text-[13px]"
-          )}
-          key={`link-${idx}`}
-          href={item.link}
-        >
-          {hovered === idx && (
-            <motion.div
-              layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-full bg-white/10 backdrop-blur-sm border border-white/10"
-              transition={{ type: "spring", stiffness: 350, damping: 30 }}
-            />
-          )}
-          <span className="relative z-20">{item.name}</span>
-        </a>
-      ))}
+      {items.map((item, idx) => {
+        const isActive = pathname === item.link;
+        return (
+          <Link
+            key={`link-${idx}`}
+            href={item.link}
+            onMouseEnter={() => setHovered(idx)}
+            onClick={onItemClick}
+            className={cn(
+              "relative px-3 py-1.5 font-medium tracking-wide transition-colors duration-200 text-[13px] rounded-full",
+              isActive ? "text-emerald-400 font-semibold" : "text-neutral-300 hover:text-white"
+            )}
+          >
+            {(hovered === idx || isActive) && (
+              <motion.div
+                layoutId={isActive ? "activeNav" : "hovered"}
+                className={cn(
+                  "absolute inset-0 h-full w-full rounded-full border",
+                  isActive
+                    ? "bg-emerald-500/10 border-emerald-500/30"
+                    : "bg-white/10 backdrop-blur-sm border-white/10"
+                )}
+                transition={{ type: "spring", stiffness: 350, damping: 30 }}
+              />
+            )}
+            <span className="relative z-20">{item.name}</span>
+          </Link>
+        );
+      })}
     </motion.div>
   );
 };
@@ -206,8 +183,9 @@ export const MobileNavMenu = ({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -10, scale: 0.98 }}
           transition={{ duration: 0.2 }}
+          data-lenis-prevent
           className={cn(
-            "absolute inset-x-0 top-[76px] z-50 flex w-full flex-col items-start justify-start gap-2 rounded-[24px] bg-neutral-950/95 p-6 shadow-2xl border border-white/10 backdrop-blur-2xl",
+            "absolute inset-x-0 top-[76px] z-50 flex w-full flex-col items-start justify-start gap-2 rounded-[24px] bg-neutral-950/95 p-6 shadow-2xl border border-white/10 backdrop-blur-2xl overflow-y-auto max-h-[calc(100vh-100px)]",
             className,
           )}
         >
@@ -244,18 +222,18 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <a
+    <Link
       href="/"
       className="relative z-20 mr-2 flex items-center px-1 py-0.5 shrink-0"
     >
       <img
         src="/svg/Vanrai.svg"
-        alt="Vanrai Village Logo"
+        alt="Vanrai Resort Logo"
         width={48}
         height={48}
         className="w-9 h-9 sm:w-10 sm:h-10 brightness-110 contrast-125 transition-transform duration-300 hover:scale-105"
       />
-    </a>
+    </Link>
   );
 };
 

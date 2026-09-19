@@ -24,7 +24,7 @@ export function MembershipHero() {
                     src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1920&auto=format&fit=crop"
                     alt="Luxury Resort"
                     fill
-                    priority
+                    preload={true}
                     className="object-cover brightness-[0.3]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/50 via-transparent to-[#0a0a0a]" />

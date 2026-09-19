@@ -24,25 +24,23 @@ export function StaysHero({ onScrollToRooms }: StaysHeroProps) {
       >
         <Image
           src="/img/Rooms/StaysCoversHero.webp"
-          alt="Vanrai Village Resort Stays & Cottages"
+          alt="Vanrai Resort Stays & Cottages"
           fill
-          priority
+          preload={true}
           sizes="100vw"
-          className="object-cover brightness-[0.32] contrast-[1.05]"
+          className="object-cover object-center brightness-[0.78] contrast-[1.04]"
         />
-        {/* Gradients for readability & dark vibe */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/50 to-black/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-0 w-[420px] h-[420px] bg-amber-500/8 rounded-full blur-[160px] pointer-events-none" />
+        {/* Cinematic gradient overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/80 via-transparent to-[#0a0a0a]/70" />
       </motion.div>
 
       {/* Main Hero Content */}
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12 max-w-7xl">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12 max-w-7xl pt-28 pb-16 sm:pt-36 sm:pb-24">
         <div className="max-w-4xl mx-auto lg:mx-0 text-center lg:text-left">
           {/* Eyebrow badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 backdrop-blur-md mb-5 sm:mb-6 shadow-sm"
@@ -52,7 +50,7 @@ export function StaysHero({ onScrollToRooms }: StaysHeroProps) {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
             </span>
             <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300">
-              Accommodation & Cottages · Vanrai Village
+              Accommodation & Cottages · Vanrai Resort
             </span>
           </motion.div>
 
@@ -76,7 +74,7 @@ export function StaysHero({ onScrollToRooms }: StaysHeroProps) {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-base sm:text-lg md:text-xl text-neutral-300 font-light leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-8 sm:mb-10"
           >
-            Experience handcrafted wooden cottages, deluxe air-conditioned rooms, and peaceful standard stays surrounded by 15+ acres of relaxing agro-tourism greenery.
+            Experience handcrafted wooden cottages, deluxe air-conditioned rooms, and peaceful standard stays surrounded by 2.5 acres of relaxing agro-tourism greenery.
           </motion.p>
 
           {/* Key Metric / Highlight Pills */}
@@ -89,7 +87,7 @@ export function StaysHero({ onScrollToRooms }: StaysHeroProps) {
             {[
               { icon: Waves, label: "Swimming Pool", sub: "Included with stays" },
               { icon: Coffee, label: "Breakfast Included", sub: "Cottage & Deluxe AC" },
-              { icon: Utensils, label: "100% Pure Veg", sub: "Farm fresh dining" },
+              { icon: Utensils, label: "Farm Fresh Dining", sub: "Multi-cuisine meals" },
               { icon: ShieldCheck, label: "Family Friendly", sub: "Safe gated sanctuary" },
             ].map((item, idx) => {
               const Icon = item.icon;

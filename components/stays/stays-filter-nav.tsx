@@ -2,6 +2,12 @@
 
 import { motion } from "framer-motion";
 import { TreePine, Wind, Bed, Layers, TableProperties, Sparkles } from "lucide-react";
+import {
+  formatINR,
+  WOODEN_COTTAGE_PRICE_PER_NIGHT,
+  DELUXE_AC_ROOM_PRICE_PER_NIGHT,
+  STANDARD_ROOM_PRICE_PER_NIGHT,
+} from "@/constants/pricing";
 
 export type FilterCategory = "all" | "wooden-cottage" | "deluxe-ac" | "standard-room" | "compare";
 
@@ -21,19 +27,19 @@ const CATEGORIES = [
   {
     id: "wooden-cottage" as FilterCategory,
     label: "Wooden Cottage",
-    badge: "₹4,500",
+    badge: formatINR(WOODEN_COTTAGE_PRICE_PER_NIGHT),
     icon: TreePine,
   },
   {
     id: "deluxe-ac" as FilterCategory,
     label: "Deluxe AC",
-    badge: "₹3,500",
+    badge: formatINR(DELUXE_AC_ROOM_PRICE_PER_NIGHT),
     icon: Wind,
   },
   {
     id: "standard-room" as FilterCategory,
     label: "Standard Room",
-    badge: "₹2,500",
+    badge: formatINR(STANDARD_ROOM_PRICE_PER_NIGHT),
     icon: Bed,
   },
 ];
@@ -48,7 +54,7 @@ export function StaysFilterNav({
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-7xl">
         <div className="flex items-center justify-between gap-3">
           {/* Scrollable Category Filter Pills */}
-          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 scroll-smooth">
+          <div data-lenis-prevent className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-hide no-scrollbar py-0.5">
             {CATEGORIES.map((cat) => {
               const isActive = activeCategory === cat.id;
               const Icon = cat.icon;

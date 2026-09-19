@@ -37,7 +37,7 @@ export function StaysPrivileges() {
             Resort Privileges & Experiences
           </h2>
           <p className="mt-3 text-xs sm:text-sm md:text-base text-neutral-400 font-light leading-relaxed">
-            Your stay at Vanrai Village goes far beyond a hotel room. Immerse yourself in our sprawling 15-acre sanctuary filled with recreation and rural peace.
+            Your stay at Vanrai Resort goes far beyond a hotel room. Immerse yourself in our peaceful 2.5-acre sanctuary filled with recreation and rural peace.
           </p>
         </div>
 

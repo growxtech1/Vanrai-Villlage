@@ -1,41 +1,49 @@
-"use client";
+import type { Metadata } from "next";
+import { MembershipClient } from "./membership-client";
+import { SITE_NAME, SITE_URL } from "@/constants/site";
 
-import { Header } from "@/components/ui/header";
-import { Footer } from "@/components/ui/footer";
-import { MembershipHero } from "@/components/membership/membership-hero";
-import { WhyJoin } from "@/components/membership/why-join";
-import { MembershipPlans } from "@/components/membership/membership-plans";
-import { ValueBreakdown } from "@/components/membership/value-breakdown";
-import { HowItWorks } from "@/components/membership/how-it-works";
-import { ExclusivePrivileges } from "@/components/membership/exclusive-privileges";
-import { MembershipFAQs } from "@/components/membership/membership-faqs";
-import { MembershipTerms } from "@/components/membership/membership-terms";
-import { FinalCTA } from "@/components/membership/final-cta";
+export const metadata: Metadata = {
+  title: "Privilege Club Membership",
+  description:
+    `Join the ${SITE_NAME} Privilege Club. Enjoy complimentary cottage nights, 10% dining discounts, priority event booking, pool access, and exclusive member perks year-round.`,
+  alternates: {
+    canonical: "/membership",
+  },
+  openGraph: {
+    title: `Privilege Club Membership | ${SITE_NAME}`,
+    description:
+      `Exclusive resort memberships at ${SITE_NAME}. Unlock complimentary stays, restaurant discounts, and priority event access in Ahmednagar.`,
+    url: "/membership",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: SITE_URL,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Privilege Club",
+      item: `${SITE_URL}/membership`,
+    },
+  ],
+};
 
 export default function MembershipPage() {
-    return (
-        <main className="min-h-screen bg-[#0a0a0a] text-white selection:bg-green-500/30">
-            <Header />
-
-            <MembershipHero />
-
-            <WhyJoin />
-
-            <MembershipPlans />
-
-            <ValueBreakdown />
-
-            <HowItWorks />
-
-            <ExclusivePrivileges />
-
-            <MembershipFAQs />
-
-            <MembershipTerms />
-
-            <FinalCTA />
-
-            <Footer />
-        </main>
-    );
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <MembershipClient />
+    </>
+  );
 }

@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useLenis } from "lenis/react";
 import {
     Navbar,
     NavBody,
@@ -21,6 +23,20 @@ interface HeaderProps {
 
 export const Header = ({ className }: HeaderProps) => {
     const [isMobileOpen, setIsMobileOpen] = useState(false);
+    const lenis = useLenis();
+
+    // Lock background scroll when mobile menu is open, restore on close or unmount
+    useEffect(() => {
+        if (!lenis) return;
+        if (isMobileOpen) {
+            lenis.stop();
+        } else {
+            lenis.start();
+        }
+        return () => {
+            lenis.start();
+        };
+    }, [isMobileOpen, lenis]);
 
     const navItems = [
         { name: "Home", link: "/" },
@@ -41,9 +57,9 @@ export const Header = ({ className }: HeaderProps) => {
                         <NavbarLogo />
                         <NavItems items={navItems} onItemClick={() => setIsMobileOpen(false)} />
                         <div className="flex items-center gap-4">
-                            <a href="/book">
+                            <Link href="/book">
                                 <AnimatedCTAButton text="Book Now" />
-                            </a>
+                            </Link>
                         </div>
                     </NavBody>
 
@@ -61,7 +77,7 @@ export const Header = ({ className }: HeaderProps) => {
                         >
                             <div className="flex flex-col w-full py-2">
                                 {navItems.map((item, idx) => (
-                                    <a
+                                    <Link
                                         key={`mobile-link-${idx}`}
                                         href={item.link}
                                         onClick={() => setIsMobileOpen(false)}
@@ -69,16 +85,16 @@ export const Header = ({ className }: HeaderProps) => {
                                     >
                                         <span>{item.name}</span>
                                         <span className="text-xs text-neutral-500 font-mono">0{idx + 1}</span>
-                                    </a>
+                                    </Link>
                                 ))}
                                 <div className="pt-5 flex justify-center w-full">
-                                    <a
+                                    <Link
                                         href="/book"
                                         onClick={() => setIsMobileOpen(false)}
                                         className="w-full max-w-[360px] h-12 bg-[#00c97b] hover:bg-[#00b06c] text-neutral-950 font-bold text-sm rounded-[16px] flex items-center justify-center shadow-lg shadow-emerald-950/40 transition-transform active:scale-[0.98]"
                                     >
                                         Book Your Stay
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </MobileNavMenu>

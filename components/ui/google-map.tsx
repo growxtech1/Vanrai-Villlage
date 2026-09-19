@@ -17,6 +17,7 @@ export function GoogleMap({ className, src }: GoogleMapProps) {
 
   return (
     <div
+      data-lenis-prevent
       className={`relative w-full h-[300px] md:h-full min-h-[300px] rounded-2xl overflow-hidden shadow-lg border border-white/20 ${className}`}
     >
       <iframe

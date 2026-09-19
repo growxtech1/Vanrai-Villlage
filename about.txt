@@ -79,7 +79,7 @@ export default function AboutPage() {
                 >
                     <Image
                         src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070&auto=format&fit=crop"
-                        alt="Vanrai Village Resort"
+                        alt="Vanrai Resort"
                         fill
                         priority
                         className="object-cover brightness-[0.4]"
@@ -115,7 +115,7 @@ export default function AboutPage() {
                         transition={{ duration: 1, delay: 0.6 }}
                         className="mt-12 text-neutral-400 text-lg md:text-2xl font-light max-w-2xl mx-auto leading-relaxed"
                     >
-                        Vanrai Village Resort — A sanctuary crafted for those who seek
+                        Vanrai Resort — A sanctuary crafted for those who seek
                         tranquility without compromising on elegance.
                     </motion.p>
 
@@ -153,7 +153,7 @@ export default function AboutPage() {
 
                             <motion.div variants={childVariant} className="space-y-8 text-neutral-400 text-lg md:text-xl font-light leading-relaxed">
                                 <p>
-                                    Inspired by the raw, serene landscapes of Ahmednagar, Vanrai Village
+                                    Inspired by the raw, serene landscapes of Ahmednagar, Vanrai
                                     Resort was envisioned as more than just a place to stay. It was
                                     born from a desire to blend traditional village warmth with
                                     the sophistication of contemporary luxury.
@@ -294,7 +294,7 @@ export default function AboutPage() {
                     <div className="p-16 rounded-[3rem] border border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent">
                         <h3 className="text-3xl font-medium mb-6">Our Promise</h3>
                         <p className="text-neutral-500 text-lg font-light leading-relaxed">
-                            Every stay at Vanrai Village is a commitment to your wellbeing.
+                            Every stay at Vanrai Resort is a commitment to your wellbeing.
                             We promise privacy, aesthetic excellence, and a deep respect
                             for the environmental harmony of our surroundings.
                         </p>

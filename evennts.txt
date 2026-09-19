@@ -130,7 +130,7 @@ export default function EventsPage() {
 
                         <p className="text-neutral-400 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed font-light">
                             From destination weddings to corporate retreats and vibrant festivals,
-                            Vanrai Village Resort transforms every event into an unforgettable masterpiece.
+                            Vanrai Resort transforms every event into an unforgettable masterpiece.
                         </p>
 
                         <div className="mt-12 flex justify-center gap-6 flex-wrap">
@@ -364,7 +364,7 @@ const eventData: Record<string, any> = {
         title: "Destination Weddings",
         category: "Celebration Event",
         season: "Ongoing Reservation",
-        description: "Your love story deserves a backdrop as beautiful as your journey. Vanrai Village Resort offers a seamless blend of luxury and nature, providing a serene environment for your grand celebration. Our expansive lawns and dedicated hospitality team ensure that every moment is as magical as you envisioned.",
+        description: "Your love story deserves a backdrop as beautiful as your journey. Vanrai Resort offers a seamless blend of luxury and nature, providing a serene environment for your grand celebration. Our expansive lawns and dedicated hospitality team ensure that every moment is as magical as you envisioned.",
         image: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop",
         gallery: [
             "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop",
@@ -727,7 +727,7 @@ export default function EventDetailPage() {
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h2 className="text-4xl md:text-7xl font-light mb-10 tracking-tighter">Your Event, Our <span className="italic text-neutral-400">Masterpiece.</span></h2>
                     <p className="text-neutral-400 text-xl font-light mb-16 leading-relaxed">
-                        Don't settle for ordinary. Experience the unmatched hospitality and grandeur of Vanrai Village Resort.
+                        Don't settle for ordinary. Experience the unmatched hospitality and grandeur of Vanrai Resort.
                     </p>
                     <div className="flex flex-wrap justify-center gap-8">
                         <Link href="/#contact" className="px-12 py-5 bg-green-600 rounded-full font-bold hover:bg-green-500 transition-all text-sm uppercase tracking-[0.2em] shadow-2xl">
@@ -777,7 +777,7 @@ const eventData: Record<string, any> = {
     "festive": {
         title: "Festive Events",
         season: "Ongoing Seasonally (Holi, Diwali, Navratri)",
-        description: "Immerse yourself in the vibrant spirit of Indian festivals at Vanrai Village Resort. We transform our serene landscapes into a canvas of colors and lights, offering a luxury festive experience that honors tradition while providing ultimate comfort.",
+        description: "Immerse yourself in the vibrant spirit of Indian festivals at Vanrai Resort. We transform our serene landscapes into a canvas of colors and lights, offering a luxury festive experience that honors tradition while providing ultimate comfort.",
         image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop",
         highlights: [
             "Traditional Rituals & Puja",
@@ -894,7 +894,7 @@ export default function EventDetailPage() {
                                 <div className="space-y-4 bg-white/5 p-6 rounded-2xl border border-white/5">
                                     <div className="flex items-center gap-3 text-neutral-400 justify-center">
                                         <MapPin className="w-4 h-4" />
-                                        <span>Vanrai Village Resort Main Lawn</span>
+                                        <span>Vanrai Resort Main Lawn</span>
                                     </div>
                                 </div>
 

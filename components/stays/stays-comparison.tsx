@@ -4,6 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { Check, X, ArrowUpRight, BedDouble } from "lucide-react";
 import { ROOMS_DATA } from "@/lib/stays-data";
+import {
+  formatINR,
+  WOODEN_COTTAGE_PRICE_PER_NIGHT,
+  DELUXE_AC_ROOM_PRICE_PER_NIGHT,
+  STANDARD_ROOM_PRICE_PER_NIGHT,
+} from "@/constants/pricing";
 
 export function StaysComparison() {
   const [selectedMobileIndex, setSelectedMobileIndex] = useState(0);
@@ -11,9 +17,9 @@ export function StaysComparison() {
   const features = [
     {
       name: "Nightly Starting Tariff",
-      cottage: "₹4,500 / night",
-      deluxe: "₹3,500 / night",
-      standard: "₹2,500 / night",
+      cottage: `${formatINR(WOODEN_COTTAGE_PRICE_PER_NIGHT)} / night`,
+      deluxe: `${formatINR(DELUXE_AC_ROOM_PRICE_PER_NIGHT)} / night`,
+      standard: `${formatINR(STANDARD_ROOM_PRICE_PER_NIGHT)} / night`,
       highlight: true,
     },
     {

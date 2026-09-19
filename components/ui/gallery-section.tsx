@@ -12,62 +12,62 @@ const galleryImages = [
     {
         id: 1,
         src: "/img/vanrai-entrance-gate.webp",
-        alt: "Vanrai Village Resort - Grand Entrance Gate",
+        alt: "Vanrai Resort - Grand Entrance Gate",
     },
     {
         id: 2,
         src: "/img/Rooms/StaysCoversHero.webp",
-        alt: "Vanrai Village Resort - Wooden Cottages Sunset View",
+        alt: "Vanrai Resort - Wooden Cottages Sunset View",
     },
     {
         id: 3,
         src: "/img/candle-light-dinner.jpg",
-        alt: "Vanrai Village Resort - Romantic Candle Light Dinner",
+        alt: "Vanrai Resort - Romantic Candle Light Dinner",
     },
     {
         id: 4,
         src: "/img/evening-bonfire.jpg",
-        alt: "Vanrai Village Resort - Evening Bonfire & Campfire Night",
+        alt: "Vanrai Resort - Evening Bonfire & Campfire Night",
     },
     {
         id: 5,
         src: "/img/rain-dance.jpg",
-        alt: "Vanrai Village Resort - Rain Dance & Poolside Fun",
+        alt: "Vanrai Resort - Rain Dance & Poolside Fun",
     },
     {
         id: 6,
         src: "/img/event-wedding-hall-stage.webp",
-        alt: "Vanrai Village Resort - Royal Wedding & Banquet Hall Stage",
+        alt: "Vanrai Resort - Royal Wedding & Banquet Hall Stage",
     },
     {
         id: 7,
         src: "/img/dining-hall-wide.webp",
-        alt: "Vanrai Village Resort - Family Dining Hall & Restaurant",
+        alt: "Vanrai Resort - Family Dining Hall & Restaurant",
     },
     {
         id: 8,
         src: "/img/pool-sunset-luxury.jpg",
-        alt: "Vanrai Village Resort - Swimming Pool & Waterpark at Sunset",
+        alt: "Vanrai Resort - Swimming Pool & Waterpark at Sunset",
     },
     {
         id: 9,
         src: "/img/vanrai-lawn-sunset.webp",
-        alt: "Vanrai Village Resort - Sunset View over Lush Central Lawn & Cottages",
+        alt: "Vanrai Resort - Sunset View over Lush Central Lawn & Cottages",
     },
     {
         id: 10,
         src: "/img/waterpark-slides.jpg",
-        alt: "Vanrai Village Resort - Waterpark Slides",
+        alt: "Vanrai Resort - Waterpark Slides",
     },
     {
         id: 11,
         src: "/img/vanrai-walkway-night.webp",
-        alt: "Vanrai Village Resort - Illuminated Night Walkway with Lanterns",
+        alt: "Vanrai Resort - Illuminated Night Walkway with Lanterns",
     },
     {
         id: 12,
         src: "/img/vanrai-resort-aerial-lawn.webp",
-        alt: "Vanrai Village Resort - Aerial Courtyard & Lawn View",
+        alt: "Vanrai Resort - Aerial Courtyard & Lawn View",
     },
 ];
 
@@ -114,7 +114,7 @@ export function GallerySection() {
         <section
             ref={sectionRef}
             id="gallery"
-            className="relative py-24 sm:py-32 overflow-hidden bg-gradient-to-b from-[#0a0b0a] via-[#0e100e] to-[#0a0b0a] text-white"
+            className="scroll-mt-24 sm:scroll-mt-28 relative py-24 sm:py-32 overflow-hidden bg-gradient-to-b from-[#0a0b0a] via-[#0e100e] to-[#0a0b0a] text-white"
         >
             {/* Animated Background Elements */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">

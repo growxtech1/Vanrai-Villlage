@@ -55,14 +55,14 @@ export function AboutVanraiSection() {
     const imageOpacity = useTransform(scrollYProgress, [0, 0.3], [0.8, 1]);
     const textY = useTransform(scrollYProgress, [0, 1], [20, -20]);
 
-    const titleText = "Vanrai Village";
+    const titleText = "Vanrai";
     const subtitleText = "Resort";
 
     return (
         <motion.section
             ref={sectionRef}
             id="about-vanrai"
-            className="relative w-full overflow-hidden bg-neutral-950"
+            className="scroll-mt-24 sm:scroll-mt-28 relative w-full overflow-hidden bg-neutral-950"
         >
             {/* Full-width immersive image background */}
             <div className="absolute inset-0">
@@ -72,7 +72,7 @@ export function AboutVanraiSection() {
                 >
                     <Image
                         src="/img/vanrai_resort_view.webp"
-                        alt="Vanrai Village Resort"
+                        alt="Vanrai Resort"
                         fill
                         className="object-cover"
                         sizes="100vw"
@@ -198,7 +198,7 @@ export function AboutVanraiSection() {
                                 {[
                                     { icon: <Leaf className="w-3.5 h-3.5" />, text: "Eco-Luxury" },
                                     { icon: <MapPin className="w-3.5 h-3.5" />, text: "Ahmednagar" },
-                                    { icon: <TreePine className="w-3.5 h-3.5" />, text: "10+ Acres" },
+                                    { icon: <TreePine className="w-3.5 h-3.5" />, text: "2.5 Acres" },
                                 ].map((item, i) => (
                                     <motion.div
                                         key={i}

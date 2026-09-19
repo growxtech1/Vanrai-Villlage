@@ -12,22 +12,24 @@ import { BookingBar } from "./booking-bar";
 const heroSlides = [
     {
         src: hero3,
-        alt: "Vanrai Village Resort - Swimming Pool & Water Park",
+        alt: "Vanrai Resort - Swimming Pool & Water Park",
     },
     {
         src: hero1,
-        alt: "Vanrai Village Resort - Reception & Entrance",
+        alt: "Vanrai Resort - Reception & Entrance",
     },
     {
         src: hero2,
-        alt: "Vanrai Village Resort - Dining & Restaurant",
+        alt: "Vanrai Resort - Dining & Restaurant",
     },
 ];
 
 export function HeroSlider() {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
+        setIsMounted(true);
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
         }, 5000); // Change slide every 5 seconds
@@ -39,25 +41,30 @@ export function HeroSlider() {
         <section className="relative min-h-screen sm:h-screen w-full flex flex-col justify-center overflow-hidden">
             {/* Image Slider Background */}
             <div className="absolute inset-0 overflow-hidden">
-                {heroSlides.map((slide, index) => (
-                    <div
-                        key={index}
-                        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out will-change-[opacity] ${index === currentSlide ? "opacity-100 z-1" : "opacity-0 z-0 pointer-events-none"
-                            }`}
-                    >
-                        <Image
-                            src={slide.src}
-                            alt={slide.alt}
-                            fill
-                            priority={index === 0}
-                            sizes="100vw"
-                            quality={90}
-                            className="object-cover"
-                        />
-                        {/* Dark overlay for better text readability */}
-                        <div className="absolute inset-0 bg-black/40" />
-                    </div>
-                ))}
+                {heroSlides.map((slide, index) => {
+                    if (index > 0 && !isMounted) return null;
+                    return (
+                        <div
+                            key={index}
+                            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out will-change-[opacity] ${index === currentSlide ? "opacity-100 z-1" : "opacity-0 z-0 pointer-events-none"
+                                }`}
+                        >
+                            <Image
+                                src={slide.src}
+                                alt={slide.alt}
+                                fill
+                                preload={index === 0}
+                                loading={index === 0 ? "eager" : "lazy"}
+                                fetchPriority={index === 0 ? "high" : "low"}
+                                sizes="100vw"
+                                quality={80}
+                                className="object-cover"
+                            />
+                            {/* Dark overlay for better text readability */}
+                            <div className="absolute inset-0 bg-black/40" />
+                        </div>
+                    );
+                })}
             </div>
 
             {/* Overlapping Text Content */}

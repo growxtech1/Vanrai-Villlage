@@ -5,6 +5,12 @@ import Link from "next/link";
 import { FallbackImage } from "@/components/ui/fallback-image";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowUpRight, Bed, Bath, UtensilsCrossed } from "lucide-react";
+import {
+    formatINR,
+    WOODEN_COTTAGE_PRICE_PER_NIGHT,
+    DELUXE_AC_ROOM_PRICE_PER_NIGHT,
+    STANDARD_ROOM_PRICE_PER_NIGHT,
+} from "@/constants/pricing";
 
 interface Room {
     id: number;
@@ -24,7 +30,7 @@ const rooms: Room[] = [
         image: "/img/Rooms/StandardRoom.jpeg",
         beds: 1,
         baths: 1,
-        price: "₹2,500",
+        price: formatINR(STANDARD_ROOM_PRICE_PER_NIGHT),
         badge: "Budget Friendly",
     },
     {
@@ -33,7 +39,7 @@ const rooms: Room[] = [
         image: "/img/Rooms/DeluxeAc.jpeg",
         beds: 2,
         baths: 1,
-        price: "₹3,500",
+        price: formatINR(DELUXE_AC_ROOM_PRICE_PER_NIGHT),
         badge: "Most Popular",
         breakfast: true,
     },
@@ -43,7 +49,7 @@ const rooms: Room[] = [
         image: "/img/Rooms/StaysCoversHero.webp",
         beds: 2,
         baths: 2,
-        price: "₹4,500",
+        price: formatINR(WOODEN_COTTAGE_PRICE_PER_NIGHT),
         badge: "Premium Stay",
         breakfast: true,
     },
@@ -93,7 +99,7 @@ export function StaysSection() {
         <section
             ref={sectionRef}
             id="stays"
-            className="relative w-full py-24 sm:py-32 overflow-hidden bg-[#0a0a0a]"
+            className="scroll-mt-24 sm:scroll-mt-28 relative w-full py-24 sm:py-32 overflow-hidden bg-[#0a0a0a]"
         >
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-green-500/[0.07] rounded-full blur-[140px]" />

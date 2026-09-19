@@ -19,7 +19,7 @@ export interface EnquiryEmailPayload {
 }
 
 const adminEmail = process.env.ADMIN_EMAIL || RESORT_CONTACT.emailAddress || "vanrai_resort@yahoo.co.in";
-const senderName = "Vanrai Village Resort";
+const senderName = "Vanrai Resort";
 const senderAddress = process.env.SMTP_USER || "vikrammhaske5743@gmail.com";
 const emailFrom = `${senderName} <${senderAddress}>`;
 
@@ -46,7 +46,7 @@ function getAdminEmailHtml(data: EnquiryEmailPayload): string {
     const fullName = `${data.firstName} ${data.lastName}`.trim();
     const cleanPhone = data.phone.replace(/[^0-9+]/g, "");
     const waUrl = getWhatsAppUrl(
-        `Hello ${fullName}, this is Vanrai Village Resort following up regarding your ${data.eventType || "event"} enquiry.`
+        `Hello ${fullName}, this is Vanrai Resort following up regarding your ${data.eventType || "event"} enquiry.`
     );
 
     return `
@@ -59,29 +59,30 @@ function getAdminEmailHtml(data: EnquiryEmailPayload): string {
 <style>
   body { margin: 0; padding: 0; background-color: #0b0f0d; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f3f4f6; }
   .container { max-width: 600px; margin: 24px auto; background-color: #121815; border: 1px solid #1f2923; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-  .header { background: linear-gradient(135deg, #0d3824 0%, #081d13 100%); padding: 32px 24px; text-align: center; border-bottom: 2px solid #00c97b; }
-  .header h1 { margin: 0 0 8px; color: #ffffff; font-size: 24px; letter-spacing: -0.5px; }
-  .badge { display: inline-block; background-color: rgba(0, 201, 123, 0.15); border: 1px solid #00c97b; color: #00c97b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 5px 12px; border-radius: 20px; }
+  .header { background: linear-gradient(135deg, #0a1f14 0%, #062416 100%); padding: 32px 24px; text-align: center; border-bottom: 2px solid #00c97b; }
+  .header h1 { margin: 0; color: #ffffff; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+  .badge { display: inline-block; background-color: rgba(0, 201, 123, 0.15); border: 1px solid #00c97b; color: #00c97b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
   .content { padding: 28px 24px; }
-  .section-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #00c97b; margin: 20px 0 10px; border-bottom: 1px solid #1f2923; padding-bottom: 6px; }
-  .grid { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
-  .grid td { padding: 8px 0; font-size: 14px; vertical-align: top; }
-  .grid td.label { color: #9ca3af; width: 40%; font-weight: 500; }
-  .grid td.val { color: #ffffff; font-weight: 600; }
-  .stat-card { background-color: #1a231e; border: 1px solid #27372d; border-radius: 12px; padding: 14px; text-align: center; }
+  .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #00c97b; margin: 24px 0 12px; border-bottom: 1px solid #1f2923; padding-bottom: 6px; }
+  .section-title:first-child { margin-top: 0; }
+  .grid { width: 100%; border-collapse: collapse; }
+  .grid td { padding: 10px 0; border-bottom: 1px solid #17201b; font-size: 14px; }
+  .label { color: #9ca3af; width: 35%; font-weight: 500; }
+  .val { color: #f3f4f6; font-weight: 600; }
+  .stat-card { background: #17201b; border: 1px solid #233229; border-radius: 10px; padding: 12px; text-align: center; }
   .stat-val { font-size: 20px; font-weight: 800; color: #00c97b; }
-  .stat-label { font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .stat-label { font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
   .actions { text-align: center; padding: 24px; background-color: #0d1310; border-top: 1px solid #1f2923; }
   .btn-whatsapp { display: inline-block; background-color: #25D366; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 14px; padding: 12px 24px; border-radius: 10px; margin: 6px; }
-  .btn-reply { display: inline-block; background-color: #1f2923; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 14px; padding: 12px 24px; border-radius: 10px; margin: 6px; border: 1px solid #374151; }
-  .footer { text-align: center; padding: 16px; font-size: 12px; color: #6b7280; }
+  .btn-reply { display: inline-block; background-color: #1f2923; color: #f3f4f6; text-decoration: none; font-weight: 600; font-size: 14px; padding: 12px 24px; border-radius: 10px; margin: 6px; border: 1px solid #2d3e33; }
+  .footer { text-align: center; font-size: 12px; color: #6b7280; padding: 16px 24px; background: #080c0a; }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
     <span class="badge">New Inquiry Alert</span>
-    <h1 style="margin-top: 12px;">Vanrai Village Resort</h1>
+    <h1 style="margin-top: 12px;">Vanrai Resort</h1>
     <p style="margin: 0; color: #9ca3af; font-size: 14px;">Incoming celebration enquiry from website</p>
   </div>
   
@@ -115,11 +116,11 @@ function getAdminEmailHtml(data: EnquiryEmailPayload): string {
 
   <div class="actions">
     <a href="${waUrl}" target="_blank" class="btn-whatsapp">Reply via WhatsApp</a>
-    <a href="mailto:${data.email}?subject=Regarding Your Event Enquiry at Vanrai Village Resort" class="btn-reply">Reply via Email</a>
+    <a href="mailto:${data.email}?subject=Regarding Your Event Enquiry at Vanrai Resort" class="btn-reply">Reply via Email</a>
   </div>
 
   <div class="footer">
-    Vanrai Village Resort CRM &bull; Ahmednagar City Bypass, Maharashtra 414111 &bull; +91 97300 01579
+    Vanrai Resort CRM &bull; Ahmednagar City Bypass, Maharashtra 414111 &bull; +91 97300 01579
   </div>
 </div>
 </body>
@@ -134,7 +135,7 @@ function getCustomerEmailHtml(data: EnquiryEmailPayload): string {
     const firstName = data.firstName.trim();
     const fullName = `${data.firstName} ${data.lastName}`.trim();
     const waUrl = getWhatsAppUrl(
-        `Hi Vanrai Village, I recently submitted an enquiry for ${data.eventType || "an event"} under the name ${fullName}.`
+        `Hi Vanrai Resort, I recently submitted an enquiry for ${data.eventType || "an event"} under the name ${fullName}.`
     );
 
     return `
@@ -143,7 +144,7 @@ function getCustomerEmailHtml(data: EnquiryEmailPayload): string {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thank You for Your Enquiry - Vanrai Village Resort</title>
+<title>Thank You for Your Enquiry - Vanrai Resort</title>
 <style>
   body { margin: 0; padding: 0; background-color: #0b0f0d; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f3f4f6; }
   .container { max-width: 600px; margin: 24px auto; background-color: #121815; border: 1px solid #1f2923; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -166,14 +167,14 @@ function getCustomerEmailHtml(data: EnquiryEmailPayload): string {
 <div class="container">
   <div class="header">
     <span style="display: inline-block; background-color: rgba(0, 201, 123, 0.2); border: 1px solid #00c97b; color: #00c97b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 20px;">Enquiry Received</span>
-    <h1>Vanrai Village Resort</h1>
+    <h1>Vanrai Resort</h1>
     <p>A Nature &amp; Celebration Sanctuary in Ahmednagar</p>
   </div>
 
   <div class="content">
     <div class="greeting">Dear ${firstName},</div>
     <div class="intro-text">
-      Thank you for reaching out to Vanrai Village Resort. We are delighted you are considering our resort for your upcoming celebration. We have safely logged your details into our system.
+      Thank you for reaching out to Vanrai Resort. We are delighted you are considering our resort for your upcoming celebration. We have safely logged your details into our system.
     </div>
 
     <div class="timeline-box">
@@ -201,7 +202,7 @@ function getCustomerEmailHtml(data: EnquiryEmailPayload): string {
   <div class="actions">
     <a href="${waUrl}" target="_blank" class="btn-whatsapp">Chat with Us on WhatsApp</a>
     <div class="contact-info">
-      <strong>Vanrai Village Resort</strong><br>
+      <strong>Vanrai Resort</strong><br>
       G.No 648, Wadgaon Gupta, Ahmednagar City Bypass, Maharashtra 414111<br>
       Direct: <a href="tel:+919730001579" style="color: #00c97b; text-decoration: none;">+91 97300 01579</a> &bull; Email: <a href="mailto:vanrai_resort@yahoo.co.in" style="color: #00c97b; text-decoration: none;">vanrai_resort@yahoo.co.in</a>
     </div>
@@ -225,7 +226,7 @@ export async function sendEnquiryEmails(data: EnquiryEmailPayload): Promise<{
     const customerHtml = getCustomerEmailHtml(data);
 
     const adminSubject = `New Event Enquiry: ${data.eventType || "Celebration"} — ${data.firstName} ${data.lastName}`;
-    const customerSubject = `Thank You for Your Enquiry — Vanrai Village Resort`;
+    const customerSubject = `Thank You for Your Enquiry — Vanrai Resort`;
 
     // Send via Nodemailer SMTP (Gmail SSL port 465)
     if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {

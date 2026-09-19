@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     User, Phone, Mail, ArrowRight, ArrowLeft, Check,
@@ -200,7 +201,7 @@ export function ContactFormStepper() {
     };
 
     return (
-        <section id="contact" className="py-24 sm:py-32 bg-[#0a0a0a] relative overflow-hidden">
+        <section id="contact" className="scroll-mt-24 sm:scroll-mt-28 py-24 sm:py-32 bg-[#0a0a0a] relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-green-900/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-emerald-900/10 rounded-full blur-[150px] pointer-events-none" />
@@ -224,7 +225,7 @@ export function ContactFormStepper() {
                                 <div>
                                     <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">Inquiry Sent Successfully!</h2>
                                     <p className="text-neutral-400 max-w-lg mx-auto text-sm sm:text-base leading-relaxed">
-                                        Thank you for choosing Vanrai Village. We have received your details and our event specialists will get back to you shortly.
+                                        Thank you for choosing Vanrai Resort. We have received your details and our event specialists will get back to you shortly.
                                     </p>
                                 </div>
 
@@ -254,9 +255,9 @@ export function ContactFormStepper() {
                                         Chat with Sales on WhatsApp
                                     </a>
 
-                                    <a href="/" className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-full transition-all hover:scale-105 shadow-lg shadow-green-500/25 font-semibold text-sm flex items-center justify-center gap-2">
+                                    <Link href="/" className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-full transition-all hover:scale-105 shadow-lg shadow-green-500/25 font-semibold text-sm flex items-center justify-center gap-2">
                                         Back to Home <ArrowRight className="w-4 h-4" />
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </motion.div>
@@ -297,7 +298,7 @@ export function ContactFormStepper() {
                                             transition={{ delay: 0.2 }}
                                             className="text-neutral-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed"
                                         >
-                                            From intimate gatherings to grand celebrations, tell us your vision and we'll bring it to life at Vanrai Village.
+                                            From intimate gatherings to grand celebrations, tell us your vision and we'll bring it to life at Vanrai Resort.
                                         </motion.p>
                                     </div>
 
