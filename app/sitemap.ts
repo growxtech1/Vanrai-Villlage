@@ -1,7 +1,23 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/constants/site";
+import { EXPERIENCES_DATA } from "@/lib/experiences-data";
+import { EVENT_DATA } from "@/lib/events-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const experiencePages: MetadataRoute.Sitemap = Object.keys(EXPERIENCES_DATA).map((id) => ({
+    url: `${SITE_URL}/experiences/${id}`,
+    lastModified: new Date("2026-09-19"),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const eventPages: MetadataRoute.Sitemap = Object.keys(EVENT_DATA).map((slug) => ({
+    url: `${SITE_URL}/events/${slug}`,
+    lastModified: new Date("2026-09-19"),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   // Use fixed dates per route rather than build-time new Date()
   // Update these when you make significant content changes to a route.
   return [
@@ -23,72 +39,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
       changeFrequency: "weekly",
     },
-    {
-      url: `${SITE_URL}/experiences/bonfire`,
-      lastModified: new Date("2026-09-19"),
-      priority: 0.7,
-      changeFrequency: "monthly",
-    },
-    {
-      url: `${SITE_URL}/experiences/candle-light`,
-      lastModified: new Date("2026-09-19"),
-      priority: 0.7,
-      changeFrequency: "monthly",
-    },
-    {
-      url: `${SITE_URL}/experiences/rain-dance`,
-      lastModified: new Date("2026-09-19"),
-      priority: 0.7,
-      changeFrequency: "monthly",
-    },
-    {
-      url: `${SITE_URL}/experiences/waterpark`,
-      lastModified: new Date("2026-09-19"),
-      priority: 0.7,
-      changeFrequency: "monthly",
-    },
-    {
-      url: `${SITE_URL}/experiences/dining`,
-      lastModified: new Date("2026-09-19"),
-      priority: 0.7,
-      changeFrequency: "monthly",
-    },
-    {
-      url: `${SITE_URL}/experiences/weddings`,
-      lastModified: new Date("2026-09-19"),
-      priority: 0.7,
-      changeFrequency: "monthly",
-    },
+    ...experiencePages,
     {
       url: `${SITE_URL}/events`,
       lastModified: new Date("2026-09-19"),
       priority: 0.8,
       changeFrequency: "weekly",
     },
-    {
-      url: `${SITE_URL}/events/wedding`,
-      lastModified: new Date("2026-09-19"),
-      priority: 0.7,
-      changeFrequency: "monthly",
-    },
-    {
-      url: `${SITE_URL}/events/festive`,
-      lastModified: new Date("2026-09-19"),
-      priority: 0.7,
-      changeFrequency: "monthly",
-    },
-    {
-      url: `${SITE_URL}/events/corporate`,
-      lastModified: new Date("2026-09-19"),
-      priority: 0.7,
-      changeFrequency: "monthly",
-    },
-    {
-      url: `${SITE_URL}/events/experiential`,
-      lastModified: new Date("2026-09-19"),
-      priority: 0.7,
-      changeFrequency: "monthly",
-    },
+    ...eventPages,
     {
       url: `${SITE_URL}/gallery`,
       lastModified: new Date("2026-09-19"),
