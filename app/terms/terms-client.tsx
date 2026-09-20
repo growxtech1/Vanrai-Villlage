@@ -6,7 +6,7 @@ import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { motion } from "framer-motion";
 import { FileText, ArrowLeft, Clock, ShieldCheck, Utensils, Waves, CheckCircle2, AlertTriangle, Phone, Mail, MapPin } from "lucide-react";
-import { SITE_NAME, SITE_PHONE, SITE_LOCATION } from "@/constants/site";
+import { SITE_NAME, SITE_PHONE_DISPLAY, SITE_LOCATION } from "@/constants/site";
 import { RESORT_CONTACT } from "@/lib/contact-config";
 
 export function TermsClient() {
@@ -145,7 +145,7 @@ export function TermsClient() {
               <div className="flex items-center gap-2 text-neutral-300">
                 <Phone className="w-4 h-4 text-emerald-400 flex-shrink-0" />
                 <a href={RESORT_CONTACT.phoneTel} className="hover:text-emerald-400 transition-colors">
-                  {SITE_PHONE}
+                  {SITE_PHONE_DISPLAY}
                 </a>
               </div>
               <div className="flex items-center gap-2 text-neutral-300">

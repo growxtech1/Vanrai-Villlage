@@ -26,7 +26,7 @@ import {
     PhoneCall,
     Car,
 } from "lucide-react";
-import { SITE_PHONE } from "@/constants/site";
+import { SITE_PHONE_DISPLAY } from "@/constants/site";
 
 const fadeInUp = {
     initial: { opacity: 0, y: 35 },
@@ -693,7 +693,7 @@ export function AboutClient() {
                                         <PhoneCall className="w-5 h-5 text-[#00c97b]" />
                                         <div>
                                             <p className="text-sm font-medium text-white">Concierge & Route Support</p>
-                                            <p className="text-xs text-neutral-400">Call {SITE_PHONE} for gate assistance</p>
+                                            <p className="text-xs text-neutral-400">Call {SITE_PHONE_DISPLAY} for gate assistance</p>
                                         </div>
                                     </div>
                                 </div>

@@ -6,7 +6,7 @@ import { StaysSection } from "@/components/ui/stays-section";
 import { ExperiencesSection } from "@/components/ui/experiences-section";
 import { AboutVanraiSection } from "@/components/ui/about-vanrai-section";
 import { Footer } from "@/components/ui/footer";
-import { SITE_NAME, SITE_LOCATION, SITE_PHONE } from "@/constants/site";
+import { SITE_NAME, SITE_LOCATION, SITE_PHONE, SOCIAL_LINKS } from "@/constants/site";
 import { WOODEN_COTTAGE_PRICE_PER_NIGHT, STANDARD_ROOM_PRICE_PER_NIGHT, formatINR } from "@/constants/pricing";
 
 // Dynamic imports for below-the-fold components to reduce initial JavaScript execution
@@ -47,10 +47,15 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "LodgingBusiness",
+  "@id": "https://vanrairesort.com/#lodging",
   name: SITE_NAME,
   description:
     "Nature resort featuring premium wooden cottages, swimming pool, organic farm dining, and scenic event venues near Ahmednagar.",
-  image: "https://vanrairesort.com/images/wooden-cottage.webp",
+  image: "https://vanrairesort.com/img/vanrai-lawn-sunset.webp",
+  url: "https://vanrairesort.com",
+  telephone: SITE_PHONE,
+  email: "vanrai_resort@yahoo.co.in",
+  priceRange: `₹${STANDARD_ROOM_PRICE_PER_NIGHT} – ₹${WOODEN_COTTAGE_PRICE_PER_NIGHT}`,
   address: {
     "@type": "PostalAddress",
     streetAddress: SITE_LOCATION.street,
@@ -61,12 +66,12 @@ const jsonLd = {
   },
   geo: {
     "@type": "GeoCoordinates",
-    latitude: 19.1417,
-    longitude: 74.7289,
+    latitude: SITE_LOCATION.geo.latitude,
+    longitude: SITE_LOCATION.geo.longitude,
   },
-  url: "https://vanrairesort.com",
-  telephone: SITE_PHONE,
-  priceRange: `₹${STANDARD_ROOM_PRICE_PER_NIGHT} - ₹${WOODEN_COTTAGE_PRICE_PER_NIGHT}`,
+  sameAs: [SOCIAL_LINKS.instagram, SOCIAL_LINKS.facebook, SOCIAL_LINKS.youtube],
+  checkinTime: "12:00",
+  checkoutTime: "11:00",
   amenities: [
     "Swimming Pool",
     "Free Wi-Fi",

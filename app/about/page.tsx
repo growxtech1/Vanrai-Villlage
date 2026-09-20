@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     description:
       `Learn about ${SITE_NAME}, a premier 2.5-acre nature sanctuary with wooden cottages, event lawns, and farm-fresh dining near Ahmednagar.`,
     url: "/about",
+    images: [
+      {
+        url: "/img/vanrai-resort-aerial-lawn.webp",
+        width: 1200,
+        height: 630,
+        alt: "Vanrai Resort - Aerial View of Lawns & Cottages",
+      },
+    ],
   },
 };
 

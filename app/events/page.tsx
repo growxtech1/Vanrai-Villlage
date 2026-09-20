@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     description:
       `Discover event venues at ${SITE_NAME} near Ahmednagar. Destination weddings, corporate offsites, festive galas, and poolside banquets with 500+ guest capacity.`,
     url: "/events",
+    images: [
+      {
+        url: "/img/event-wedding-hall-stage.webp",
+        width: 1200,
+        height: 630,
+        alt: "Vanrai Resort - Wedding Hall & Banquet Stage",
+      },
+    ],
   },
 };
 

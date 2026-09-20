@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { FallbackImage } from "@/components/ui/fallback-image";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
     ArrowLeft,
@@ -20,7 +19,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Define the type for a single testimonial
 type Testimonial = {
     id: number;
     name: string;
@@ -28,7 +26,8 @@ type Testimonial = {
     category: string;
     categoryIcon: React.ReactNode;
     quote: string;
-    imageSrc: string;
+    /** Reviewer initials displayed in avatar circle (no stock photos). */
+    initials: string;
     rating: number;
 };
 
@@ -41,7 +40,7 @@ const testimonials: Testimonial[] = [
         category: "Family Stay",
         categoryIcon: <TreePine className="w-4 h-4" />,
         quote: "We visited Vanrai Resort with our family and it turned out to be a very relaxing experience. The open lawns were perfect for children, the food was homely and tasty, and the overall atmosphere felt calm and safe. It's a great place to spend quality time together away from the city.",
-        imageSrc: "https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&h=800&fit=crop&q=80",
+        initials: "PM",
         rating: 5,
     },
     {
@@ -51,7 +50,7 @@ const testimonials: Testimonial[] = [
         category: "Water Park Experience",
         categoryIcon: <Waves className="w-4 h-4" />,
         quote: "The swimming pool and water activities were the highlight of our stay at Vanrai. Everyone enjoyed the water area, and the overall resort environment was clean and well-maintained. It's a perfect mix of fun and peaceful surroundings, suitable for all age groups.",
-        imageSrc: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&q=80",
+        initials: "RK",
         rating: 5,
     },
     {
@@ -61,7 +60,7 @@ const testimonials: Testimonial[] = [
         category: "Candle Light Dinner",
         categoryIcon: <Heart className="w-4 h-4" />,
         quote: "We booked a couple stay at Vanrai Resort and opted for the candle light dinner. The arrangement was simple, elegant, and very romantic. The quiet surroundings, warm lighting, and courteous staff made the evening truly special for us. Highly recommended for couples looking for a peaceful escape.",
-        imageSrc: "https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?w=600&h=800&fit=crop&q=80",
+        initials: "SA",
         rating: 5,
     },
     {
@@ -71,7 +70,7 @@ const testimonials: Testimonial[] = [
         category: "Destination Wedding",
         categoryIcon: <Gem className="w-4 h-4" />,
         quote: "We chose Vanrai Resort for our destination wedding, and it was the best decision we made. The lawns, décor, food, and overall coordination were managed beautifully. The natural surroundings added a magical touch, and our guests couldn't stop appreciating the ambience. Vanrai made our special day truly unforgettable.",
-        imageSrc: "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=800&fit=crop&q=80",
+        initials: "NR",
         rating: 5,
     },
     {
@@ -81,7 +80,7 @@ const testimonials: Testimonial[] = [
         category: "Friends & Bonfire",
         categoryIcon: <Flame className="w-4 h-4" />,
         quote: "Our group stayed at Vanrai for a weekend, and the bonfire night was the best part of our trip. The open space, music, and friendly staff created a great vibe. We enjoyed the pool, games, and late-night conversations. Vanrai is ideal for group trips and friend outings.",
-        imageSrc: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&h=800&fit=crop&q=80",
+        initials: "RS",
         rating: 5,
     },
     {
@@ -91,7 +90,7 @@ const testimonials: Testimonial[] = [
         category: "Corporate Events",
         categoryIcon: <Building2 className="w-4 h-4" />,
         quote: "We hosted a corporate offsite at Vanrai Resort, and the experience exceeded expectations. The peaceful environment helped everyone disconnect from routine work stress, while the arrangements for meetings, food, and stay were handled smoothly. It's an excellent venue for team-building and corporate events.",
-        imageSrc: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=800&fit=crop&q=80",
+        initials: "CT",
         rating: 5,
     },
     {
@@ -101,7 +100,7 @@ const testimonials: Testimonial[] = [
         category: "Sports Events",
         categoryIcon: <Trophy className="w-4 h-4" />,
         quote: "We organised a sports event at Vanrai Resort, and the open grounds were perfect for outdoor activities. The resort provided ample space, good coordination, and comfortable stay arrangements for participants. A great place for sports groups and activity-based events.",
-        imageSrc: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=800&fit=crop&q=80",
+        initials: "SE",
         rating: 5,
     },
 ];
@@ -286,13 +285,19 @@ export function TestimonialsSection() {
                                         }}
                                         className="absolute inset-0 w-full h-full will-change-transform cursor-grab active:cursor-grabbing"
                                     >
-                                        <FallbackImage
-                                            src={activeTestimonial.imageSrc}
-                                            alt={activeTestimonial.name}
-                                            fill
-                                            className="object-cover"
-                                            sizes="(max-width: 768px) 100vw, 40vw"
-                                        />
+                                        {/* Initials Avatar — no stock photos used as guest portraits */}
+                                        <div
+                                            className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-900"
+                                        >
+                                            <div className="flex flex-col items-center gap-3">
+                                                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-green-500/30 to-emerald-600/20 border border-green-500/30 flex items-center justify-center">
+                                                    <span className="text-3xl sm:text-4xl font-bold text-green-400 select-none">
+                                                        {activeTestimonial.initials}
+                                                    </span>
+                                                </div>
+                                                <span className="text-xs text-neutral-500 tracking-wide">{activeTestimonial.name}</span>
+                                            </div>
+                                        </div>
                                     </motion.div>
                                 </AnimatePresence>
 
@@ -354,7 +359,7 @@ export function TestimonialsSection() {
                                     className="w-full will-change-transform"
                                 >
                                     <blockquote className="text-base sm:text-lg md:text-xl lg:text-[21px] font-light text-neutral-100 leading-relaxed sm:leading-relaxed md:leading-[1.6] mb-4 sm:mb-6">
-                                        "{activeTestimonial.quote}"
+                                        &ldquo;{activeTestimonial.quote}&rdquo;
                                     </blockquote>
 
                                     <div className="flex items-center gap-4">

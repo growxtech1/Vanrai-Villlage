@@ -16,7 +16,6 @@ import {
     Clock,
     ExternalLink
 } from "lucide-react";
-import { IconBrandX } from "@tabler/icons-react";
 import { RESORT_CONTACT, getWhatsAppUrl, WHATSAPP_MESSAGES } from "@/lib/contact-config";
 
 export const Footer = () => {
@@ -98,7 +97,6 @@ export const Footer = () => {
                         {[
                             { icon: <Instagram size={17} />, href: RESORT_CONTACT.socials.instagram, label: "Instagram" },
                             { icon: <Facebook size={17} />, href: RESORT_CONTACT.socials.facebook, label: "Facebook" },
-                            { icon: <IconBrandX size={17} />, href: RESORT_CONTACT.socials.x, label: "X" },
                             { icon: <Youtube size={17} />, href: RESORT_CONTACT.socials.youtube, label: "YouTube" },
                         ].map((social, idx) => (
                             <a
@@ -224,7 +222,6 @@ export const Footer = () => {
                             {[
                                 { icon: <Instagram size={17} />, href: RESORT_CONTACT.socials.instagram, label: "Instagram" },
                                 { icon: <Facebook size={17} />, href: RESORT_CONTACT.socials.facebook, label: "Facebook" },
-                                { icon: <IconBrandX size={17} />, href: RESORT_CONTACT.socials.x, label: "X" },
                                 { icon: <Youtube size={17} />, href: RESORT_CONTACT.socials.youtube, label: "YouTube" },
                             ].map((social, idx) => (
                                 <a

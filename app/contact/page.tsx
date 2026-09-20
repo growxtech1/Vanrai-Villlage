@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { ContactClient } from "./contact-client";
-import { SITE_NAME, SITE_LOCATION, SITE_PHONE, SITE_URL } from "@/constants/site";
+import { SITE_NAME, SITE_LOCATION, SITE_PHONE_DISPLAY, SITE_URL } from "@/constants/site";
 
 export const metadata: Metadata = {
   title: "Contact & Reservations",
   description:
-    `Get in touch with ${SITE_NAME} at ${SITE_LOCATION.full}. Call ${SITE_PHONE} for cottage bookings, destination wedding enquiries, corporate retreat quotes, and general concierge services.`,
+    `Get in touch with ${SITE_NAME} at ${SITE_LOCATION.full}. Call ${SITE_PHONE_DISPLAY} for cottage bookings, destination wedding enquiries, corporate retreat quotes, and general concierge services.`,
   alternates: {
     canonical: "/contact",
   },
@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     description:
       `Contact ${SITE_NAME} for reservations, event planning, and concierge assistance. Located on Ahmednagar City Bypass.`,
     url: "/contact",
+    images: [
+      {
+        url: "/img/vanrai-reception-night.webp",
+        width: 1200,
+        height: 630,
+        alt: "Vanrai Resort - Reception & Contact",
+      },
+    ],
   },
 };
 

@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     description:
       `Discover exciting activities at ${SITE_NAME}: swimming pool, rain dance, bonfires, candlelight dining, sports lawns, and indoor recreation.`,
     url: "/experiences",
+    images: [
+      {
+        url: "/img/pool-sunset-luxury.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Vanrai Resort - Pool & Water Activities at Sunset",
+      },
+    ],
   },
 };
 

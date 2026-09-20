@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     description:
       `Exclusive resort memberships at ${SITE_NAME}. Unlock complimentary stays, restaurant discounts, and priority event access in Ahmednagar.`,
     url: "/membership",
+    images: [
+      {
+        url: "/img/vanrai-lawn-sunset.webp",
+        width: 1200,
+        height: 630,
+        alt: "Vanrai Resort - Scenic Sunset View & Green Lawns",
+      },
+    ],
   },
 };
 

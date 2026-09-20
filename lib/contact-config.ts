@@ -23,10 +23,10 @@ export const RESORT_CONTACT = {
 
   // Social Channels
   socials: {
-    instagram: "https://www.instagram.com/vanraivillageresort/",
+    // CONFIRMED
+    instagram: "https://www.instagram.com/vanraivillage/",
     facebook: "https://www.facebook.com/vanraivillageresort/",
-    youtube: "https://www.youtube.com/@vanraivillageresort",
-    x: "https://twitter.com/vanraivillage"
+    youtube: "https://www.youtube.com/@VanraiResort"
   }
 } as const;
 

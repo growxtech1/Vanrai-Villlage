@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     description:
       `High-definition photo gallery of ${SITE_NAME}: wooden cottages, luxury pool, rain dance, dining halls, and event stages.`,
     url: "/gallery",
+    images: [
+      {
+        url: "/img/vanrai-entrance-gate.webp",
+        width: 1200,
+        height: 630,
+        alt: "Vanrai Resort - Grand Entrance Gate & Property",
+      },
+    ],
   },
 };
 

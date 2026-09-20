@@ -15,6 +15,14 @@ export const metadata: Metadata = {
     description:
       `Explore serene wooden cottages starting at ${formatINR(WOODEN_COTTAGE_PRICE_PER_NIGHT)}/night and resort rooms in Ahmednagar with complimentary breakfast and swimming pool access.`,
     url: "/stays",
+    images: [
+      {
+        url: "/img/Rooms/StaysCoversHero.webp",
+        width: 1200,
+        height: 630,
+        alt: "Vanrai Resort - Wooden Cottages & Luxury Accommodations",
+      },
+    ],
   },
 };
 

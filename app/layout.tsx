@@ -5,6 +5,7 @@ import { BookingProvider } from "@/lib/booking-context";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { FloatingWhatsApp } from "@/components/ui/floating-whatsapp";
 import { SITE_NAME, SITE_URL, SITE_DESCRIPTION } from "@/constants/site";
+import { Analytics } from "@vercel/analytics/next";
 
 export const viewport: Viewport = {
   themeColor: "#0a0a0a",
@@ -85,6 +86,7 @@ export default function RootLayout({
             <FloatingWhatsApp />
           </BookingProvider>
         </SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );

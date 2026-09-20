@@ -7,13 +7,17 @@ export const metadata: Metadata = {
   description:
     `Reserve your luxury wooden cottage or deluxe room directly with ${SITE_NAME}. Contact our concierge for reservations, best rate guarantees, and exclusive perks.`,
   alternates: {
-    canonical: `${SITE_URL}/book`,
+    canonical: "/book",
+  },
+  robots: {
+    index: false,
+    follow: false,
   },
   openGraph: {
     title: `Book Your Stay | ${SITE_NAME}`,
     description:
       `Reserve your stay directly with ${SITE_NAME}. Best rate guarantee on wooden cottages and resort rooms.`,
-    url: `${SITE_URL}/book`,
+    url: "/book",
   },
 };
 
